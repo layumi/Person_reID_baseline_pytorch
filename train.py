@@ -10,6 +10,7 @@ from torch.optim import lr_scheduler
 from torch.autograd import Variable
 import numpy as np
 import torchvision
+from torch.nn import init
 from torchvision import datasets, models, transforms
 import matplotlib.pyplot as plt
 import time
@@ -31,9 +32,9 @@ name = opt.name
 str_ids = opt.gpu_ids.split(',')
 gpu_ids = []
 for str_id in str_ids:
-    id = int(str_id)
-    if id >=0:
-        gpu_ids.append(id)
+    gid = int(str_id)
+    if gid >=0:
+        gpu_ids.append(gid)
 
 # set gpu ids
 if len(gpu_ids)>0:
@@ -83,7 +84,7 @@ data_transforms = {
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=8,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=16,
                                              shuffle=True, num_workers=4)
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
@@ -187,6 +188,17 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     save_network(model, 'best')
     return model
 
+######################################################################
+def weights_init_kaiming(m):
+    classname = m.__class__.__name__
+    # print(classname)
+    if classname.find('Conv') != -1:
+        init.kaiming_normal(m.weight.data, a=0, mode='fan_in')
+    elif classname.find('Linear') != -1:
+        init.kaiming_normal(m.weight.data, a=0, mode='fan_in')
+    elif classname.find('BatchNorm2d') != -1:
+        init.normal(m.weight.data, 1.0, 0.02)
+        init.constant(m.bias.data, 0.0)
 
 ######################################################################
 # Visualizing the model predictions
@@ -240,11 +252,14 @@ def save_network(network, epoch_label):
 model_ft = models.resnet50(pretrained=True)
 num_ftrs = model_ft.fc.in_features
 add_block = []
+add_block += [nn.Dropout()]
 add_block += [nn.Linear(num_ftrs,256)]
-#add_block += [nn.BatchNorm1d(256)]
+add_block += [nn.BatchNorm1d(256)]
 add_block += [nn.LeakyReLU(0.1)] 
 add_block += [nn.Linear(256, len(class_names))]
-model_ft.fc = nn.Sequential(*add_block)
+add_block = nn.Sequential(*add_block)
+add_block.apply(weights_init_kaiming) 
+model_ft.fc = add_block
 
 if use_gpu:
     model_ft = model_ft.cuda()
@@ -252,16 +267,16 @@ if use_gpu:
 criterion = nn.CrossEntropyLoss()
 
 ignored_params = list(map(id, model_ft.fc.parameters() ))
-base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
+base_params = filter(lambda p: id(p) not in ignored_params, model_ft.parameters())
 
 # Observe that all parameters are being optimized
 optimizer_ft = optim.SGD([
-             {'params': base_params, 'lr':0.1},
-             {'params': model_ft.parameters(), 'lr':1 }
-         ], lr=0.1, momentum=0.9)
+             {'params': base_params},
+             {'params': model_ft.fc.parameters(), 'lr':0.01 }
+         ], lr=0.001, momentum=0.9)
 
 # Decay LR by a factor of 0.1 every 30 epochs
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=30, gamma=0.1)
+exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 
 ######################################################################
 # Train and evaluate
@@ -274,6 +289,6 @@ dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name)
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=40)
+                       num_epochs=60)
 
 
