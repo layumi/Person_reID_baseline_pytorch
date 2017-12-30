@@ -24,7 +24,7 @@ import os
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name',default='ft_ResNet50', type=str, help='output model name')
-parser.add_argument('--data_dir',default='/home/zzheng/Downloads/Market',type=str, help='training dir path')
+parser.add_argument('--data_dir',default='/home/zzheng/Downloads/Market/pytorch',type=str, help='training dir path')
 
 opt = parser.parse_args()
 data_dir = opt.data_dir
