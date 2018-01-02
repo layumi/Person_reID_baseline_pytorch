@@ -1,9 +1,69 @@
 ## Person_reID_baseline_pytorch
 
+Baseline Code for Person-reID.
+
+We arrived **Rank@1=86.82%** without bell and whistle.
+
+## Prerequisites
+
+- Python 3.6
+- CUDA 8.0
+- GPU
+
+## Getting started
+### Installation
+- Install Pytorch from http://pytorch.org/
+- Install Torchvision from the source
+```
+git clone https://github.com/pytorch/vision
+cd vision
+python setup.py install
+```
+Because pytorch and torchvision are ongoing projects.
+
+Here we noted that our code is tested based on Pytorch 0.3.0 and Torchvision 0.2.0.
+
+## Dataset
+[Market1501]()
+
+## Train
+Train a model by
+```bash
+python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 64  --data_dir your_data_path
+```
+`--gpu_ids` which gpu to run.
+
+`--name` the name of model.
+
+`--data_dir` the path of the training data.
+
+`--train_all` using all images to train. 
+
+`--batchsize` batch size.
+
+## Test
+Use trained model to extract feature by
+```bash
+python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which_epoch 50
+```
+`--gpu_ids` which gpu to run.
+
+`--name` the dir name of trained model.
+
+`--which_epoch` select the i-th model.
+
+`--data_dir` the path of the testing data.
 
 
-### Ablation Study
+## Evaluation
+```bash
+python evaluation.py
+```
 
+## Model Structure
+You may learn more from `model.py`.
+
+## Ablation Study
 Input is resized to 256x128
 
 | BatchSize | Dropout | Rank@1 | mAP | Reference|
