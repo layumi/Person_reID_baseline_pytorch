@@ -2,13 +2,13 @@
 
 Baseline Code for Person-reID.
 
-We arrived **Rank@1=86.82%** without bell and whistle.
+We arrived **Rank@1=87.98%** without bell and whistle.
 
 ## Prerequisites
 
 - Python 3.6
 - CUDA 8.0
-- GPU
+- GPU Memory >= 6G
 
 ## Getting started
 ### Installation
@@ -68,8 +68,9 @@ Input is resized to 256x128
 
 | BatchSize | Dropout | Rank@1 | mAP | Reference|
 | --------- | -------- | ----- | ---- | ---- |
-| 32 | 0.5  | | | |
+| 32 | 0.5  | 87.98 | 69.38 | |
 | 64 | 0.5  | 86.82 | 67.48 | |
+| 64 | 0.5  | 85.78 | 65.97 | 0.1 color jitter|
 | 64 | 0.5  | 85.42 | 65.29 | 0.4 color jitter|
 | 64 | 0.75 | 84.86 | 66.06 | |
 | 96 | 0.5  | 86.05 | 67.03 | |
