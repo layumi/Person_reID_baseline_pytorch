@@ -69,6 +69,7 @@ Input is resized to 256x128
 | BatchSize | Dropout | Rank@1 | mAP | Reference|
 | --------- | -------- | ----- | ---- | ---- |
 | 32 | 0.5  | 87.98 | 69.38 | |
+| 32 | 0.5  | 87.14 | 68.90 | 0.1 color jitter|
 | 64 | 0.5  | 86.82 | 67.48 | |
 | 64 | 0.5  | 85.78 | 65.97 | 0.1 color jitter|
 | 64 | 0.5  | 85.42 | 65.29 | 0.4 color jitter|
