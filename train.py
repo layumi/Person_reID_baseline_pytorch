@@ -10,12 +10,12 @@ from torch.optim import lr_scheduler
 from torch.autograd import Variable
 import numpy as np
 import torchvision
-from torch.nn import init
 from torchvision import datasets, models, transforms
 import matplotlib.pyplot as plt
+from PIL import Image
 import time
 import os
-
+from model import ft_net
 
 #plt.ion()   # interactive mode
 ######################################################################
@@ -25,6 +25,9 @@ parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name',default='ft_ResNet50', type=str, help='output model name')
 parser.add_argument('--data_dir',default='/home/zzheng/Downloads/Market/pytorch',type=str, help='training dir path')
+parser.add_argument('--train_all', action='store_true', help='use all training data' )
+parser.add_argument('--color_jitter', action='store_true', help='use color jitter in training' )
+parser.add_argument('--batchsize', default=16, type=int, help='batchsize')
 
 opt = parser.parse_args()
 data_dir = opt.data_dir
@@ -46,45 +49,45 @@ if len(gpu_ids)>0:
 # Load Data
 # ---------
 #
-# We will use torchvision and torch.utils.data packages for loading the
-# data.
-#
-# The problem we're going to solve today is to train a model to classify
-# **ants** and **bees**. We have about 120 training images each for ants and bees.
-# There are 75 validation images for each class. Usually, this is a very
-# small dataset to generalize upon, if trained from scratch. Since we
-# are using transfer learning, we should be able to generalize reasonably
-# well.
-#
-# This dataset is a very small subset of imagenet.
-#
-# .. Note ::
-#    Download the data from
-#    `here <https://download.pytorch.org/tutorial/hymenoptera_data.zip>`_
-#    and extract it to the current directory.
 
-# Data augmentation and normalization for training
-# Just normalization for validation
-data_transforms = {
-    'train': transforms.Compose([
-        transforms.Resize(256),
-        transforms.RandomResizedCrop(224),
+transform_train_list = [
+        #transforms.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
+        transforms.Resize(144, interpolation=3),
+        transforms.RandomCrop((256,128)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
+        ]
+
+if opt.color_jitter:
+    transform_train_list = [transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0)] + transform_train_list
+
+print(transform_train_list)
+
+transform_val_list = [
+        transforms.Resize(size=128,interpolation=3), #Image.BICUBIC
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
+        ]
+
+
+data_transforms = {
+    'train': transforms.Compose( transform_train_list ),
+    'val': transforms.Compose(transform_val_list),
 }
 
-image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
-                                          data_transforms[x])
-                  for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=16,
+
+train_all = ''
+if opt.train_all:
+     train_all = '_all'
+
+image_datasets = {}
+image_datasets['train'] = datasets.ImageFolder(os.path.join(data_dir, 'train' + train_all),
+                                          data_transforms['train'])
+image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
+                                          data_transforms['val'])
+
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
                                              shuffle=True, num_workers=4)
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
@@ -93,12 +96,6 @@ class_names = image_datasets['train'].classes
 use_gpu = torch.cuda.is_available()
 
 inputs, classes = next(iter(dataloaders['train']))
-
-# Make a grid from batch
-out = torchvision.utils.make_grid(inputs)
-
-# imshow(out, title=[class_names[x] for x in classes])
-
 
 ######################################################################
 # Training the model
@@ -139,7 +136,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             for data in dataloaders[phase]:
                 # get the inputs
                 inputs, labels = data
-
+                #print(inputs.shape)
                 # wrap them in Variable
                 if use_gpu:
                     inputs = Variable(inputs.cuda())
@@ -171,9 +168,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 phase, epoch_loss, epoch_acc))
             
             # deep copy the model
-            if phase == 'val' and epoch_acc > best_acc:
-                best_acc = epoch_acc
-                best_model_wts = model.state_dict()
+            if phase == 'val':
+                last_model_wts = model.state_dict()
                 save_network(model, epoch)
 
         print()
@@ -181,24 +177,13 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
-    print('Best val Acc: {:4f}'.format(best_acc))
+    #print('Best val Acc: {:4f}'.format(best_acc))
 
     # load best model weights
-    model.load_state_dict(best_model_wts)
-    save_network(model, 'best')
+    model.load_state_dict(last_model_wts)
+    save_network(model, 'last')
     return model
 
-######################################################################
-def weights_init_kaiming(m):
-    classname = m.__class__.__name__
-    # print(classname)
-    if classname.find('Conv') != -1:
-        init.kaiming_normal(m.weight.data, a=0, mode='fan_in')
-    elif classname.find('Linear') != -1:
-        init.kaiming_normal(m.weight.data, a=0, mode='fan_in')
-    elif classname.find('BatchNorm2d') != -1:
-        init.normal(m.weight.data, 1.0, 0.02)
-        init.constant(m.bias.data, 0.0)
 
 ######################################################################
 # Visualizing the model predictions
@@ -246,36 +231,29 @@ def save_network(network, epoch_label):
 # Finetuning the convnet
 # ----------------------
 #
-# Load a pretrained model and reset final fully connected layer.
+# Load a pretrainied model and reset final fully connected layer.
 #
 
-model_ft = models.resnet50(pretrained=True)
-num_ftrs = model_ft.fc.in_features
-add_block = []
-add_block += [nn.Dropout()]
-add_block += [nn.Linear(num_ftrs,256)]
-add_block += [nn.BatchNorm1d(256)]
-add_block += [nn.LeakyReLU(0.1)] 
-add_block += [nn.Linear(256, len(class_names))]
-add_block = nn.Sequential(*add_block)
-add_block.apply(weights_init_kaiming) 
-model_ft.fc = add_block
+
+model = ft_net(len(class_names))
+print(model)
 
 if use_gpu:
-    model_ft = model_ft.cuda()
+    model = model.cuda()
 
 criterion = nn.CrossEntropyLoss()
 
-ignored_params = list(map(id, model_ft.fc.parameters() ))
-base_params = filter(lambda p: id(p) not in ignored_params, model_ft.parameters())
+ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
+base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
 
 # Observe that all parameters are being optimized
 optimizer_ft = optim.SGD([
-             {'params': base_params},
-             {'params': model_ft.fc.parameters(), 'lr':0.01 }
-         ], lr=0.001, momentum=0.9)
+             {'params': base_params, 'lr': 0.01},
+             {'params': model.model.fc.parameters(), 'lr': 0.1},
+             {'params': model.classifier.parameters(), 'lr': 0.1}
+         ], momentum=0.9, weight_decay=5e-4, nesterov=True)
 
-# Decay LR by a factor of 0.1 every 30 epochs
+# Decay LR by a factor of 0.1 every 40 epochs
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 
 ######################################################################
@@ -288,7 +266,7 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name)
-model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
+model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=60)
 
 
