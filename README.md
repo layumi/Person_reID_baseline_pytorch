@@ -1,9 +1,16 @@
 ## Person_reID_baseline_pytorch
 
+![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/bottleneck.png)
+New Baseline Code (with bottleneck) for Person-reID (pytorch).
+It is consistent with the baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349).
 
-New Baseline Code (with bottleneck) for Person-reID.
+We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
 
-We arrived **Rank@1=88.24%** without bell and whistle.
+[[MatConvnet Version]]()
+We also arrived **Rank@1=86.85%, mAP=67.29%**. 
+
+Here we provide hyperparameters and architectures, that were used to generate the result. 
+Some of them are far from optimal. Do not hesitate to change them and see the effect.
 
 ## Prerequisites
 
@@ -24,8 +31,13 @@ Because pytorch and torchvision are ongoing projects.
 
 Here we noted that our code is tested based on Pytorch 0.3.0 and Torchvision 0.2.0.
 
-## Dataset
-[Market1501]()
+## Dataset & Preparation
+[Market1501](http://www.liangzheng.org/Project/project_reid.html)
+Put the images with the same id in one folder. You may use 
+```bash
+python prepare.py
+```
+Remeber to change the dataset path to your own path.
 
 ## Train
 Train a model by
@@ -68,7 +80,7 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 ## Ablation Study
 Input is resized to 256x128
 
-| BatchSize | Dropout | Rank@1 | mAP | Reference|
+| BatchSize | Dropout | Rank@1 | mAP | Note|
 | --------- | -------- | ----- | ---- | ---- |
 | 16 | 0.5  | 86.67 | 68.19 | |
 | 32 | 0.5  | 87.98 | 69.38 | |
@@ -83,8 +95,9 @@ Input is resized to 256x128
 
 ### Bottleneck
 Test with 144x288, dropout rate is 0.5
-| BatchSize | Bottleneck | Rank@1 | mAP | Reference|
-| --------- | -------- | ----- | ---- | ---- |
+
+| BatchSize | Bottleneck | Rank@1 | mAP | Note|
+| --------- | ---------- | ------ | --- | ---- |
 | 32 | 256  | 87.26 | 69.92 | |
 | 32 | 512  | **88.24** | **70.68** | |
-| 32 | 1024  | 84.29 | 64.00 | |
+| 32 | 1024 | 84.29 | 64.00 | |
