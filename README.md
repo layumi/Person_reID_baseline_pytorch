@@ -39,6 +39,8 @@ Preparation: Put the images with the same id in one folder. You may use
 python prepare.py
 ```
 Remeber to change the dataset path to your own path.
+Futhermore, you also may test the code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
+DukeMTMC-reID is taking at Duke University in winter.
 
 ## Train
 Train a model by
