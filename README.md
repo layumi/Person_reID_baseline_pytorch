@@ -32,8 +32,9 @@ Because pytorch and torchvision are ongoing projects.
 Here we noted that our code is tested based on Pytorch 0.3.0 and Torchvision 0.2.0.
 
 ## Dataset & Preparation
-[Market1501](http://www.liangzheng.org/Project/project_reid.html)
-Put the images with the same id in one folder. You may use 
+Download [Market1501 Dataset](http://www.liangzheng.org/Project/project_reid.html)
+
+Preparation: Put the images with the same id in one folder. You may use 
 ```bash
 python prepare.py
 ```
