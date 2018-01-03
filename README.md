@@ -2,7 +2,7 @@
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/bottleneck.png)
 Baseline Code (with bottleneck) for Person-reID (pytorch).
-It is consistent with the new baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349).
+It is consistent with the new baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295).
 
 We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
 
@@ -10,7 +10,8 @@ We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
 We also arrived **Rank@1=86.85%, mAP=67.29%**. The code will come soon.
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
-Some of them are far from optimal. Do not hesitate to change them and see the effect.
+Some of them are far from optimal. Do not hesitate to change them and see the effect. 
+The higher result is welcomed.
 
 ## Prerequisites
 
