@@ -50,7 +50,7 @@ if len(gpu_ids)>0:
 # data.
 #
 data_transforms = transforms.Compose([
-        transforms.Resize(128, interpolation=3),
+        transforms.Resize(144, interpolation=3),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ############### Ten Crop        
@@ -68,7 +68,7 @@ data_transforms = transforms.Compose([
 
 data_dir = test_dir
 image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=100,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=64,
                                              shuffle=False, num_workers=4) for x in ['gallery','query']}
 
 class_names = image_datasets['query'].classes
