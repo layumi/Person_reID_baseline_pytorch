@@ -6,12 +6,12 @@ It is consistent with the new baseline result in [Beyond Part Models: Person Ret
 
 We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
 
-[[MatConvnet Version]]() 
-We also arrived **Rank@1=86.85%, mAP=67.29%**. The code will come soon.
+[[MatConvnet Version]]()
+We also arrived **Rank@1=86.85%, mAP=67.29%**. I haven't tuned it so it is a bit lower now. 
+The code will come soon.
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them are far from optimal. Do not hesitate to change them and see the effect. 
-The higher result is welcomed.
 
 ## Prerequisites
 
@@ -83,13 +83,13 @@ You may learn more from `model.py`.
 We add one linear layer(bottleneck), one batchnorm layer and relu.
 
 ## Ablation Study
-Input is resized to 256x128
+The model is based on Resnet50. Input images are resized to 256x128.
 
 | BatchSize | Dropout | Rank@1 | mAP | Note|
 | --------- | -------- | ----- | ---- | ---- |
 | 16 | 0.5  | 86.67 | 68.19 | |
 | 32 | 0.5  | 87.98 | 69.38 | |
-| 32 | 0.5  | **88.24** | **70.68** | test with 144x288|
+| 32 | 0.5  | **88.24** | **70.68** | test with 288x144|
 | 32 | 0.5  | 87.14 | 68.90 | 0.1 color jitter|
 | 64 | 0.5  | 86.82 | 67.48 | |
 | 64 | 0.5  | 85.78 | 65.97 | 0.1 color jitter|
