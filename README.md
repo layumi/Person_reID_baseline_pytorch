@@ -6,8 +6,8 @@ It is consistent with the baseline result in [Beyond Part Models: Person Retriev
 
 We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
 
-[[MatConvnet Version]]()
-We also arrived **Rank@1=86.85%, mAP=67.29%**. 
+[[MatConvnet Version]]() 
+We also arrived **Rank@1=86.85%, mAP=67.29%**. The code will come soon.
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them are far from optimal. Do not hesitate to change them and see the effect.
