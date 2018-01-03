@@ -4,7 +4,7 @@
 Baseline Code (with bottleneck) for Person-reID (pytorch).
 It is consistent with the new baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295).
 
-We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
+We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
 [[MatConvnet Version]]()
 We also arrived **Rank@1=86.85%, mAP=67.29%**. I haven't tuned it so it is a bit lower now. 
