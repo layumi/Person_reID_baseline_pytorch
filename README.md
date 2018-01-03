@@ -1,6 +1,7 @@
 ## Person_reID_baseline_pytorch
 
-Baseline Code for Person-reID.
+
+New Baseline Code (with bottleneck) for Person-reID.
 
 We arrived **Rank@1=88.24%** without bell and whistle.
 
@@ -61,7 +62,8 @@ python evaluation.py
 ```
 
 ## Model Structure
-You may learn more from `model.py`.
+You may learn more from `model.py`. 
+We add one linear layer(bottleneck), one batchnorm layer and relu.
 
 ## Ablation Study
 Input is resized to 256x128
@@ -70,7 +72,7 @@ Input is resized to 256x128
 | --------- | -------- | ----- | ---- | ---- |
 | 16 | 0.5  | 86.67 | 68.19 | |
 | 32 | 0.5  | 87.98 | 69.38 | |
-| 32 | 0.5  | 88.24 | 70.68 | test with 144x288|
+| 32 | 0.5  | **88.24** | **70.68** | test with 144x288|
 | 32 | 0.5  | 87.14 | 68.90 | 0.1 color jitter|
 | 64 | 0.5  | 86.82 | 67.48 | |
 | 64 | 0.5  | 85.78 | 65.97 | 0.1 color jitter|
@@ -78,3 +80,11 @@ Input is resized to 256x128
 | 64 | 0.75 | 84.86 | 66.06 | |
 | 96 | 0.5  | 86.05 | 67.03 | |
 | 96 | 0.75 | 85.66 | 66.44 | |
+
+### Bottleneck
+Test with 144x288, dropout rate is 0.5
+| BatchSize | Bottleneck | Rank@1 | mAP | Reference|
+| --------- | -------- | ----- | ---- | ---- |
+| 32 | 256  | 87.26 | 69.92 | |
+| 32 | 512  | **88.24** | **70.68** | |
+| 32 | 1024  | 84.29 | 64.00 | |
