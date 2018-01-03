@@ -73,6 +73,9 @@ python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which
 ```bash
 python evaluation.py
 ```
+It will output Rank@1, Rank@5, Rank@10 and mAP results.
+
+For mAP calculation, you also can refer to the [C++ code for Oxford Building](http://www.robots.ox.ac.uk/~vgg/data/oxbuildings/compute_ap.cpp). We use the triangle mAP calculation (consistent with the Market1501 original code).
 
 ## Model Structure
 You may learn more from `model.py`. 
