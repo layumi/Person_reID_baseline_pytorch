@@ -6,10 +6,6 @@ It is consistent with the new baseline result in [Beyond Part Models: Person Ret
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
-[[MatConvnet Version]]()
-We also arrived **Rank@1=86.85%, mAP=67.29%**. I haven't tuned it so it is a bit lower now. 
-The code will come soon.
-
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them are far from optimal. Do not hesitate to change them and see the effect. 
 
