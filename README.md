@@ -39,6 +39,7 @@ Preparation: Put the images with the same id in one folder. You may use
 python prepare.py
 ```
 Remeber to change the dataset path to your own path.
+
 Futhermore, you also may test the code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
 DukeMTMC-reID is taking at Duke University in winter.
 
@@ -106,3 +107,25 @@ Test with 144x288, dropout rate is 0.5
 | 32 | 256  | 87.26 | 69.92 | |
 | 32 | 512  | **88.24** | **70.68** | |
 | 32 | 1024 | 84.29 | 64.00 | |
+
+
+## Citation
+As far as I know, the following papers may be the first two to use the bottleneck baseline. You may cite them in your paper.
+```
+@article{DBLP:journals/corr/SunZDW17,
+  author    = {Yifan Sun and
+               Liang Zheng and
+               Weijian Deng and
+               Shengjin Wang},
+  title     = {SVDNet for Pedestrian Retrieval},
+  booktitle   = {ICCV},
+  year      = {2017},
+}
+
+@article{hermans2017defense,
+  title={In Defense of the Triplet Loss for Person Re-Identification},
+  author={Hermans, Alexander and Beyer, Lucas and Leibe, Bastian},
+  journal={arXiv preprint arXiv:1703.07737},
+  year={2017}
+}
+```
