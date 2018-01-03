@@ -60,7 +60,7 @@ transform_train_list = [
         ]
 
 if opt.color_jitter:
-    transform_train_list = [transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0)] + transform_train_list
+    transform_train_list = [transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0)] + transform_train_list
 
 print(transform_train_list)
 

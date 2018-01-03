@@ -34,8 +34,9 @@ class ft_net(nn.Module):
 
         num_ftrs = model_ft.fc.in_features
         add_block = []
-        add_block += [nn.Linear(num_ftrs,512)]
-        add_block += [nn.BatchNorm1d(512)]
+        num_bottleneck = 512
+        add_block += [nn.Linear(num_ftrs, num_bottleneck)]
+        add_block += [nn.BatchNorm1d(num_bottleneck)]
         add_block += [nn.LeakyReLU(0.1)]
         add_block += [nn.Dropout(p=0.5)]  #default dropout rate 0.5
         #transforms.CenterCrop(224),
@@ -45,7 +46,7 @@ class ft_net(nn.Module):
         self.model = model_ft
 
         classifier = []
-        classifier += [nn.Linear(512, class_num)]
+        classifier += [nn.Linear(num_bottleneck, class_num)]
         classifier = nn.Sequential(*classifier)
         classifier.apply(weights_init_classifier)
         self.classifier = classifier
