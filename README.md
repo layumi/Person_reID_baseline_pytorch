@@ -43,7 +43,7 @@ Remeber to change the dataset path to your own path.
 ## Train
 Train a model by
 ```bash
-python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 64  --data_dir your_data_path
+python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --data_dir your_data_path
 ```
 `--gpu_ids` which gpu to run.
 
@@ -58,7 +58,7 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 64  --dat
 ## Test
 Use trained model to extract feature by
 ```bash
-python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which_epoch 50
+python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which_epoch 59
 ```
 `--gpu_ids` which gpu to run.
 
@@ -79,6 +79,9 @@ For mAP calculation, you also can refer to the [C++ code for Oxford Building](ht
 
 ## Ablation Study
 The model is based on Resnet50. Input images are resized to 256x128.
+Here we just show some results.
+
+**Note that the result may contain around 1% bias.(For example, 50th-epoch model can be better.)**
 
 | BatchSize | Dropout | Rank@1 | mAP | Note|
 | --------- | -------- | ----- | ---- | ---- |
