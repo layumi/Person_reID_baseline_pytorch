@@ -1,8 +1,8 @@
 ## Person_reID_baseline_pytorch
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/bottleneck.png)
-New Baseline Code (with bottleneck) for Person-reID (pytorch).
-It is consistent with the baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349).
+Baseline Code (with bottleneck) for Person-reID (pytorch).
+It is consistent with the new baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349).
 
 We arrived **Rank@1=88.24%, mAP=70.68%** without bell and whistle.
 
