@@ -1,6 +1,5 @@
 ## Person_reID_baseline_pytorch
 
-![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/bottleneck.png)
 Baseline Code (with bottleneck) for Person-reID (pytorch).
 It is consistent with the new baseline result in [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295).
 
@@ -8,6 +7,10 @@ We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them are far from optimal. Do not hesitate to change them and see the effect. 
+
+## Model Structure
+You may learn more from `model.py`. 
+We add one linear layer(bottleneck), one batchnorm layer and relu.
 
 ## Prerequisites
 
@@ -73,10 +76,6 @@ python evaluation.py
 It will output Rank@1, Rank@5, Rank@10 and mAP results.
 
 For mAP calculation, you also can refer to the [C++ code for Oxford Building](http://www.robots.ox.ac.uk/~vgg/data/oxbuildings/compute_ap.cpp). We use the triangle mAP calculation (consistent with the Market1501 original code).
-
-## Model Structure
-You may learn more from `model.py`. 
-We add one linear layer(bottleneck), one batchnorm layer and relu.
 
 ## Ablation Study
 The model is based on Resnet50. Input images are resized to 256x128.
