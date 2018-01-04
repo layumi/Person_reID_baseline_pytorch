@@ -43,6 +43,11 @@ Remeber to change the dataset path to your own path.
 Futhermore, you also may test the code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
 DukeMTMC-reID is taking at Duke University in winter.
 
+To save trained model, we make a dir.
+```bash
+mkdir model 
+```
+
 ## Train
 Train a model by
 ```bash
