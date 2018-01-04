@@ -6,7 +6,10 @@ It is consistent with the new baseline result in [Beyond Part Models: Person Ret
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
-Some of them are far from optimal. Do not hesitate to change them and see the effect. 
+Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
+
+P.S. With similar structure, we arrived **Rank@1=86.85% mAP=67.29%** with Matconvnet. (batchsize=8, dropout=0.75)
+Different framework need to be tuned in a different way.
 
 ## Model Structure
 You may learn more from `model.py`. 
@@ -38,10 +41,10 @@ Preparation: Put the images with the same id in one folder. You may use
 ```bash
 python prepare.py
 ```
-Remeber to change the dataset path to your own path.
+Remember to change the dataset path to your own path.
 
-Futhermore, you also may test the code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
-DukeMTMC-reID is taking at Duke University in winter.
+Futhermore, you also can test our code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
+Our baseline code is not such high on DukeMTMC-reID **Rank@1=64.23%, mAP=43.92%**. Hyperparameters are need to be tuned.
 
 To save trained model, we make a dir.
 ```bash
