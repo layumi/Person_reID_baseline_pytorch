@@ -97,11 +97,9 @@ def fliplr(img):
 
 def extract_feature(model,dataloaders):
     features = torch.FloatTensor()
-    labels = torch.LongTensor() 
     count = 0
     for data in dataloaders:
         img, label = data
-        labels = torch.cat((labels,label),0)
         n, c, h, w = img.size()
         count += n
         print(count)
@@ -118,21 +116,27 @@ def extract_feature(model,dataloaders):
         fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
         ff = ff.div(fnorm.expand_as(ff))
         features = torch.cat((features,ff), 0)
-    return features,labels
+    return features
 
-def get_camera(img_path):
+def get_id(img_path):
     camera_id = []
+    labels = []
     for path, v in img_path:
         filename = path.split('/')[-1]
+        label = filename[0:4]
         camera = filename.split('c')[1]
+        if label[0:2]=='-1':
+            labels.append(-1)
+        else:
+            labels.append(int(label))
         camera_id.append(int(camera[0]))
-    return camera_id
+    return camera_id, labels
 
 gallery_path = image_datasets['gallery'].imgs
 query_path = image_datasets['query'].imgs
 
-gallery_cam = get_camera(gallery_path)
-query_cam = get_camera(query_path)
+gallery_cam,gallery_label = get_id(gallery_path)
+query_cam,query_label = get_id(query_path)
 
 ######################################################################
 # Load Collected data Trained model
@@ -150,11 +154,10 @@ if use_gpu:
     model = model.cuda()
 
 # Extract feature
-gallery_feature,gallery_label = extract_feature(model,dataloaders['gallery'])
-query_feature,query_label = extract_feature(model,dataloaders['query'])
-gallery_label = gallery_label - 2
+gallery_feature = extract_feature(model,dataloaders['gallery'])
+query_feature = extract_feature(model,dataloaders['query'])
 
 # Save to Matlab for check
-result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label.numpy(),'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label.numpy(),'query_cam':query_cam}
+result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
 scipy.io.savemat('pytorch_result.mat',result)
 
