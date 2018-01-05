@@ -18,7 +18,6 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 ## Prerequisites
 
 - Python 3.6
-- CUDA 8.0
 - GPU Memory >= 6G
 
 ## Getting started
