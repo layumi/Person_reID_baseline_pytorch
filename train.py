@@ -11,6 +11,8 @@ from torch.autograd import Variable
 import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from PIL import Image
 import time
@@ -110,6 +112,12 @@ inputs, classes = next(iter(dataloaders['train']))
 # In the following, parameter ``scheduler`` is an LR scheduler object from
 # ``torch.optim.lr_scheduler``.
 
+y_loss = {} # loss history
+y_loss['train'] = []
+y_loss['val'] = []
+y_err = {}
+y_err['train'] = []
+y_err['val'] = []
 
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
@@ -166,11 +174,13 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
-            
+            y_loss[phase].append(epoch_loss)
+            y_err[phase].append(1.0-epoch_acc)            
             # deep copy the model
             if phase == 'val':
                 last_model_wts = model.state_dict()
                 save_network(model, epoch)
+                draw_curve(epoch)
 
         print()
 
@@ -186,35 +196,22 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
 
 ######################################################################
-# Visualizing the model predictions
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#
-# Generic function to display predictions for a few images
-#
-
-def visualize_model(model, num_images=6):
-    images_so_far = 0
-    fig = plt.figure()
-
-    for i, data in enumerate(dataloaders['val']):
-        inputs, labels = data
-        if use_gpu:
-            inputs, labels = Variable(inputs.cuda()), Variable(labels.cuda())
-        else:
-            inputs, labels = Variable(inputs), Variable(labels)
-
-        outputs = model(inputs)
-        _, preds = torch.max(outputs.data, 1)
-
-        for j in range(inputs.size()[0]):
-            images_so_far += 1
-            ax = plt.subplot(num_images//2, 2, images_so_far)
-            ax.axis('off')
-            ax.set_title('predicted: {}'.format(class_names[preds[j]]))
-            imshow(inputs.cpu().data[j])
-
-            if images_so_far == num_images:
-                return
+# Draw Curve
+#---------------------------
+x_epoch = []
+fig = plt.figure()
+ax0 = fig.add_subplot(121, title="loss")
+ax1 = fig.add_subplot(122, title="top1err")
+def draw_curve(current_epoch):
+    x_epoch.append(current_epoch)
+    ax0.plot(x_epoch, y_loss['train'], 'bo-', label='train')
+    ax0.plot(x_epoch, y_loss['val'], 'ro-', label='val')
+    ax1.plot(x_epoch, y_err['train'], 'bo-', label='train')
+    ax1.plot(x_epoch, y_err['val'], 'ro-', label='val')
+    if current_epoch == 0:
+        ax0.legend()
+        ax1.legend()
+    fig.savefig( os.path.join('./model',name,'train.jpg'))
 
 ######################################################################
 # Save model
