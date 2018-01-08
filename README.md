@@ -11,6 +11,10 @@ Some of them (i.e. learning rate) are far from optimal. Do not hesitate to chang
 P.S. With similar structure, we arrived **Rank@1=86.85% mAP=67.29%** with Matconvnet. (batchsize=8, dropout=0.75)
 Different framework need to be tuned in a different way.
 
+**What's new:** I add some code to generate training curves. The figure will be saved into the model folder when training.
+
+![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.jpg)
+
 ## Model Structure
 You may learn more from `model.py`. 
 We add one linear layer(bottleneck), one batchnorm layer and relu.
