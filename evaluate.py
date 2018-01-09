@@ -44,12 +44,12 @@ def compute_mAP(index, good_index, junk_index):
     
     cmc[rows_good[0]:] = 1
     for i in range(ngood):
-        d_recall = 1/ngood
-        precision = (i+1)/(rows_good[i]+1)
+        d_recall = 1.0/ngood
+        precision = (i+1)*1.0/(rows_good[i]+1)
         if rows_good[i]!=0:
-            old_precision = i/rows_good[i]
+            old_precision = i*1.0/rows_good[i]
         else:
-            old_precision=1
+            old_precision=1.0
         ap = ap + d_recall*(old_precision + precision)/2
 
     return ap, cmc
