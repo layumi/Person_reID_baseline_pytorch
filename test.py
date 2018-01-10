@@ -24,6 +24,7 @@ parser.add_argument('--gpu_ids',default='2', type=str,help='gpu_ids: e.g. 0  0,1
 parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or last')
 parser.add_argument('--test_dir',default='/home/zzheng/Downloads/Market/pytorch',type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
+parser.add_argument('--batchsize', default=64, type=int, help='batchsize')
 
 opt = parser.parse_args()
 
@@ -68,7 +69,7 @@ data_transforms = transforms.Compose([
 
 data_dir = test_dir
 image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=64,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
                                              shuffle=False, num_workers=4) for x in ['gallery','query']}
 
 class_names = image_datasets['query'].classes
