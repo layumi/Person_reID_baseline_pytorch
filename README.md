@@ -85,7 +85,7 @@ python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which
 
 ## Evaluation
 ```bash
-python evaluation.py
+python evaluate.py
 ```
 It will output Rank@1, Rank@5, Rank@10 and mAP results.
 
