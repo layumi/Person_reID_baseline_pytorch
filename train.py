@@ -179,7 +179,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             # deep copy the model
             if phase == 'val':
                 last_model_wts = model.state_dict()
-                save_network(model, epoch)
+                if epoch%10 == 9:
+                    save_network(model, epoch)
                 draw_curve(epoch)
 
         print()
