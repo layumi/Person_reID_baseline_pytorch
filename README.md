@@ -23,6 +23,8 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 
 - Python 3.6
 - GPU Memory >= 6G
+- Numpy 1.13.x
+(Some reports found that updating numpy can arrive the right accuracy. If you only get 50~80 Top1 Accuracy, just try it.)
 
 ## Getting started
 ### Installation
