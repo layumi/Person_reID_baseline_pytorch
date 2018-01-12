@@ -11,6 +11,8 @@ Some of them (i.e. learning rate) are far from optimal. Do not hesitate to chang
 P.S. With similar structure, we arrived **Rank@1=86.85% mAP=67.29%** with Matconvnet. (batchsize=8, dropout=0.75)
 Different framework need to be tuned in a different way.
 
+**What's new:** Re-ranking is added to evaluation. The re-ranked result is **Rank@1=90.20% mAP=84.76%**.
+
 **What's new:** I add some code to generate training curves. The figure will be saved into the model folder when training.
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.jpg)
@@ -94,6 +96,14 @@ python evaluate.py
 It will output Rank@1, Rank@5, Rank@10 and mAP results.
 
 For mAP calculation, you also can refer to the [C++ code for Oxford Building](http://www.robots.ox.ac.uk/~vgg/data/oxbuildings/compute_ap.cpp). We use the triangle mAP calculation (consistent with the Market1501 original code).
+
+### re-ranking
+```bash
+python evaluate_rerank.py
+```
+**It may take more than 10G Memory to run.** So run it on a powerful machine if possible. 
+
+It will output Rank@1, Rank@5, Rank@10 and mAP results.
 
 ## Ablation Study
 The model is based on Resnet50. Input images are resized to 256x128.
