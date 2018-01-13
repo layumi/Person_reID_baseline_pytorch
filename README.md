@@ -13,6 +13,8 @@ Different framework need to be tuned in a different way.
 
 **What's new:** Re-ranking is added to evaluation. The re-ranked result is **Rank@1=90.20% mAP=84.76%**.
 
+**What's new:** Random Erasing is added to train.
+
 **What's new:** I add some code to generate training curves. The figure will be saved into the model folder when training.
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.jpg)
@@ -74,6 +76,13 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 `--train_all` using all images to train. 
 
 `--batchsize` batch size.
+
+`--erasing_p` random erasing probability.
+
+Train a model with random erasing by
+```bash
+python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --data_dir your_data_path --erasing_p 0.5
+```
 
 ## Test
 Use trained model to extract feature by
