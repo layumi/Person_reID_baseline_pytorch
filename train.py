@@ -18,6 +18,7 @@ from PIL import Image
 import time
 import os
 from model import ft_net
+from random_erasing import RandomErasing
 
 #plt.ion()   # interactive mode
 ######################################################################
@@ -60,7 +61,7 @@ transform_train_list = [
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-        transforms.RandomErasing(args.p)
+        RandomErasing(args.p)
         ]
 
 if opt.color_jitter:
