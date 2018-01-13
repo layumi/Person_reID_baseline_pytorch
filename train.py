@@ -18,6 +18,7 @@ from PIL import Image
 import time
 import os
 from model import ft_net
+from random_erasing import RandomErasing
 
 #plt.ion()   # interactive mode
 ######################################################################
@@ -30,6 +31,7 @@ parser.add_argument('--data_dir',default='/home/zzheng/Downloads/Market/pytorch'
 parser.add_argument('--train_all', action='store_true', help='use all training data' )
 parser.add_argument('--color_jitter', action='store_true', help='use color jitter in training' )
 parser.add_argument('--batchsize', default=16, type=int, help='batchsize')
+parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability')
 
 opt = parser.parse_args()
 data_dir = opt.data_dir
@@ -58,7 +60,8 @@ transform_train_list = [
         transforms.RandomCrop((256,128)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        RandomErasing(args.p)
         ]
 
 if opt.color_jitter:
