@@ -125,6 +125,7 @@ Here we just show some results.
 | 16 | 0.5  | 86.67 | 68.19 | |
 | 32 | 0.5  | 87.98 | 69.38 | |
 | 32 | 0.5  | **88.24** | **70.68** | test with 288x144|
+| 32 | 0.5  | **89.13** | **73.50** | train with random erasing and test with 288x144|
 | 32 | 0.5  | 87.14 | 68.90 | 0.1 color jitter|
 | 64 | 0.5  | 86.82 | 67.48 | |
 | 64 | 0.5  | 85.78 | 65.97 | 0.1 color jitter|
