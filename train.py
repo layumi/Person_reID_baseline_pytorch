@@ -63,7 +63,7 @@ transform_train_list = [
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]
 
-if opt.eraing_p>0:
+if opt.erasing_p>0:
     transform_train_list = transform_train_list + [RandomErasing(opt.erasing_p)]
     
 if opt.color_jitter:
