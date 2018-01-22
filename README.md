@@ -11,6 +11,8 @@ Some of them (i.e. learning rate) are far from optimal. Do not hesitate to chang
 P.S. With similar structure, we arrived **Rank@1=86.85% mAP=67.29%** with Matconvnet. (batchsize=8, dropout=0.75)
 Different framework need to be tuned in a different way.
 
+**What's new：** Trained model is available at GoogleDrive https://drive.google.com/open?id=1__x0qNJ3T654wTghmuRjydn42NsAZW_M
+
 **What's new:** Re-ranking is added to evaluation. The re-ranked result is **Rank@1=90.20% mAP=84.76%**.
 
 **What's new:** Random Erasing is added to train.
