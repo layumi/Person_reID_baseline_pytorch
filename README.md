@@ -8,7 +8,8 @@ We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
 
-P.S. With similar structure, we arrived **Rank@1=86.85% mAP=67.29%** with Matconvnet. (batchsize=8, dropout=0.75)
+P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with Matconvnet. (batchsize=8, dropout=0.75) 
+You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
 Different framework need to be tuned in a different way.
 
 **What's new：** Trained model is available at [GoogleDrive](https://drive.google.com/open?id=1__x0qNJ3T654wTghmuRjydn42NsAZW_M).
