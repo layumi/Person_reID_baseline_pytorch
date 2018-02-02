@@ -272,7 +272,7 @@ if not os.path.isdir(dir_name):
     os.mkdir(dir_name)
 
 # save opts
-with open('./model/%s/opts.json'%opt.name,'w') as fp:
+with open('%s/opts.json'%dir_name,'w') as fp:
     json.dump(vars(opt), fp, indent=1)
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
