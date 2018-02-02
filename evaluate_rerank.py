@@ -66,7 +66,6 @@ print('calculate initial distance')
 q_g_dist = np.dot(query_feature, np.transpose(gallery_feature))
 q_q_dist = np.dot(query_feature, np.transpose(query_feature))
 g_g_dist = np.dot(gallery_feature, np.transpose(gallery_feature))
-print('start re-ranking...')
 since = time.time()
 re_rank = re_ranking(q_g_dist, q_q_dist, g_g_dist)
 time_elapsed = time.time() - since

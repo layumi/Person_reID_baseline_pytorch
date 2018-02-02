@@ -19,8 +19,8 @@ import time
 import os
 from model import ft_net
 from random_erasing import RandomErasing
+import json
 
-#plt.ion()   # interactive mode
 ######################################################################
 # Options
 # --------
@@ -34,6 +34,7 @@ parser.add_argument('--batchsize', default=16, type=int, help='batchsize')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 
 opt = parser.parse_args()
+
 data_dir = opt.data_dir
 name = opt.name
 str_ids = opt.gpu_ids.split(',')
@@ -269,7 +270,11 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name)
+
+# save opts
+with open('./model/%s/opts.json'%opt.name,'w') as fp:
+    json.dump(vars(opt), fp, indent=1)
+
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=60)
-
 
