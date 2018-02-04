@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import time
 import os
-from model import ft_net
+from model import ft_net, ft_net_dense
 from random_erasing import RandomErasing
 import json
 
@@ -32,7 +32,7 @@ parser.add_argument('--train_all', action='store_true', help='use all training d
 parser.add_argument('--color_jitter', action='store_true', help='use color jitter in training' )
 parser.add_argument('--batchsize', default=16, type=int, help='batchsize')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
-
+parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 opt = parser.parse_args()
 
 data_dir = opt.data_dir
@@ -238,8 +238,10 @@ def save_network(network, epoch_label):
 # Load a pretrainied model and reset final fully connected layer.
 #
 
-
-model = ft_net(len(class_names))
+if opt.use_dense:
+    model = ft_net_dense(len(class_names))
+else:
+    model = ft_net(len(class_names))
 print(model)
 
 if use_gpu:
