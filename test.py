@@ -14,7 +14,7 @@ from torchvision import datasets, models, transforms
 import time
 import os
 import scipy.io
-from model import ft_net 
+from model import ft_net, ft_net_dense
 
 ######################################################################
 # Options
@@ -25,6 +25,7 @@ parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or
 parser.add_argument('--test_dir',default='/home/zzheng/Downloads/Market/pytorch',type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
 parser.add_argument('--batchsize', default=64, type=int, help='batchsize')
+parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 
 opt = parser.parse_args()
 
@@ -104,7 +105,10 @@ def extract_feature(model,dataloaders):
         n, c, h, w = img.size()
         count += n
         print(count)
-        ff = torch.FloatTensor(n,2048).zero_()
+        if opt.use_dense:
+            ff = torch.FloatTensor(n,1024).zero_()
+        else:
+            ff = torch.FloatTensor(n,2048).zero_()
         for i in range(2):
             if(i==1):
                 img = fliplr(img)
@@ -142,7 +146,10 @@ query_cam,query_label = get_id(query_path)
 ######################################################################
 # Load Collected data Trained model
 print('-------test-----------')
-model_structure = ft_net(751)
+if opt.use_dense:
+    model_structure = ft_net_dense(751)
+else:
+    model_structure = ft_net(751)
 model = load_network(model_structure)
 
 # Remove the final fc layer and classifier layer

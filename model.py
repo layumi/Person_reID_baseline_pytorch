@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.nn import init
 from torchvision import models
-
+from torch.autograd import Variable
 
 ######################################################################
 def weights_init_kaiming(m):
@@ -56,3 +56,45 @@ class ft_net(nn.Module):
         x = self.classifier(x)
         return x
 
+
+class ft_net_dense(nn.Module):
+
+    def __init__(self, class_num ):
+        super().__init__()
+        model_ft = models.densenet121(pretrained=True)
+        # add pooling to the model
+        # in the originial version, pooling is written in the forward function 
+        model_ft.features.avgpool = nn.AdaptiveAvgPool2d((1,1))
+
+        add_block = []
+        num_bottleneck = 512
+        add_block += [nn.Linear(1024, num_bottleneck)]  #For ResNet, it is 2048
+        add_block += [nn.BatchNorm1d(num_bottleneck)]
+        add_block += [nn.LeakyReLU(0.1)]
+        add_block += [nn.Dropout(p=0.5)]
+        add_block = nn.Sequential(*add_block)
+        add_block.apply(weights_init_kaiming)
+        model_ft.fc = add_block
+        self.model = model_ft
+
+        classifier = []
+        classifier += [nn.Linear(num_bottleneck, class_num)]
+        classifier = nn.Sequential(*classifier)
+        classifier.apply(weights_init_classifier)
+        self.classifier = classifier
+
+    def forward(self, x):
+        x = self.model.features(x)  
+        x = x.view(x.size(0),-1)
+        x = self.model.fc(x)
+        x = self.classifier(x)
+        return x
+
+# debug model structure
+#net = ft_net(751)
+net = ft_net_dense(751)
+#print(net)
+input = Variable(torch.FloatTensor(8, 3, 224, 224))
+output = net(input)
+print('net output size:')
+print(output.shape)
