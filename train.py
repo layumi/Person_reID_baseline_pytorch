@@ -266,8 +266,7 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 # Train and evaluate
 # ^^^^^^^^^^^^^^^^^^
 #
-# It should take around 15-25 min on CPU. On GPU though, it takes less than a
-# minute.
+# It should take around 1-2 hours on GPU. 
 #
 dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
