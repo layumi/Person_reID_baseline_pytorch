@@ -173,5 +173,5 @@ As far as I know, the following papers may be the first two to use the bottlenec
 ## Related Repos
 1. [Pedestrian Alignment Network](https://github.com/layumi/Pedestrian_Alignment)
 2. [2stream Person re-ID](https://github.com/layumi/2016_person_re-ID)
-3. [Pedestrian Alignment Network](https://github.com/layumi/Pedestrian_Alignment)
+3. [Pedestrian GAN](https://github.com/layumi/Person-reID_GAN)
 4. [Language Person Search](https://github.com/layumi/Image-Text-Embedding)
