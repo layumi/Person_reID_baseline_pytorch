@@ -23,70 +23,72 @@ def weights_init_classifier(m):
         init.normal(m.weight.data, std=0.001)
         init.constant(m.bias.data, 0.0)
 
-class ft_net(nn.Module):
-
-    def __init__(self, class_num ):
-        super().__init__()
-        model_ft = models.resnet50(pretrained=True)
-
-        # avg pooling to global pooling
-        model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
-
-        num_ftrs = model_ft.fc.in_features
+# Defines the new fc layer and classification layer
+# |--Linear--|--bn--|--relu--|--Linear--|
+class ClassBlock(nn.Module):
+    def __init__(self, input_dim, class_num ):
+        super(ClassBlock, self).__init__()
         add_block = []
         num_bottleneck = 512
-        add_block += [nn.Linear(num_ftrs, num_bottleneck)]
-        add_block += [nn.BatchNorm1d(num_bottleneck)]
-        add_block += [nn.LeakyReLU(0.1)]
-        add_block += [nn.Dropout(p=0.5)]  #default dropout rate 0.5
-        #transforms.CenterCrop(224),
-        add_block = nn.Sequential(*add_block)
-        add_block.apply(weights_init_kaiming)
-        model_ft.fc = add_block
-        self.model = model_ft
-
-        classifier = []
-        classifier += [nn.Linear(num_bottleneck, class_num)]
-        classifier = nn.Sequential(*classifier)
-        classifier.apply(weights_init_classifier)
-        self.classifier = classifier
-
-    def forward(self, x):
-        x = self.model(x)
-        x = self.classifier(x)
-        return x
-
-
-class ft_net_dense(nn.Module):
-
-    def __init__(self, class_num ):
-        super().__init__()
-        model_ft = models.densenet121(pretrained=True)
-        # add pooling to the model
-        # in the originial version, pooling is written in the forward function 
-        model_ft.features.avgpool = nn.AdaptiveAvgPool2d((1,1))
-
-        add_block = []
-        num_bottleneck = 512
-        add_block += [nn.Linear(1024, num_bottleneck)]  #For ResNet, it is 2048
+        add_block += [nn.Linear(input_dim, num_bottleneck)] 
         add_block += [nn.BatchNorm1d(num_bottleneck)]
         add_block += [nn.LeakyReLU(0.1)]
         add_block += [nn.Dropout(p=0.5)]
         add_block = nn.Sequential(*add_block)
         add_block.apply(weights_init_kaiming)
-        model_ft.fc = add_block
-        self.model = model_ft
 
         classifier = []
         classifier += [nn.Linear(num_bottleneck, class_num)]
         classifier = nn.Sequential(*classifier)
         classifier.apply(weights_init_classifier)
+
+        self.add_block = add_block
         self.classifier = classifier
+    def forward(self, x):
+        x = self.add_block(x)
+        x = self.classifier(x)
+        return x
+
+# Define the ResNet50-based Model
+class ft_net(nn.Module):
+
+    def __init__(self, class_num ):
+        super(ft_net, self).__init__()
+        model_ft = models.resnet50(pretrained=True)
+        # avg pooling to global pooling
+        model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        self.model = model_ft
+        self.classifier = ClassBlock(2048, class_num)
 
     def forward(self, x):
-        x = self.model.features(x)  
-        x = x.view(x.size(0),-1)
-        x = self.model.fc(x)
+        x = self.model.conv1(x)
+        x = self.model.bn1(x)
+        x = self.model.relu(x)
+        x = self.model.maxpool(x)
+        x = self.model.layer1(x)
+        x = self.model.layer2(x)
+        x = self.model.layer3(x)
+        x = self.model.layer4(x)
+        x = self.model.avgpool(x)
+        x = torch.squeeze(x)
+        x = self.classifier(x)
+        return x
+
+# Define the DenseNet121-based Model
+class ft_net_dense(nn.Module):
+
+    def __init__(self, class_num ):
+        super().__init__()
+        model_ft = models.densenet121(pretrained=True)
+        model_ft.features.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        model_ft.fc = nn.Sequential()
+        self.model = model_ft
+        # For DenseNet, the feature dim is 1024 
+        self.classifier = ClassBlock(1024, class_num)
+
+    def forward(self, x):
+        x = self.model.features(x)
+        x = torch.squeeze(x)
         x = self.classifier(x)
         return x
 
