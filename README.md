@@ -12,7 +12,7 @@ P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with Matcon
 You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
 Different framework need to be tuned in a different way.
 
-**What's new:** You may try `evaluate_gpu.py` to conduct a faster evaluation.
+**What's new:** You may try `evaluate_gpu.py` to conduct a faster evaluation with GPU.
 
 **What's new:** You may use '--use_dense' to use `DenseNet-121`. It can easily arrive **Rank@1=89.91% mAP=73.58%**. Trained DenseNet-121 model can be found at [GoogleDrive](https://drive.google.com/open?id=1NgZWnYBCzESgKNzLeoWUMxggZ6SSEaZL).(Note that ResNet-50 is a more common choice as the baseline.)
 
