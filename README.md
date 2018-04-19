@@ -12,6 +12,8 @@ P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with Matcon
 You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
 Different framework need to be tuned in a different way.
 
+**What's new:** You may try `evaluate_gpu.py` to conduct a faster evaluation.
+
 **What's new:** You may use '--use_dense' to use `DenseNet-121`. It can easily arrive **Rank@1=89.91% mAP=73.58%**. Trained DenseNet-121 model can be found at [GoogleDrive](https://drive.google.com/open?id=1NgZWnYBCzESgKNzLeoWUMxggZ6SSEaZL).(Note that ResNet-50 is a more common choice as the baseline.)
 
 **What's new：** Trained ResNet-50 model is available at [GoogleDrive](https://drive.google.com/open?id=1__x0qNJ3T654wTghmuRjydn42NsAZW_M).
@@ -108,6 +110,7 @@ python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which
 python evaluate.py
 ```
 It will output Rank@1, Rank@5, Rank@10 and mAP results.
+You may also try `evaluate_gpu.py` to conduct a faster evaluation with GPU.
 
 For mAP calculation, you also can refer to the [C++ code for Oxford Building](http://www.robots.ox.ac.uk/~vgg/data/oxbuildings/compute_ap.cpp). We use the triangle mAP calculation (consistent with the Market1501 original code).
 
