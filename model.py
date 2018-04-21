@@ -91,6 +91,36 @@ class ft_net_dense(nn.Module):
         x = torch.squeeze(x)
         x = self.classifier(x)
         return x
+    
+# Define the ResNet50-based Model (Middle-Concat)
+# In the spirit of "The Devil is in the Middle: Exploiting Mid-level Representations for Cross-Domain Instance Matching." Yu, Qian, et al. arXiv:1711.08106 (2017).
+class ft_net_middle(nn.Module):
+
+    def __init__(self, class_num ):
+        super(ft_net_middle, self).__init__()
+        model_ft = models.resnet50(pretrained=True)
+        # avg pooling to global pooling
+        model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        self.model = model_ft
+        self.classifier = ClassBlock(2048+1024, class_num)
+
+    def forward(self, x):
+        x = self.model.conv1(x)
+        x = self.model.bn1(x)
+        x = self.model.relu(x)
+        x = self.model.maxpool(x)
+        x = self.model.layer1(x)
+        x = self.model.layer2(x)
+        x = self.model.layer3(x)
+        # x0  n*1024*1*1
+        x0 = self.model.avgpool(x)
+        x = self.model.layer4(x)
+        # x1  n*2048*1*1
+        x1 = self.model.avgpool(x)
+        x = torch.cat((x0,x1),1)
+        x = torch.squeeze(x)
+        x = self.classifier(x)
+        return x
 
 # debug model structure
 #net = ft_net(751)
