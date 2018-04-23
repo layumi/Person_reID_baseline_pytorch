@@ -26,10 +26,9 @@ def weights_init_classifier(m):
 # Defines the new fc layer and classification layer
 # |--Linear--|--bn--|--relu--|--Linear--|
 class ClassBlock(nn.Module):
-    def __init__(self, input_dim, class_num ):
+    def __init__(self, input_dim, class_num, num_bottleneck = 512):
         super(ClassBlock, self).__init__()
         add_block = []
-        num_bottleneck = 512
         add_block += [nn.Linear(input_dim, num_bottleneck)] 
         add_block += [nn.BatchNorm1d(num_bottleneck)]
         add_block += [nn.LeakyReLU(0.1)]
