@@ -134,7 +134,7 @@ class PCB(nn.Module):
         # remove the final downsample
         self.model.layer4[0].downsample[0].stride = (1,1)
         self.model.layer4[0].conv2.stride = (1,1)
-        # define 4 classifier
+        # define 6 classifiers
         for i in range(self.part):
             name = 'classifier'+str(i)
             setattr(self, name, ClassBlock(2048, class_num, True, False, 256))
@@ -153,7 +153,7 @@ class PCB(nn.Module):
         x = self.dropout(x)
         part = {}
         predict = {}
-        # get four part feature batchsize*2048*4
+        # get six part feature batchsize*2048*6
         for i in range(self.part):
             part[i] = torch.squeeze(x[:,:,i])
             name = 'classifier'+str(i)
