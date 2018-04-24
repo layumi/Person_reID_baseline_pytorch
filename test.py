@@ -14,18 +14,19 @@ from torchvision import datasets, models, transforms
 import time
 import os
 import scipy.io
-from model import ft_net, ft_net_dense
+from model import ft_net, ft_net_dense, PCB, PCB_test
 
 ######################################################################
 # Options
 # --------
 parser = argparse.ArgumentParser(description='Training')
-parser.add_argument('--gpu_ids',default='2', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
+parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or last')
-parser.add_argument('--test_dir',default='/home/zzheng/Downloads/Market/pytorch',type=str, help='./test_data')
+parser.add_argument('--test_dir',default='/home/zzd/Market/pytorch',type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
-parser.add_argument('--batchsize', default=64, type=int, help='batchsize')
+parser.add_argument('--batchsize', default=100, type=int, help='batchsize')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--PCB', action='store_true', help='use PCB' )
 
 opt = parser.parse_args()
 
@@ -67,11 +68,18 @@ data_transforms = transforms.Compose([
           # ))
 ])
 
+if opt.PCB:
+    data_transforms = transforms.Compose([
+        transforms.Resize((384,192), interpolation=3),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) 
+    ])
+
 
 data_dir = test_dir
 image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query']}
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=False, num_workers=4) for x in ['gallery','query']}
+                                             shuffle=False, num_workers=16) for x in ['gallery','query']}
 
 class_names = image_datasets['query'].classes
 use_gpu = torch.cuda.is_available()
@@ -109,17 +117,25 @@ def extract_feature(model,dataloaders):
             ff = torch.FloatTensor(n,1024).zero_()
         else:
             ff = torch.FloatTensor(n,2048).zero_()
+        if opt.PCB:
+            ff = torch.FloatTensor(n,2048,6).zero_() # we have four parts
         for i in range(2):
             if(i==1):
                 img = fliplr(img)
             input_img = Variable(img.cuda())
             outputs = model(input_img) 
             f = outputs.data.cpu()
-            #print(f.size())
             ff = ff+f
         # norm feature
-        fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
-        ff = ff.div(fnorm.expand_as(ff))
+        if opt.PCB:
+            # feature size (n,2048,4)
+            fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
+            ff = ff.div(fnorm.expand_as(ff))
+            ff = ff.view(ff.size(0), -1)
+        else:
+            fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
+            ff = ff.div(fnorm.expand_as(ff))
+
         features = torch.cat((features,ff), 0)
     return features
 
@@ -150,11 +166,18 @@ if opt.use_dense:
     model_structure = ft_net_dense(751)
 else:
     model_structure = ft_net(751)
+
+if opt.PCB:
+    model_structure = PCB(751)
+
 model = load_network(model_structure)
 
 # Remove the final fc layer and classifier layer
-model.model.fc = nn.Sequential()
-model.classifier = nn.Sequential()
+if not opt.PCB:
+    model.model.fc = nn.Sequential()
+    model.classifier = nn.Sequential()
+else:
+    model = PCB_test(model)
 
 # Change to test mode
 model = model.eval()
@@ -168,4 +191,3 @@ query_feature = extract_feature(model,dataloaders['query'])
 # Save to Matlab for check
 result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
 scipy.io.savemat('pytorch_result.mat',result)
-
