@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import time
 import os
-from model import ft_net, ft_net_dense
+from model import ft_net, ft_net_dense, PCB
 from random_erasing import RandomErasing
 import json
 
@@ -27,12 +27,13 @@ import json
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name',default='ft_ResNet50', type=str, help='output model name')
-parser.add_argument('--data_dir',default='/home/zzheng/Downloads/Market/pytorch',type=str, help='training dir path')
+parser.add_argument('--data_dir',default='/home/zzd/Market/pytorch',type=str, help='training dir path')
 parser.add_argument('--train_all', action='store_true', help='use all training data' )
 parser.add_argument('--color_jitter', action='store_true', help='use color jitter in training' )
-parser.add_argument('--batchsize', default=16, type=int, help='batchsize')
+parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
 opt = parser.parse_args()
 
 data_dir = opt.data_dir
@@ -64,21 +65,32 @@ transform_train_list = [
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]
 
-if opt.erasing_p>0:
-    transform_train_list = transform_train_list + [RandomErasing(probability = opt.erasing_p, mean=[0.0, 0.0, 0.0])]
-    
-if opt.color_jitter:
-    transform_train_list = [transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0)] + transform_train_list
-
-print(transform_train_list)
-
 transform_val_list = [
         transforms.Resize(size=(256,128),interpolation=3), #Image.BICUBIC
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]
 
+if opt.PCB:
+    transform_train_list = [
+        transforms.Resize((384,192), interpolation=3),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]
+    transform_val_list = [
+        transforms.Resize(size=(384,192),interpolation=3), #Image.BICUBIC
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]
 
+if opt.erasing_p>0:
+    transform_train_list = transform_train_list + [RandomErasing(opt.erasing_p)]
+
+if opt.color_jitter:
+    transform_train_list = [transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0)] + transform_train_list
+
+print(transform_train_list)
 data_transforms = {
     'train': transforms.Compose( transform_train_list ),
     'val': transforms.Compose(transform_val_list),
@@ -96,7 +108,7 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=4)
+                                             shuffle=True, num_workers=16)
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
@@ -145,7 +157,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
             running_loss = 0.0
             running_corrects = 0
-
             # Iterate over data.
             for data in dataloaders[phase]:
                 # get the inputs
@@ -163,8 +174,22 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                 # forward
                 outputs = model(inputs)
-                _, preds = torch.max(outputs.data, 1)
-                loss = criterion(outputs, labels)
+                if not opt.PCB:
+                    _, preds = torch.max(outputs.data, 1)
+                    loss = criterion(outputs, labels)
+                else:
+                    part = {}
+                    sm = nn.Softmax(dim=1)
+                    num_part = 6
+                    for i in range(num_part):
+                        part[i] = outputs[i]
+
+                    score = sm(part[0]) + sm(part[1]) +sm(part[2]) + sm(part[3]) +sm(part[4]) +sm(part[5])
+                    _, preds = torch.max(score.data, 1)
+
+                    loss = criterion(part[0], labels)
+                    for i in range(num_part-1):
+                        loss += criterion(part[i+1], labels)
 
                 # backward + optimize only if in training phase
                 if phase == 'train':
@@ -177,9 +202,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects / dataset_sizes[phase]
-
+            
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
+            
             y_loss[phase].append(epoch_loss)
             y_err[phase].append(1.0-epoch_acc)            
             # deep copy the model
@@ -242,6 +268,10 @@ if opt.use_dense:
     model = ft_net_dense(len(class_names))
 else:
     model = ft_net(len(class_names))
+
+if opt.PCB:
+    model = PCB(len(class_names))
+
 print(model)
 
 if use_gpu:
@@ -249,24 +279,48 @@ if use_gpu:
 
 criterion = nn.CrossEntropyLoss()
 
-ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
-base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
-
-# Observe that all parameters are being optimized
-optimizer_ft = optim.SGD([
+if not opt.PCB:
+    ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
+    base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
+    optimizer_ft = optim.SGD([
              {'params': base_params, 'lr': 0.01},
              {'params': model.model.fc.parameters(), 'lr': 0.1},
              {'params': model.classifier.parameters(), 'lr': 0.1}
-         ], momentum=0.9, weight_decay=5e-4, nesterov=True)
+         ], weight_decay=5e-4, momentum=0.9, nesterov=True)
+else:
+    ignored_params = list(map(id, model.model.fc.parameters() ))
+    ignored_params += (list(map(id, model.classifier0.parameters() )) 
+                     +list(map(id, model.classifier1.parameters() ))
+                     +list(map(id, model.classifier2.parameters() ))
+                     +list(map(id, model.classifier3.parameters() ))
+                     +list(map(id, model.classifier4.parameters() ))
+                     +list(map(id, model.classifier5.parameters() ))
+                     #+list(map(id, model.classifier6.parameters() ))
+                     #+list(map(id, model.classifier7.parameters() ))
+                      )
+    base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
+    optimizer_ft = optim.SGD([
+             {'params': base_params, 'lr': 0.01},
+             {'params': model.model.fc.parameters(), 'lr': 0.1},
+             {'params': model.classifier0.parameters(), 'lr': 0.1},
+             {'params': model.classifier1.parameters(), 'lr': 0.1},
+             {'params': model.classifier2.parameters(), 'lr': 0.1},
+             {'params': model.classifier3.parameters(), 'lr': 0.1},
+             {'params': model.classifier4.parameters(), 'lr': 0.1},
+             {'params': model.classifier5.parameters(), 'lr': 0.1},
+             #{'params': model.classifier6.parameters(), 'lr': 0.01},
+             #{'params': model.classifier7.parameters(), 'lr': 0.01}
+         ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 
 # Decay LR by a factor of 0.1 every 40 epochs
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
+exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=30, gamma=0.1)
 
 ######################################################################
 # Train and evaluate
 # ^^^^^^^^^^^^^^^^^^
 #
-# It should take around 1-2 hours on GPU. 
+# It should take around 15-25 min on CPU. On GPU though, it takes less than a
+# minute.
 #
 dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
@@ -277,5 +331,5 @@ with open('%s/opts.json'%dir_name,'w') as fp:
     json.dump(vars(opt), fp, indent=1)
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=60)
+                       num_epochs=40)
 
