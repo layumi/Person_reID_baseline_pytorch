@@ -12,7 +12,7 @@ P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with Matcon
 You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
 Different framework need to be tuned in a different way.
 
-**What's new:**  [PCB](https://arxiv.org/abs/1711.09349) is added. You may use '--PCB' to use this model. It can achieve **Rank@1=92.73% mAP=78.16%**. 
+**What's new:**  [PCB](https://arxiv.org/abs/1711.09349) is added. You may use '--PCB' to use this model. It can achieve around **Rank@1=92.73% mAP=78.16%**. 
 ```bash
 python train.py --PCB --batchsize 64 --name PCB-64
 python test.py --PCB --name PCB-64
