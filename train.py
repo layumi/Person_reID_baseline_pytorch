@@ -58,7 +58,7 @@ if len(gpu_ids)>0:
 
 transform_train_list = [
         #transforms.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
-        transforms.Resize(144, interpolation=3),
+        transforms.Resize((288,144), interpolation=3),
         transforms.RandomCrop((256,128)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
