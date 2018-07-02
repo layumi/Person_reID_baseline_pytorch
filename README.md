@@ -43,8 +43,6 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 - Numpy
 - Pytorch 0.3+
 
-(For Pytorch 0.5, you may need to change [some code](https://github.com/layumi/Person_reID_baseline_pytorch/issues/33).)
-
 **(Some reports found that updating numpy can arrive the right accuracy. If you only get 50~80 Top1 Accuracy, just try it.)**
 We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
 
@@ -59,7 +57,7 @@ python setup.py install
 ```
 Because pytorch and torchvision are ongoing projects.
 
-Here we noted that our code is tested based on Pytorch 0.3.0 and Torchvision 0.2.0.
+Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0 and Torchvision 0.2.0.
 
 ## Dataset & Preparation
 Download [Market1501 Dataset](http://www.liangzheng.org/Project/project_reid.html)
