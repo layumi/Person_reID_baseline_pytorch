@@ -21,6 +21,8 @@ from model import ft_net, ft_net_dense, PCB
 from random_erasing import RandomErasing
 import json
 
+version =  torch.__version__
+
 ######################################################################
 # Options
 # --------
@@ -197,10 +199,15 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     optimizer.step()
 
                 # statistics
-                running_loss += loss.data[0]
+                if int(version[2]) > 3: # for the new version like 0.4.0 and 0.5.0
+                    running_loss += loss.item()
+                else :  # for the old version like 0.3.0 and 0.3.1
+                    running_loss += loss.data[0]
                 running_corrects += torch.sum(preds == labels.data)
 
             epoch_loss = running_loss / dataset_sizes[phase]
+            if int(version[2]) > 3: # for the new version like 0.4.0 and 0.5.0
+                running_corrects = running_corrects.item()
             epoch_acc = running_corrects / dataset_sizes[phase]
             
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
