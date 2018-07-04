@@ -163,6 +163,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             for data in dataloaders[phase]:
                 # get the inputs
                 inputs, labels = data
+                now_batch_size,c,h,w = inputs.shape
+                if now_batch_size==1: # batchnorm will raise an error
+                    continue
                 #print(inputs.shape)
                 # wrap them in Variable
                 if use_gpu:
