@@ -27,6 +27,7 @@ parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model 
 parser.add_argument('--batchsize', default=100, type=int, help='batchsize')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--PCB', action='store_true', help='use PCB' )
+parser.add_argument('--multi', action='store_true', help='use multiple query' )
 
 opt = parser.parse_args()
 
@@ -77,9 +78,9 @@ if opt.PCB:
 
 
 data_dir = test_dir
-image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query']}
+image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query','multi-query']}
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=False, num_workers=16) for x in ['gallery','query']}
+                                             shuffle=False, num_workers=16) for x in ['gallery','query','multi-query']}
 
 class_names = image_datasets['query'].classes
 use_gpu = torch.cuda.is_available()
@@ -155,9 +156,11 @@ def get_id(img_path):
 
 gallery_path = image_datasets['gallery'].imgs
 query_path = image_datasets['query'].imgs
+mquery_path = image_datasets['multi-query'].imgs
 
 gallery_cam,gallery_label = get_id(gallery_path)
 query_cam,query_label = get_id(query_path)
+mquery_cam,mquery_label = get_id(mquery_path)
 
 ######################################################################
 # Load Collected data Trained model
@@ -187,7 +190,12 @@ if use_gpu:
 # Extract feature
 gallery_feature = extract_feature(model,dataloaders['gallery'])
 query_feature = extract_feature(model,dataloaders['query'])
-
+if opt.multi:
+    mquery_feature = extract_feature(model,dataloaders['multi-query'])
+    
 # Save to Matlab for check
 result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
 scipy.io.savemat('pytorch_result.mat',result)
+if opt.multi:
+    result = {'mquery_f':mquery_feature.numpy(),'mquery_label':mquery_label,'mquery_cam':mquery_cam}
+    scipy.io.savemat('multi_query.mat',result)
