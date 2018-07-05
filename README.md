@@ -12,6 +12,14 @@ P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with Matcon
 You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
 Different framework need to be tuned in a different way.
 
+**What's new:** Multiple-query Evaluation is added. The multiple-query result is about **Rank@1=91.95% mAP=78.06%**. 
+```bash
+python prepare.py
+python train.py
+python test.py --multi
+python evaluate_gpu.py
+```
+
 **What's new:**  [PCB](https://arxiv.org/abs/1711.09349) is added. You may use '--PCB' to use this model. It can achieve around **Rank@1=92.73% mAP=78.16%**. I used a GPU (P40) with 16GB Memory. You may try apply smaller batchsize and choose the smaller learning rate (for stability) to run. 
 ```bash
 python train.py --PCB --batchsize 64 --name PCB-64
