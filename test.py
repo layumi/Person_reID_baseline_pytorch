@@ -144,7 +144,8 @@ def get_id(img_path):
     camera_id = []
     labels = []
     for path, v in img_path:
-        filename = path.split('/')[-1]
+        #filename = path.split('/')[-1]
+        filename = os.path.basename(path)
         label = filename[0:4]
         camera = filename.split('c')[1]
         if label[0:2]=='-1':
