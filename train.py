@@ -158,7 +158,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 model.train(False)  # Set model to evaluate mode
 
             running_loss = 0.0
-            running_corrects = 0
+            running_corrects = 0.0
             # Iterate over data.
             for data in dataloaders[phase]:
                 # get the inputs
@@ -206,11 +206,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     running_loss += loss.item()
                 else :  # for the old version like 0.3.0 and 0.3.1
                     running_loss += loss.data[0]
-                running_corrects += torch.sum(preds == labels.data)
+                running_corrects += float(torch.sum(preds == labels.data))
 
             epoch_loss = running_loss / dataset_sizes[phase]
-            if int(version[2]) > 3: # for the new version like 0.4.0 and 0.5.0
-                running_corrects = running_corrects.item()
             epoch_acc = running_corrects / dataset_sizes[phase]
             
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
