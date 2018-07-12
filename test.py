@@ -130,9 +130,10 @@ def extract_feature(model,dataloaders):
         # norm feature
         if opt.PCB:
             # feature size (n,2048,4)
+            ff = ff.view(ff.size(0), -1)
             fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
             ff = ff.div(fnorm.expand_as(ff))
-            ff = ff.view(ff.size(0), -1)
+#             ff = ff.view(ff.size(0), -1)
         else:
             fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
             ff = ff.div(fnorm.expand_as(ff))
