@@ -20,6 +20,7 @@ import os
 from model import ft_net, ft_net_dense, PCB
 from random_erasing import RandomErasing
 import json
+from shutil import copyfile
 
 version =  torch.__version__
 
@@ -332,6 +333,8 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name)
+    copyfile('./train.py', dir_name+'/train.py')
+    copyfile('./model.py', dir_name+'/model.py')
 
 # save opts
 with open('%s/opts.json'%dir_name,'w') as fp:
