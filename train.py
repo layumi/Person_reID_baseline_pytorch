@@ -111,15 +111,16 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=16)
+                                             shuffle=True, num_workers=8) # 8 workers may work faster
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
 use_gpu = torch.cuda.is_available()
 
+since = time.time()
 inputs, classes = next(iter(dataloaders['train']))
-
+print(time.time()-since)
 ######################################################################
 # Training the model
 # ------------------
