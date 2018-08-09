@@ -166,7 +166,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # get the inputs
                 inputs, labels = data
                 now_batch_size,c,h,w = inputs.shape
-                if now_batch_size==1: # batchnorm will raise an error
+                if now_batch_size<opt.batchsize: # skip the last batch
                     continue
                 #print(inputs.shape)
                 # wrap them in Variable
