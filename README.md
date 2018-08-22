@@ -5,12 +5,21 @@ It is consistent with the new baseline result in [Beyond Part Models: Person Ret
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
+Now we have supported:
+- Part-based Convolutional Baseline(PCB)
+- Multiple Query Evaluation
+- Re-Ranking
+- Random Erasing
+- ResNet/DenseNet
+
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
 
 P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with Matconvnet. (batchsize=8, dropout=0.75) 
 You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
 Different framework need to be tuned in a different way.
+
+## Some News
 
 **What's new:** Multiple-query Evaluation is added. The multiple-query result is about **Rank@1=91.95% mAP=78.06%**. 
 ```bash
