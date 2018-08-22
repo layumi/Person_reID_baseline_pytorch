@@ -11,6 +11,7 @@ Now we have supported:
 - Re-Ranking
 - Random Erasing
 - ResNet/DenseNet
+- Visualize Training Curves
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
