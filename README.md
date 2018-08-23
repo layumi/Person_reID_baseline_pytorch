@@ -5,6 +5,8 @@ It is consistent with the new baseline result in [Beyond Part Models: Person Ret
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
+![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
+
 Now we have supported:
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
@@ -12,6 +14,7 @@ Now we have supported:
 - Random Erasing
 - ResNet/DenseNet
 - Visualize Training Curves
+- Visualize Ranking Result
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
@@ -21,6 +24,13 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**What's new:** Visualizing ranking result is added.
+```bash
+python prepare.py
+python train.py
+python test.py
+python demo.py --query_index 777
+```
 
 **What's new:** Multiple-query Evaluation is added. The multiple-query result is about **Rank@1=91.95% mAP=78.06%**. 
 ```bash
