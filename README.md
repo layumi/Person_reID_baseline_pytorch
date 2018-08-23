@@ -5,7 +5,7 @@ It is consistent with the new baseline result in [Beyond Part Models: Person Ret
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 
-![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
+![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/demo.png)
 
 Now we have supported:
 - Part-based Convolutional Baseline(PCB)
