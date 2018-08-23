@@ -51,17 +51,32 @@ gallery_feature = gallery_feature.cuda()
 
 #######################################################################
 # sort the images
-def sort_img(qf,gf):
+def sort_img(qf, ql, qc, gf, gl, gc):
     query = qf.view(-1,1)
+    # print(query.shape)
     score = torch.mm(gf,query)
     score = score.squeeze(1).cpu()
     score = score.numpy()
     # predict index
     index = np.argsort(score)  #from small to large
     index = index[::-1]
+    # index = index[0:2000]
+    # good index
+    query_index = np.argwhere(gl==ql)
+    #same camera
+    camera_index = np.argwhere(gc==qc)
+
+    good_index = np.setdiff1d(query_index, camera_index, assume_unique=True)
+    junk_index1 = np.argwhere(gl==-1)
+    junk_index2 = np.intersect1d(query_index, camera_index)
+    junk_index = np.append(junk_index2, junk_index1) 
+
+    mask = np.in1d(index, junk_index, invert=True)
+    index = index[mask]
     return index
 
-index = sort_img(query_feature[opts.query_index],gallery_feature)
+i = opts.query_index
+index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,gallery_label,gallery_cam)
 
 ########################################################################
 # Visualize the rank result
