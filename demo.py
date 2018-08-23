@@ -86,15 +86,15 @@ print(query_path)
 print('Top 10 images are as follow:')
 try: # Visualize Ranking Result 
     # Graphical User Interface is needed
-    fig = plt.figure()
-    ax = plt.subplot(3,4,1)
+    fig = plt.figure(figsize=(16,4))
+    ax = plt.subplot(1,11,1)
     ax.axis('off')
     imshow(query_path,'query')
     for i in range(10):
-        ax = plt.subplot(3,4,i+2)
+        ax = plt.subplot(1,11,i+2)
         ax.axis('off')
         img_path, label = image_datasets['gallery'].imgs[index[i]]
-        imshow(img_path,'top-%d'%(i+1))
+        imshow(img_path,'%d'%(i+1))
         print(img_path)
 except RuntimeError:
     for i in range(10):
