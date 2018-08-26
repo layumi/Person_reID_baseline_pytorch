@@ -99,11 +99,6 @@ Remember to change the dataset path to your own path.
 Futhermore, you also can test our code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
 Our baseline code is not such high on DukeMTMC-reID **Rank@1=64.23%, mAP=43.92%**. Hyperparameters are need to be tuned.
 
-To save trained model, we make a dir.
-```bash
-mkdir model 
-```
-
 ## Train
 Train a model by
 ```bash
