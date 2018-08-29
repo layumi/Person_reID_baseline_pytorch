@@ -81,7 +81,8 @@ index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,ga
 ########################################################################
 # Visualize the rank result
 
-query_path, label = image_datasets['query'].imgs[opts.query_index]
+query_path, _ = image_datasets['query'].imgs[i]
+query_label = query_label[i]
 print(query_path)
 print('Top 10 images are as follow:')
 try: # Visualize Ranking Result 
@@ -93,8 +94,13 @@ try: # Visualize Ranking Result
     for i in range(10):
         ax = plt.subplot(1,11,i+2)
         ax.axis('off')
-        img_path, label = image_datasets['gallery'].imgs[index[i]]
-        imshow(img_path,'%d'%(i+1))
+        img_path, _ = image_datasets['gallery'].imgs[index[i]]
+        label = gallery_label[index[i]]
+        imshow(img_path)
+        if label == query_label:
+            ax.set_title('%d'%(i+1), color='green')
+        else:
+            ax.set_title('%d'%(i+1), color='red')
         print(img_path)
 except RuntimeError:
     for i in range(10):
