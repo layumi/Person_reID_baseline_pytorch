@@ -278,6 +278,7 @@ To visualize the result,
 ```
 python demo.py --query_index 777
 ```
+`--query_index ` which query you want to test. You may select a number in the range of `0 ~ 3367`.
 
 In fact, it is similar to the `evaluate.py`. We add the visualization part.
 ```python
