@@ -141,7 +141,7 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 `--erasing_p` random erasing probability.
 
 Let's look what we do in the `train.py`.
-Before we start training, the last thing is how to read data and their labels from the prepared folder.
+The first thing is how to read data and their labels from the prepared folder.
 Using `torch.utils.data.DataLoader`, we can obtain two iterators `dataloaders['train']` and `dataloaders['val']` to read data and label.
 ```python
 image_datasets = {}
@@ -267,13 +267,18 @@ Note that there are two kinds of images we do not consider as right-matching ima
 ```
 
 We can use the function `compute_mAP` to obtain the final result.
+In this function, we will ignore the junk_index.
 ```python
 CMC_tmp = compute_mAP(index, good_index, junk_index)
 ```
 
 ## Part 3: A simple visualization (`python demo.py`)
-In fact, it is similar to the `evaluate.py`. We just added the visualization part.
-Index is the predicted ranking list.
+To visualize the result, 
+```
+python demo.py --query_index 777
+```
+
+In fact, it is similar to the `evaluate.py`. We add the visualization part.
 ```python
 try: # Visualize Ranking Result 
     # Graphical User Interface is needed
