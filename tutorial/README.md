@@ -2,11 +2,11 @@
 By [Zhedong Zheng](http://zdzheng.xyz/)
 
 This is a [University of Technology Sydney](https://www.uts.edu.au) computer vision practical, authored by Zhedong Zheng.
-The practical explores the basic of learning pedestrian features. In this pratical, we will learn to build a simple person re-ID system step by step. **Any suggestion is welcomed.**
+The practical explores the basis of learning pedestrian features. In this practical, we will learn to build a simple person re-ID system step by step. **Any suggestion is welcomed.**
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
-Person re-ID can be viewed as an image retrieval problem. Given one query image in Camera **A**, we need to find the images of the same person in other Cameras. The key of the person re-ID is to find a discriminative representation of the person. Many recent works apply deeply learned model to extract visual features, and achieve the state-of-the-art performance.
+Person re-ID can be viewed as an image retrieval problem. Given one query image in Camera **A**, we need to find the images of the same person in other Cameras. The key of the person re-ID is to find a discriminative representation of the person. Many recent works apply deeply learned models to extract visual features, and achieve the state-of-the-art performance.
 
 ## Prerequisites
 - Python 3.6
@@ -21,7 +21,7 @@ python setup.py install
 ```
 
 ## Getting started
-Check the Prerequisites. The download links for this practical are:
+Check the Prerequisites. The download links for this practice are:
 
 - Code: [Practical-Baseline](https://github.com/layumi/Person_reID_baseline_pytorch)
 - Data: [Market-1501](http://188.138.127.15:81/Datasets/Market-1501-v15.09.15.zip)
@@ -68,10 +68,10 @@ Now we have successfully prepared the data for `torchvision` to read the data.
 ```diff
 + Quick Question. How to recognize the images of the same ID?
 ```
-For Market-1501, the image name contain the identity label and camera id. Check the naming rule at [here](http://www.liangzheng.org/Project/project_reid.html).
+For Market-1501, the image name contains the identity label and camera id. Check the naming rule at [here](http://www.liangzheng.org/Project/project_reid.html).
 
 ### Part 1.2: Build Neural Network (`model.py`)
-We can use the pretrained networks, such as `AlexNet`, `VGG16`, `ResNet` and `DenseNet`. Generally, the pretrained networks help to achieve a better performance, since it perserves some good visual patterns from ImageNet[1].
+We can use the pretrained networks, such as `AlexNet`, `VGG16`, `ResNet` and `DenseNet`. Generally, the pretrained networks help to achieve a better performance, since it preserves some good visual patterns from ImageNet [1].
 
 In pytorch, we can easily import them by two lines. For example,
 ```python
@@ -118,9 +118,9 @@ class ft_net(nn.Module):
 
 ```diff
 + Quick Question. Why we use AdaptiveAvgPool2d? What is the difference between the AvgPool2d and AdaptiveAvgPool2d?
-+ Quick Question. Does the model have parameters now? How to intialize the parameter in the new layer?
++ Quick Question. Does the model have parameters now? How to initialize the parameter in the new layer?
 ```
-More details are in `model.py`. You may check it later, after you have gone through this practical.
+More details are in `model.py`. You may check it later after you have gone through this practical.
 
 ### Part 1.3: Training (`python train.py`)
 OK. Now we have prepared the training data and defined model structure.
@@ -131,7 +131,7 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 ```
 `--gpu_ids` which gpu to run.
 
-`--name` the name of model.
+`--name` the name of the model.
 
 `--data_dir` the path of the training data.
 
@@ -141,7 +141,7 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 
 `--erasing_p` random erasing probability.
 
-Let's look what we do in the `train.py`.
+Let's look at what we do in the `train.py`.
 The first thing is how to read data and their labels from the prepared folder.
 Using `torch.utils.data.DataLoader`, we can obtain two iterators `dataloaders['train']` and `dataloaders['val']` to read data and label.
 ```python
@@ -208,13 +208,13 @@ python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which
 ```
 `--gpu_ids` which gpu to run.
 
-`--name` the dir name of trained model.
+`--name` the dir name of the trained model.
 
 `--which_epoch` select the i-th model.
 
 `--data_dir` the path of the testing data.
 
-Let's look what we do in the `test.py`.
+Let's look at what we do in the `test.py`.
 First, we need to import the model structure and then load the weight to the model.
 ```python
 model_structure = ft_net(751)
@@ -280,7 +280,7 @@ python demo.py --query_index 777
 ```
 `--query_index ` which query you want to test. You may select a number in the range of `0 ~ 3367`.
 
-In fact, it is similar to the `evaluate.py`. We add the visualization part.
+It is similar to the `evaluate.py`. We add the visualization part.
 ```python
 try: # Visualize Ranking Result 
     # Graphical User Interface is needed
