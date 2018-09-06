@@ -2,7 +2,7 @@
 By [Zhedong Zheng](http://zdzheng.xyz/)
 
 This is a [University of Technology Sydney](https://www.uts.edu.au) computer vision practical, authored by Zhedong Zheng.
-The practical explores the basic of learning pedestrian features. In this pratical, we will learn to build a simple person re-ID system step by step. Any suggestion is welcomed.
+The practical explores the basic of learning pedestrian features. In this pratical, we will learn to build a simple person re-ID system step by step. **Any suggestion is welcomed.**
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
@@ -68,6 +68,7 @@ Now we have successfully prepared the data for `torchvision` to read the data.
 ```diff
 + Quick Question. How to recognize the images of the same ID?
 ```
+For Market-1501, the image name contain the identity label and camera id. Check the naming rule at [here](http://www.liangzheng.org/Project/project_reid.html).
 
 ### Part 1.2: Build Neural Network (`model.py`)
 We can use the pretrained networks, such as `AlexNet`, `VGG16`, `ResNet` and `DenseNet`. Generally, the pretrained networks help to achieve a better performance, since it perserves some good visual patterns from ImageNet[1].
