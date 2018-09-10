@@ -204,11 +204,14 @@ Every 10 training epoch, we save a snapshot and update the loss curve.
 ### Part 2.1: Extracting feature (`python test.py`)
 In this part, we load the network weight (we just trained) to extract the visual feature of every image.
 ```bash
-python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which_epoch 59
+python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --batchsize 32 --which_epoch 59
 ```
 `--gpu_ids` which gpu to run.
 
 `--name` the dir name of the trained model.
+
+
+`--batchsize` batch size.
 
 `--which_epoch` select the i-th model.
 
