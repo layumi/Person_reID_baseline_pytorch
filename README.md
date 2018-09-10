@@ -124,9 +124,11 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 ## Test
 Use trained model to extract feature by
 ```bash
-python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --which_epoch 59
+python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --batchsize 32 --which_epoch 59
 ```
 `--gpu_ids` which gpu to run.
+
+`--batchsize` batch size.
 
 `--name` the dir name of trained model.
 
