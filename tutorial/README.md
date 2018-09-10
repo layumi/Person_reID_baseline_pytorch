@@ -309,6 +309,18 @@ except RuntimeError:
     print('If you want to see the visualization of the ranking result, graphical user interface is needed.')
 ```
 
+## Part 4: Extension
+Market-1501 is a dataset collected at Tsinghua University in summer.
+
+Let's try another dataset called DukeMTMC-reID, which is collected at Duke University in winter.
+
+You may download the dataset at [Here](http://vision.cs.duke.edu/DukeMTMC/data/misc/DukeMTMC-reID.zip). Try it by yourself.
+
+The dataset is quite similar to Market-1501. You may also check with the state-of-the-art results at [Here](https://github.com/layumi/DukeMTMC-reID_evaluation/tree/master/State-of-the-art).
+
+```diff
++ Quick Question. Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
+```
 
 ## Reference
 
