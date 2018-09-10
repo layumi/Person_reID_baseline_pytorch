@@ -78,10 +78,15 @@ if opt.PCB:
 
 
 data_dir = test_dir
-image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query','multi-query']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=False, num_workers=16) for x in ['gallery','query','multi-query']}
 
+if opt.multi:
+    image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query','multi-query']}
+    dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
+                                             shuffle=False, num_workers=16) for x in ['gallery','query','multi-query']}
+else:
+    image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ,data_transforms) for x in ['gallery','query']}
+    dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
+                                             shuffle=False, num_workers=16) for x in ['gallery','query']}
 class_names = image_datasets['query'].classes
 use_gpu = torch.cuda.is_available()
 
@@ -159,11 +164,13 @@ def get_id(img_path):
 
 gallery_path = image_datasets['gallery'].imgs
 query_path = image_datasets['query'].imgs
-mquery_path = image_datasets['multi-query'].imgs
 
 gallery_cam,gallery_label = get_id(gallery_path)
 query_cam,query_label = get_id(query_path)
-mquery_cam,mquery_label = get_id(mquery_path)
+
+if opt.multi:
+    mquery_path = image_datasets['multi-query'].imgs
+    mquery_cam,mquery_label = get_id(mquery_path)
 
 ######################################################################
 # Load Collected data Trained model
