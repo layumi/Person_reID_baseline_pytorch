@@ -316,11 +316,17 @@ Let's try another dataset called DukeMTMC-reID, which is collected at Duke Unive
 
 You may download the dataset at [Here](http://vision.cs.duke.edu/DukeMTMC/data/misc/DukeMTMC-reID.zip). Try it by yourself.
 
-The dataset is quite similar to Market-1501. You may also check with the state-of-the-art results at [Here](https://github.com/layumi/DukeMTMC-reID_evaluation/tree/master/State-of-the-art).
+The dataset is quite similar to Market-1501. You may also check with the state-of-the-art results at [Here](https://github.com/layumi/DukeMTMC-reID_evaluation/tree/master/State-of-the-art). 
 
 ```diff
 + Quick Question. Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
 ```
+
+## Part5: Other Related Works
+- Could we use natural language as query? Check [this paper](https://arxiv.org/abs/1711.05535).
+![](https://github.com/layumi/Image-Text-Embedding/blob/master/CUHK-show.jpg)
+
+- Could we use other losses (i.e. contrastive loss) to further improve the performance? Check [this paper](https://arxiv.org/abs/1611.05666).
 
 ## Reference
 
