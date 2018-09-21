@@ -309,8 +309,9 @@ except RuntimeError:
     print('If you want to see the visualization of the ranking result, graphical user interface is needed.')
 ```
 
-## Part 4: Extension
-Market-1501 is a dataset collected at Tsinghua University in summer.
+## Part 4: Your Turn. 
+
+- Market-1501 is a dataset collected at Tsinghua University in summer.
 
 Let's try another dataset called DukeMTMC-reID, which is collected at Duke University in winter.
 
@@ -322,11 +323,19 @@ The dataset is quite similar to Market-1501. You may also check with the state-o
 + Quick Question. Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
 ```
 
+- Try Triplet Loss.
+Triplet loss is another widely-used objective. You may check the code in https://github.com/layumi/Person-reID-triplet-loss. 
+I write the code in a similar manner, so let's find what I changed. 
+
 ## Part5: Other Related Works
 - Could we use natural language as query? Check [this paper](https://arxiv.org/abs/1711.05535).
 ![](https://github.com/layumi/Image-Text-Embedding/blob/master/CUHK-show.jpg)
 
-- Could we use other losses (i.e. contrastive loss) to further improve the performance? Check [this paper](https://arxiv.org/abs/1611.05666).
+- Could we use other losses (i.e. contrastive loss) to further improve the performance? Check [this paper](https://arxiv.org/abs/1611.05666). 
+
+- Person-reID dataset is not large enough to train a deep-learned network? You may check [this paper](https://arxiv.org/abs/1701.07717) and try some data augmentation method like [random erasing](https://arxiv.org/abs/1708.04896).
+
+- Pedestrian detection is bad? Try [Open Pose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) and [Spatial Transformer](https://github.com/layumi/Pedestrian_Alignment) to align the images.
 
 ## Reference
 
