@@ -2,9 +2,8 @@ import argparse
 import scipy.io
 import torch
 import numpy as np
-import time
 import os
-from torchvision import datasets, models, transforms
+from torchvision import datasets
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
