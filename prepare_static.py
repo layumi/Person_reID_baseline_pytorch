@@ -4,20 +4,12 @@ from __future__ import print_function, division
 
 import argparse
 import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-from torch.autograd import Variable
-import numpy as np
-import torchvision
-from torchvision import datasets, models, transforms
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from PIL import Image
 import time
 import os
-import json
 
 version =  torch.__version__
 
