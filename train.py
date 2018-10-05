@@ -334,8 +334,9 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
 dir_name = os.path.join('./model',name)
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name)
-    copyfile('./train.py', dir_name+'/train.py')
-    copyfile('./model.py', dir_name+'/model.py')
+#record every run
+copyfile('./train.py', dir_name+'/train.py')
+copyfile('./model.py', dir_name+'/model.py')
 
 # save opts
 with open('%s/opts.json'%dir_name,'w') as fp:
