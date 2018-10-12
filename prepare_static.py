@@ -4,10 +4,6 @@ from __future__ import print_function, division
 
 import argparse
 import torch
-import matplotlib
-matplotlib.use('agg')
-import matplotlib.pyplot as plt
-from PIL import Image
 import time
 import os
 
