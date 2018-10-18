@@ -20,8 +20,8 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - git clone https://github.com/pytorch/vision.git && cd vision && pip install -v .
   - conda install pytorch
+  - git clone https://github.com/pytorch/vision.git && cd vision && pip install -v .
 
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pytorch scipy -c pytorch
   - source activate test-environment
