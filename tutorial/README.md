@@ -27,7 +27,7 @@ Check the Prerequisites. The download links for this practice are:
 - Data: [Market-1501](http://188.138.127.15:81/Datasets/Market-1501-v15.09.15.zip)
 
 ## Part 1: Training
-### Part 1.1: Prepare Data Folder (`python prepare_data.py`)
+### Part 1.1: Prepare Data Folder (`python prepare.py`)
 You may notice that the downloaded folder is organized as:
 ```
 ├── Market/
