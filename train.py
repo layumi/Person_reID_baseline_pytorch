@@ -204,7 +204,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     optimizer.step()
 
                 # statistics
-                if int(version[2]) > 3: # for the new version like 0.4.0 and 0.5.0
+                if int(version[0])>0 or int(version[2]) > 3: # for the new version like 0.4.0, 0.5.0 and 1.0.0
                     running_loss += loss.item() * now_batch_size
                 else :  # for the old version like 0.3.0 and 0.3.1
                     running_loss += loss.data[0] * now_batch_size
