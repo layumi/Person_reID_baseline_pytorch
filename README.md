@@ -91,7 +91,7 @@ python setup.py install
 ```
 Because pytorch and torchvision are ongoing projects.
 
-Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0 and Torchvision 0.2.0.
+Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0/0.5.0/1.0.0 and Torchvision 0.2.0/0.2.1 .
 
 ## Dataset & Preparation
 Download [Market1501 Dataset](http://www.liangzheng.org/Project/project_reid.html)
