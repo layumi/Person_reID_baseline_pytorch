@@ -36,6 +36,8 @@ parser.add_argument('--color_jitter', action='store_true', help='use color jitte
 parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
+parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
 opt = parser.parse_args()
 
@@ -277,7 +279,7 @@ def save_network(network, epoch_label):
 if opt.use_dense:
     model = ft_net_dense(len(class_names))
 else:
-    model = ft_net(len(class_names))
+    model = ft_net(len(class_names), opt.droprate)
 
 if opt.PCB:
     model = PCB(len(class_names))
@@ -293,9 +295,9 @@ if not opt.PCB:
     ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
     optimizer_ft = optim.SGD([
-             {'params': base_params, 'lr': 0.01},
-             {'params': model.model.fc.parameters(), 'lr': 0.1},
-             {'params': model.classifier.parameters(), 'lr': 0.1}
+             {'params': base_params, 'lr': 0.1*opt.lr},
+             {'params': model.model.fc.parameters(), 'lr': opt.lr},
+             {'params': model.classifier.parameters(), 'lr': opt.lr}
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 else:
     ignored_params = list(map(id, model.model.fc.parameters() ))
@@ -310,14 +312,14 @@ else:
                       )
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
     optimizer_ft = optim.SGD([
-             {'params': base_params, 'lr': 0.01},
-             {'params': model.model.fc.parameters(), 'lr': 0.1},
-             {'params': model.classifier0.parameters(), 'lr': 0.1},
-             {'params': model.classifier1.parameters(), 'lr': 0.1},
-             {'params': model.classifier2.parameters(), 'lr': 0.1},
-             {'params': model.classifier3.parameters(), 'lr': 0.1},
-             {'params': model.classifier4.parameters(), 'lr': 0.1},
-             {'params': model.classifier5.parameters(), 'lr': 0.1},
+             {'params': base_params, 'lr': 0.1*opt.lr},
+             {'params': model.model.fc.parameters(), 'lr': opt.lr},
+             {'params': model.classifier0.parameters(), 'lr': opt.lr},
+             {'params': model.classifier1.parameters(), 'lr': opt.lr},
+             {'params': model.classifier2.parameters(), 'lr': opt.lr},
+             {'params': model.classifier3.parameters(), 'lr': opt.lr},
+             {'params': model.classifier4.parameters(), 'lr': opt.lr},
+             {'params': model.classifier5.parameters(), 'lr': opt.lr},
              #{'params': model.classifier6.parameters(), 'lr': 0.01},
              #{'params': model.classifier7.parameters(), 'lr': 0.01}
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
