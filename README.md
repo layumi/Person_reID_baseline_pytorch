@@ -160,35 +160,6 @@ python evaluate_rerank.py
 
 It will output Rank@1, Rank@5, Rank@10 and mAP results.
 
-## Ablation Study
-The model is based on Resnet50. Input images are resized to 256x128.
-Here we just show some results.
-
-**Note that the result may contain around 1% bias.(For example, 50th-epoch model can be better.)**
-
-| BatchSize | Dropout | Rank@1 | mAP | Note|
-| --------- | -------- | ----- | ---- | ---- |
-| 16 | 0.5  | 86.67 | 68.19 | |
-| 32 | 0.5  | 87.98 | 69.38 | |
-| 32 | 0.5  | **88.24** | **70.68** | test with 288x144|
-| 32 | 0.5  | **89.13** | **73.50** | train with random erasing and test with 288x144|
-| 32 | 0.5  | 87.14 | 68.90 | 0.1 color jitter|
-| 64 | 0.5  | 86.82 | 67.48 | |
-| 64 | 0.5  | 85.78 | 65.97 | 0.1 color jitter|
-| 64 | 0.5  | 85.42 | 65.29 | 0.4 color jitter|
-| 64 | 0.75 | 84.86 | 66.06 | |
-| 96 | 0.5  | 86.05 | 67.03 | |
-| 96 | 0.75 | 85.66 | 66.44 | |
-
-### Bottleneck
-Test with 144x288, dropout rate is 0.5
-
-| BatchSize | Bottleneck | Rank@1 | mAP | Note|
-| --------- | ---------- | ------ | --- | ---- |
-| 32 | 256  | 87.26 | 69.92 | |
-| 32 | 512  | **88.24** | **70.68** | |
-| 32 | 1024 | 84.29 | 64.00 | |
-
 
 ## Citation
 As far as I know, the following papers may be the first two to use the bottleneck baseline. You may cite them in your paper.
