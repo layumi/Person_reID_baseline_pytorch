@@ -54,7 +54,7 @@ if len(gpu_ids)>0:
 # data.
 #
 data_transforms = transforms.Compose([
-        transforms.Resize((288,144), interpolation=3),
+        transforms.Resize((256,128), interpolation=3),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ############### Ten Crop        
