@@ -277,7 +277,7 @@ def save_network(network, epoch_label):
 #
 
 if opt.use_dense:
-    model = ft_net_dense(len(class_names))
+    model = ft_net_dense(len(class_names), opt.droprate)
 else:
     model = ft_net(len(class_names), opt.droprate)
 
