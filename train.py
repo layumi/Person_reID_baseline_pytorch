@@ -8,13 +8,13 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim import lr_scheduler
 from torch.autograd import Variable
-import numpy as np
+#import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
-from PIL import Image
+#from PIL import Image
 import time
 import os
 from model import ft_net, ft_net_dense, PCB
@@ -147,8 +147,8 @@ y_err['val'] = []
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
 
-    best_model_wts = model.state_dict()
-    best_acc = 0.0
+    #best_model_wts = model.state_dict()
+    #best_acc = 0.0
 
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
