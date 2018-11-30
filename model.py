@@ -107,13 +107,13 @@ class ft_net_dense(nn.Module):
 # In the spirit of "The Devil is in the Middle: Exploiting Mid-level Representations for Cross-Domain Instance Matching." Yu, Qian, et al. arXiv:1711.08106 (2017).
 class ft_net_middle(nn.Module):
 
-    def __init__(self, class_num ):
+    def __init__(self, class_num, droprate=0.5):
         super(ft_net_middle, self).__init__()
         model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
-        self.classifier = ClassBlock(2048+1024, class_num)
+        self.classifier = ClassBlock(2048+1024, class_num, droprate)
 
     def forward(self, x):
         x = self.model.conv1(x)
