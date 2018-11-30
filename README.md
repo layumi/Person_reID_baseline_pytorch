@@ -54,17 +54,21 @@ python test.py --PCB --name PCB-64
 
 **What's new:** You may try `evaluate_gpu.py` to conduct a faster evaluation with GPU.
 
-**What's new:** You may apply '--use_dense' to use `DenseNet-121`. It can easily arrive **Rank@1=89.91% mAP=73.58%**. ~~Trained DenseNet-121 model can be found at [GoogleDrive](https://drive.google.com/open?id=1NgZWnYBCzESgKNzLeoWUMxggZ6SSEaZL).(Note that ResNet-50 is a more common choice as the baseline.)~~
+**What's new:** You may apply '--use_dense' to use `DenseNet-121`. It can arrive around Rank@1=89.91% mAP=73.58%. 
 
-~~**What's new：** Trained ResNet-50 model is available at [GoogleDrive](https://drive.google.com/open?id=1__x0qNJ3T654wTghmuRjydn42NsAZW_M).~~
-
-**What's new:** Re-ranking is added to evaluation. The re-ranked result is **Rank@1=90.20% mAP=84.76%**.
+**What's new:** Re-ranking is added to evaluation. The re-ranked result is about **Rank@1=90.20% mAP=84.76%**.
 
 **What's new:** Random Erasing is added to train.
 
 **What's new:** I add some code to generate training curves. The figure will be saved into the model folder when training.
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.jpg)
+
+## Trained Model
+I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. 
+- [ResNet-50](https://drive.google.com/open?id=1WkKEqCUd7hnA8oj6U8DJgHx7nSz7Ogm8)  (Rank@1:88.84% mAP:71.72%)
+- [DenseNet-121](https://drive.google.com/open?id=11_yWO5APgRbn0n4uigpqgEAt0O3GNNx0) (Rank@1:89.82% mAP:72.86%)
+- [PCB](https://drive.google.com/open?id=1DSbY100KWH2YmUc4FuP5cQ37N81G7fuU) (Rank@1:92.46% mAP:77.47%)
 
 ## Model Structure
 You may learn more from `model.py`. 
