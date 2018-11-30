@@ -206,7 +206,8 @@ class PCB_test(nn.Module):
         return y
 
 # debug model structure
-#net = ft_net(751)
+# Here I left a simple forward function.
+# Test the model, before you train it. 
 net = ft_net_dense(751)
 #print(net)
 input = Variable(torch.FloatTensor(8, 3, 224, 224))
