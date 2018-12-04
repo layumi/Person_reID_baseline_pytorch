@@ -328,6 +328,9 @@ Triplet loss is another widely-used objective. You may check the code in https:/
 I write the code in a similar manner, so let's find what I changed. 
 
 ## Part5: Other Related Works
+- The pedestrian has some specific attributes, e.g., gender, carrying. They can help the feature learning. We annotate the ID-level attributes for Market-1501 and DukeMTMC-reID. You could check [this paper](https://arxiv.org/abs/1703.07220).
+![](https://github.com/vana77/DukeMTMC-attribute/blob/master/sample_image.jpg)
+
 - Could we use natural language as query? Check [this paper](https://arxiv.org/abs/1711.05535).
 ![](https://github.com/layumi/Image-Text-Embedding/blob/master/CUHK-show.jpg)
 
