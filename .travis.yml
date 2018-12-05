@@ -2,9 +2,9 @@ language: python
 
 matrix:
   include:
-    - python: "3.5"
+    - python: "3.6"
       env: IMAGE_BACKEND=Pillow-SIMD
-    - python: "3.5"
+    - python: "3.6"
 
 install:
   - sudo apt-get update
@@ -21,4 +21,5 @@ install:
   - conda install torchvision
 
 script:
+  # Simple Forward
   - python model.py
