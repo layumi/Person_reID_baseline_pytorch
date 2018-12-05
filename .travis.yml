@@ -1,16 +1,24 @@
-# https://travis-ci.org/pytorch/pytorch
-sudo: required
-
 language: python
 
-services:
-  - docker
+matrix:
+  include:
+    - python: "3.5"
+      env: IMAGE_BACKEND=Pillow-SIMD
+    - python: "3.5"
 
-before_install:
-- docker pull pytorch/pytorch
-- docker run -d -p 127.0.0.1:80:4567 pytorch/pytorch /bin/sh -c "cd /root/pytorch; bundle exec foreman start;"
-- docker ps -a
-- docker run pytorch/pytorch /bin/sh -c "cd /root/pytorch; bundle exec rake test"
+install:
+  - sudo apt-get update
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  - conda install pytorch
+  - conda install numpy
+  - conda install torchvision
 
 script:
   - python model.py
