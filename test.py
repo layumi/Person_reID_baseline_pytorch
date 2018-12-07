@@ -24,7 +24,7 @@ parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1
 parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or last')
 parser.add_argument('--test_dir',default='/home/zzd/Market/pytorch',type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
-parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
+parser.add_argument('--batchsize', default=256, type=int, help='batchsize')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
@@ -198,10 +198,11 @@ if use_gpu:
     model = model.cuda()
 
 # Extract feature
-gallery_feature = extract_feature(model,dataloaders['gallery'])
-query_feature = extract_feature(model,dataloaders['query'])
-if opt.multi:
-    mquery_feature = extract_feature(model,dataloaders['multi-query'])
+with torch.no_grad():
+    gallery_feature = extract_feature(model,dataloaders['gallery'])
+    query_feature = extract_feature(model,dataloaders['query'])
+    if opt.multi:
+        mquery_feature = extract_feature(model,dataloaders['multi-query'])
     
 # Save to Matlab for check
 result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
