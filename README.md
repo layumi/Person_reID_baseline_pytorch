@@ -7,7 +7,7 @@
 
 Baseline Code (with bottleneck) for Person-reID (based on [pytorch](https://pytorch.org)).
 
-It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295).
+It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295). **With fp16, our baseline could be trained with only 2GB GPU memory.** 
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss. 
 
@@ -35,7 +35,7 @@ Different framework need to be tuned in a different way.
 ## Some News
 **What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex). 
 
-Float16 could save about 50% GPU memory usage without accuracy drop. Our baseline could be trained with only 2GB GPU memory. 
+Float16 could save about 50% GPU memory usage without accuracy drop. **Our baseline could be trained with only 2GB GPU memory.** 
 ```bash
 python train.py --fp16
 ```
