@@ -19,11 +19,9 @@ from model import ft_net, ft_net_dense, PCB, PCB_test
 
 #fp16
 try:
-    import apex
     from apex.fp16_utils import *
 except ImportError: # will be 3.x series
     print('This is no an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
-    pass
 ######################################################################
 # Options
 # --------
