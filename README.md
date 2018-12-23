@@ -33,7 +33,7 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
-**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex). 
+**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex) and update your pytorch to 1.0. 
 
 Float16 could save about 50% GPU memory usage without accuracy drop. **Our baseline could be trained with only 2GB GPU memory.** 
 ```bash
