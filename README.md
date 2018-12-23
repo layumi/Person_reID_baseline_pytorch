@@ -16,6 +16,7 @@ We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
 Now we have supported:
+- float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
 - Re-Ranking
@@ -32,6 +33,10 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex).
+```bash
+python train.py --fp16
+```
 **What's new:** Visualizing ranking result is added.
 ```bash
 python prepare.py
