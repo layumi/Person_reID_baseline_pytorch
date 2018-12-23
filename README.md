@@ -5,7 +5,7 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/layumi/Person_reID_baseline_pytorch.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/layumi/Person_reID_baseline_pytorch/alerts/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 
-Baseline Code (with bottleneck) for Person-reID (based on[pytorch](https://pytorch.org)).
+Baseline Code (with bottleneck) for Person-reID (based on [pytorch](https://pytorch.org)).
 
 It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295).
 
@@ -16,7 +16,7 @@ We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss.
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
 Now we have supported:
-- float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
+- Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
 - Re-Ranking
@@ -33,7 +33,9 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
-**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex).
+**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex). 
+
+Float16 could save about 50% GPU memory usage without accuracy drop. Our baseline could be trained with only 2GB GPU memory. 
 ```bash
 python train.py --fp16
 ```
@@ -87,6 +89,7 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 - GPU Memory >= 6G
 - Numpy
 - Pytorch 0.3+
+- [optional] apex (for float16) 
 
 **(Some reports found that updating numpy can arrive the right accuracy. If you only get 50~80 Top1 Accuracy, just try it.)**
 We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
