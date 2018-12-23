@@ -18,18 +18,25 @@ import time
 import os
 from model import ft_net, ft_net_dense, PCB
 from random_erasing import RandomErasing
-import json
+import yaml
 from shutil import copyfile
 
 version =  torch.__version__
 
+#fp16
+try:
+    import apex
+    from apex.fp16_utils import *
+except ImportError: # will be 3.x series
+    print('This is no an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
+    pass
 ######################################################################
 # Options
 # --------
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name',default='ft_ResNet50', type=str, help='output model name')
-parser.add_argument('--data_dir',default='/export/uts14/Market/pytorch',type=str, help='training dir path')
+parser.add_argument('--data_dir',default='../Market/pytorch',type=str, help='training dir path')
 parser.add_argument('--train_all', action='store_true', help='use all training data' )
 parser.add_argument('--color_jitter', action='store_true', help='use color jitter in training' )
 parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
@@ -38,8 +45,10 @@ parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
+parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50% memory' )
 opt = parser.parse_args()
 
+fp16 = opt.fp16
 data_dir = opt.data_dir
 name = opt.name
 str_ids = opt.gpu_ids.split(',')
@@ -177,10 +186,13 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     labels = Variable(labels.cuda())
                 else:
                     inputs, labels = Variable(inputs), Variable(labels)
-
+ 
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
+                # if we use low precision, input also need to be fp16
+                if fp16:
+                    inputs = inputs.half()
                 # forward
                 if phase == 'val':
                     with torch.no_grad():
@@ -207,7 +219,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                 # backward + optimize only if in training phase
                 if phase == 'train':
-                    loss.backward()
+                    if fp16: # we use optimier to backward loss
+                        optimizer.backward(loss)
+                    else:
+                        loss.backward()
                     optimizer.step()
 
                 # statistics
@@ -349,8 +364,13 @@ copyfile('./train.py', dir_name+'/train.py')
 copyfile('./model.py', dir_name+'/model.py')
 
 # save opts
-with open('%s/opts.json'%dir_name,'w') as fp:
-    json.dump(vars(opt), fp, indent=1)
+with open('%s/opts.yaml'%dir_name,'w') as fp:
+    yaml.dump(vars(opt), fp, default_flow_style=False)
+
+# if we train with float16
+if fp16:
+    model = network_to_half(model)
+    optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=60)

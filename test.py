@@ -14,11 +14,20 @@ from torchvision import datasets, models, transforms
 import time
 import os
 import scipy.io
+import yaml
 from model import ft_net, ft_net_dense, PCB, PCB_test
 
+#fp16
+try:
+    import apex
+    from apex.fp16_utils import *
+except ImportError: # will be 3.x series
+    print('This is no an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
+    pass
 ######################################################################
 # Options
 # --------
+
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or last')
@@ -28,8 +37,17 @@ parser.add_argument('--batchsize', default=256, type=int, help='batchsize')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
+parser.add_argument('--fp16', action='store_true', help='use fp16.' )
 
 opt = parser.parse_args()
+###load config###
+# load the training config
+config_path = os.path.join('./model',opt.name,'opts.yaml')
+with open(config_path, 'r') as stream:
+        config = yaml.load(stream)
+opt.fp16 = config['fp16'] 
+opt.PCB = config['PCB']
+opt.use_dense = config['use_dense']
 
 str_ids = opt.gpu_ids.split(',')
 #which_epoch = opt.which_epoch
@@ -129,8 +147,10 @@ def extract_feature(model,dataloaders):
             if(i==1):
                 img = fliplr(img)
             input_img = Variable(img.cuda())
+            if opt.fp16:
+                input_img = input_img.half()
             outputs = model(input_img) 
-            f = outputs.data.cpu()
+            f = outputs.data.cpu().float()
             ff = ff+f
         # norm feature
         if opt.PCB:
@@ -183,14 +203,21 @@ else:
 if opt.PCB:
     model_structure = PCB(751)
 
+if opt.fp16:
+    model_structure = network_to_half(model_structure)
+
 model = load_network(model_structure)
 
 # Remove the final fc layer and classifier layer
-if not opt.PCB:
+if opt.PCB:
+    model = PCB_test(model)
+    model = network_to_half(model)
+elif opt.fp16:
+    model[1].model.fc = nn.Sequential()
+    model[1].classifier = nn.Sequential()
+else:
     model.model.fc = nn.Sequential()
     model.classifier = nn.Sequential()
-else:
-    model = PCB_test(model)
 
 # Change to test mode
 model = model.eval()
