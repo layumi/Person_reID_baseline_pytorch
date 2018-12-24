@@ -8,6 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim import lr_scheduler
 from torch.autograd import Variable
+import torch.backends.cudnn as cudnn
 import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
@@ -21,7 +22,7 @@ from model import ft_net, ft_net_dense, PCB, PCB_test
 try:
     from apex.fp16_utils import *
 except ImportError: # will be 3.x series
-    print('This is no an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
+    print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
 ######################################################################
 # Options
 # --------
@@ -61,6 +62,7 @@ for str_id in str_ids:
 # set gpu ids
 if len(gpu_ids)>0:
     torch.cuda.set_device(gpu_ids[0])
+    cudnn.benchmark = True
 
 ######################################################################
 # Load Data
