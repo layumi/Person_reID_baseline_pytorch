@@ -22,12 +22,11 @@ import yaml
 from shutil import copyfile
 
 version =  torch.__version__
-
 #fp16
 try:
     from apex.fp16_utils import *
 except ImportError: # will be 3.x series
-    print('This is no an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
+    print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
 ######################################################################
 # Options
 # --------
@@ -59,9 +58,7 @@ for str_id in str_ids:
 # set gpu ids
 if len(gpu_ids)>0:
     torch.cuda.set_device(gpu_ids[0])
-#print(gpu_ids[0])
-cudnn.benchmark = True
-
+    cudnn.benchmark = True
 ######################################################################
 # Load Data
 # ---------
@@ -120,7 +117,7 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=8) # 8 workers may work faster
+                                             shuffle=True, num_workers=4) # 8 workers may work faster
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
@@ -180,17 +177,17 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 #print(inputs.shape)
                 # wrap them in Variable
                 if use_gpu:
-                    inputs = Variable(inputs.cuda())
-                    labels = Variable(labels.cuda())
+                    inputs = Variable(inputs.cuda().detach())
+                    labels = Variable(labels.cuda().detach())
                 else:
                     inputs, labels = Variable(inputs), Variable(labels)
+                # if we use low precision, input also need to be fp16
+                if fp16:
+                    inputs = inputs.half()
  
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
-                # if we use low precision, input also need to be fp16
-                if fp16:
-                    inputs = inputs.half()
                 # forward
                 if phase == 'val':
                     with torch.no_grad():
@@ -307,11 +304,6 @@ if opt.PCB:
 
 print(model)
 
-if use_gpu:
-    model = model.cuda()
-
-criterion = nn.CrossEntropyLoss()
-
 if not opt.PCB:
     ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
@@ -365,10 +357,13 @@ copyfile('./model.py', dir_name+'/model.py')
 with open('%s/opts.yaml'%dir_name,'w') as fp:
     yaml.dump(vars(opt), fp, default_flow_style=False)
 
-# if we train with float16
+# model to gpu
+model = model.cuda()
 if fp16:
     model = network_to_half(model)
     optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
+
+criterion = nn.CrossEntropyLoss()
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=60)
