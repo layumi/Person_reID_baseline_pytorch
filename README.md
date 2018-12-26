@@ -89,7 +89,7 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 - GPU Memory >= 6G
 - Numpy
 - Pytorch 0.3+
-- [optional] apex (for float16) 
+- [Optional] apex (for float16) 
 
 **(Some reports found that updating numpy can arrive the right accuracy. If you only get 50~80 Top1 Accuracy, just try it.)**
 We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
@@ -102,6 +102,12 @@ We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
 git clone https://github.com/pytorch/vision
 cd vision
 python setup.py install
+```
+- [Optinal] You may skip it. Install apex from the source
+```
+git clone https://github.com/NVIDIA/apex.git
+cd apex
+python setup.py install --cuda_ext --cpp_ext
 ```
 Because pytorch and torchvision are ongoing projects.
 
