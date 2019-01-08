@@ -204,17 +204,13 @@ class PCB_test(nn.Module):
         x = self.avgpool(x)
         y = x.view(x.size(0),x.size(1),x.size(2))
         return y
-'''
+
 # debug model structure
-# Run this code with:
-python model.py
-'''
-if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net(751)
-    print(net)
-    input = Variable(torch.FloatTensor(8, 3, 224, 224))
-    output = net(input)
-    print('net output size:')
-    print(output.shape)
+#net = ft_net_dense(751)
+#print(net)
+#input = Variable(torch.FloatTensor(8, 3, 224, 224))
+#output = net(input)
+#print('net output size:')
+#print(output.shape)
