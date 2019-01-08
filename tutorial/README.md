@@ -323,6 +323,8 @@ The dataset is quite similar to Market-1501. You may also check with the state-o
 + Quick Question. Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
 ```
 
+- Try verification + identification loss. You may check the code at [Here](https://github.com/layumi/Person-reID-verification).
+
 - Try Triplet Loss.
 Triplet loss is another widely-used objective. You may check the code in https://github.com/layumi/Person-reID-triplet-loss. 
 I write the code in a similar manner, so let's find what I changed. 
