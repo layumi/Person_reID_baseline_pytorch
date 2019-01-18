@@ -75,9 +75,14 @@ python test.py --PCB --name PCB-64
 
 ## Trained Model
 I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. 
-- [ResNet-50](https://drive.google.com/open?id=1WkKEqCUd7hnA8oj6U8DJgHx7nSz7Ogm8)  (Rank@1:88.84% mAP:71.72%)
-- [DenseNet-121](https://drive.google.com/open?id=11_yWO5APgRbn0n4uigpqgEAt0O3GNNx0) (Rank@1:89.82% mAP:72.86%)
-- [PCB](https://drive.google.com/open?id=1DSbY100KWH2YmUc4FuP5cQ37N81G7fuU) (Rank@1:92.46% mAP:77.47%)
+The download link is [Here](https://drive.google.com/open?id=1EaRYVmfeIflibfNAXeDwXY0UyOlZ9otw).
+
+|Methods | Rank@1 | mAP| Reference|
+| -------- | ----- | ---- | ---- |
+| [ResNet-50] | Rank@1:88.84% | mAP:71.49% |  `python train.py --train_all` |
+| [DenseNet-121] | Rank@1:90.11% | mAP:73.51% | `python train.py --name ft_net_dense --use_dense --train_all` |
+| [PCB] | Rank@1:92.64% | mAP:77.47% | `python train.py --name PCB --PCB --train_all --lr 0.02` |
+| [ResNet-50 (fp16)] | Rank@1:88.27% | mAP:71.20% | `python train.py --name fp16 --fp16 --train_all` |
 
 ## Model Structure
 You may learn more from `model.py`. 
