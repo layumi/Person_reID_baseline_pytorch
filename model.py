@@ -215,9 +215,10 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net(751)
+    net = ft_net(751, stride=1)
+    net.classifier = nn.Sequential()
     print(net)
-    input = Variable(torch.FloatTensor(8, 3, 224, 224))
+    input = Variable(torch.FloatTensor(8, 3, 256, 128))
     output = net(input)
     print('net output size:')
     print(output.shape)
