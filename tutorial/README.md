@@ -33,8 +33,8 @@ You may notice that the downloaded folder is organized as:
 ├── Market/
 │   ├── bounding_box_test/          /* Files for testing (candidate images pool)
 │   ├── bounding_box_train/         /* Files for training 
-│   ├── gt_bbox/                    /* We do not use it 
-│   ├── gt_query/                   /* Files for multiple query testing 
+│   ├── gt_bbox/                    /* Files for multiple query testing 
+│   ├── gt_query/                   /* We do not use it 
 │   ├── query/                      /* Files for testing (query images)
 │   ├── readme.txt
 ```
@@ -47,8 +47,8 @@ We create a subfolder called `pytorch` under the download folder.
 ├── Market/
 │   ├── bounding_box_test/          /* Files for testing (candidate images pool)
 │   ├── bounding_box_train/         /* Files for training 
-│   ├── gt_bbox/                    /* We do not use it 
-│   ├── gt_query/                   /* Files for multiple query testing 
+│   ├── gt_bbox/                    /* Files for multiple query testing 
+│   ├── gt_query/                   /* We do not use it
 │   ├── query/                      /* Files for testing (query images)
 │   ├── readme.txt
 │   ├── pytorch/
