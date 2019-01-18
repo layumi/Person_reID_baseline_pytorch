@@ -79,10 +79,10 @@ The download link is [Here](https://drive.google.com/open?id=1EaRYVmfeIflibfNAXe
 
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
-| [ResNet-50] | Rank@1:88.84% | mAP:71.49% |  `python train.py --train_all` |
-| [DenseNet-121] | Rank@1:90.11% | mAP:73.51% | `python train.py --name ft_net_dense --use_dense --train_all` |
-| [PCB] | Rank@1:92.64% | mAP:77.47% | `python train.py --name PCB --PCB --train_all --lr 0.02` |
-| [ResNet-50 (fp16)] | Rank@1:88.27% | mAP:71.20% | `python train.py --name fp16 --fp16 --train_all` |
+| [ResNet-50] | 88.84% | 71.49% |  `python train.py --train_all` |
+| [DenseNet-121] | 90.11% | 73.51% | `python train.py --name ft_net_dense --use_dense --train_all` |
+| [PCB] | 92.64% | 77.47% | `python train.py --name PCB --PCB --train_all --lr 0.02` |
+| [ResNet-50 (fp16)] | 88.27% | 71.20% | `python train.py --name fp16 --fp16 --train_all` |
 
 ## Model Structure
 You may learn more from `model.py`. 
