@@ -11,10 +11,24 @@ It is consistent with the new baseline result in several works, e.g., [Beyond Pa
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss. 
 
-- If you are new to person re-ID, you may check out our [tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial) first.
-
+- If you are new to person re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
+## Table of contents
+* [Features](#features)
+* [Some News](#some-news)
+* [Trained Model](#trained-model)
+* [Prerequisites](#prerequisites)
+* [Getting Started](#getting-started)
+    * [Installation](#installation)
+    * [Dataset Preparation](#dataset--preparation)
+    * [Train](#train)
+    * [Test](#test)
+    * [Evaluation](#evaluation)
+* [Citation](#citation)
+* [Related Repos](#related-repos)
+
+## Features
 Now we have supported:
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
@@ -84,7 +98,7 @@ The download link is [Here](https://drive.google.com/open?id=1EaRYVmfeIflibfNAXe
 | [PCB] | 92.64% | 77.47% | `python train.py --name PCB --PCB --train_all --lr 0.02` |
 | [ResNet-50 (fp16)] | 88.27% | 71.20% | `python train.py --name fp16 --fp16 --train_all` |
 
-## Model Structure
+### Model Structure
 You may learn more from `model.py`. 
 We add one linear layer(bottleneck), one batchnorm layer and relu.
 
@@ -118,7 +132,7 @@ Because pytorch and torchvision are ongoing projects.
 
 Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0/0.5.0/1.0.0 and Torchvision 0.2.0/0.2.1 .
 
-## Dataset & Preparation
+### Dataset & Preparation
 Download [Market1501 Dataset](http://www.liangzheng.org/Project/project_reid.html)
 
 Preparation: Put the images with the same id in one folder. You may use 
@@ -130,7 +144,7 @@ Remember to change the dataset path to your own path.
 Futhermore, you also can test our code on [DukeMTMC-reID Dataset](https://github.com/layumi/DukeMTMC-reID_evaluation).
 Our baseline code is not such high on DukeMTMC-reID **Rank@1=64.23%, mAP=43.92%**. Hyperparameters are need to be tuned.
 
-## Train
+### Train
 Train a model by
 ```bash
 python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --data_dir your_data_path
@@ -152,7 +166,7 @@ Train a model with random erasing by
 python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --data_dir your_data_path --erasing_p 0.5
 ```
 
-## Test
+### Test
 Use trained model to extract feature by
 ```bash
 python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --batchsize 32 --which_epoch 59
@@ -168,7 +182,7 @@ python test.py --gpu_ids 0 --name ft_ResNet50 --test_dir your_data_path  --batch
 `--data_dir` the path of the testing data.
 
 
-## Evaluation
+### Evaluation
 ```bash
 python evaluate.py
 ```
