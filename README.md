@@ -7,7 +7,7 @@
 
 Baseline Code (with bottleneck) for Person-reID (based on [pytorch](https://pytorch.org)).
 
-It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification](https://arxiv.org/abs/1711.10295). **With fp16, our baseline could be trained with only 2GB GPU memory.** 
+It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). **With fp16, our baseline could be trained with only 2GB GPU memory.** 
 
 We arrived **Rank@1=88.24%, mAP=70.68%** only with softmax loss. 
 
