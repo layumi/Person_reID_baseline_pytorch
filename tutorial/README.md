@@ -2,7 +2,7 @@
 By [Zhedong Zheng](http://zdzheng.xyz/)
 
 This is a [University of Technology Sydney](https://www.uts.edu.au) computer vision practical, authored by Zhedong Zheng.
-The practical explores the basis of learning pedestrian features. In this practical, we will learn to build a simple person re-ID system step by step. **Any suggestion is welcomed.**
+The practical explores the basis of learning pedestrian features. In this practical, we will learn to build a simple person re-ID system step by step. (8 min read) :+1: **Any suggestion is welcomed.**
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
