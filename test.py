@@ -211,7 +211,6 @@ model = load_network(model_structure)
 # Remove the final fc layer and classifier layer
 if opt.PCB:
     model = PCB_test(model)
-    model = network_to_half(model)
 elif opt.fp16:
     model[1].model.fc = nn.Sequential()
     model[1].classifier = nn.Sequential()
