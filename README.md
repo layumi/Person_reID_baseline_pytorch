@@ -5,7 +5,7 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/layumi/Person_reID_baseline_pytorch.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/layumi/Person_reID_baseline_pytorch/alerts/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Baseline Code (with bottleneck) for Person-reID (based on [pytorch](https://pytorch.org)).
+A tiny, friendly, strong baseline code for Person-reID (based on [pytorch](https://pytorch.org)).
 
 It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). **With fp16, our baseline could be trained with only 2GB GPU memory.** 
 
