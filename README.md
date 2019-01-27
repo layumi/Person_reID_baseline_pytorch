@@ -7,11 +7,11 @@
 
 A tiny, friendly, strong baseline code for Person-reID (based on [pytorch](https://pytorch.org)).
 
-- **Strong.** It is consistent with the new baseline result in several works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). We arrived Rank@1=88.24%, mAP=70.68% only with softmax loss. 
+- **Strong.** It is consistent with the new baseline result in several top-conference works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). We arrived Rank@1=88.24%, mAP=70.68% only with softmax loss. 
 
 - **Small.** With fp16, our baseline could be trained with only 2GB GPU memory.
 
-- **Friendly.** You may use many options to apply the state-of-the-art tricks in one line.
+- **Friendly.** You may use the off-the-shelf options to apply many state-of-the-art tricks in one line.
 Besides, if you are new to person re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
