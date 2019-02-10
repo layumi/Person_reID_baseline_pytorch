@@ -4,6 +4,7 @@ from __future__ import print_function, division
 
 import argparse
 import torch
+from torchvision import datasets, transforms
 import time
 import os
 
