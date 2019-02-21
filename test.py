@@ -210,13 +210,17 @@ model = load_network(model_structure)
 
 # Remove the final fc layer and classifier layer
 if opt.PCB:
-    model = PCB_test(model)
-elif opt.fp16:
-    model[1].model.fc = nn.Sequential()
-    model[1].classifier = nn.Sequential()
+    if opt.fp16:
+        model = PCB_test(model[1])
+    else:
+        model = PCB_test(model)
 else:
-    model.model.fc = nn.Sequential()
-    model.classifier = nn.Sequential()
+    if opt.fp16:
+        model[1].model.fc = nn.Sequential()
+        model[1].classifier = nn.Sequential()
+    else:
+        model.model.fc = nn.Sequential()
+        model.classifier = nn.Sequential()
 
 # Change to test mode
 model = model.eval()
