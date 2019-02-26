@@ -44,7 +44,8 @@ def re_ranking(q_g_dist, q_q_dist, g_g_dist, k1=20, k2=6, lambda_value=0.3):
       [np.concatenate([q_q_dist, q_g_dist], axis=1),
        np.concatenate([q_g_dist.T, g_g_dist], axis=1)],
       axis=0)
-    original_dist = 2. - 2 * original_dist   #np.power(original_dist, 2).astype(np.float32)
+    original_dist = 2. - 2 * original_dist   # change the cosine similarity metric to euclidean similarity metric
+    original_dist = np.power(original_dist, 2).astype(np.float32)
     original_dist = np.transpose(1. * original_dist/np.max(original_dist,axis = 0))
     V = np.zeros_like(original_dist).astype(np.float32)
     #initial_rank = np.argsort(original_dist).astype(np.int32)
