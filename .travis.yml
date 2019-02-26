@@ -16,9 +16,8 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda install pytorch
   - conda install numpy
-  - conda install torchvision
+  - conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 
 script:
   # Simple Forward
