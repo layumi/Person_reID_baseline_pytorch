@@ -337,10 +337,15 @@ I write the code in a similar manner, so let's find what I changed.
 ![](https://github.com/layumi/Image-Text-Embedding/blob/master/CUHK-show.jpg)
 
 - Could we use other losses (i.e. contrastive loss) to further improve the performance? Check [this paper](https://arxiv.org/abs/1611.05666). 
+![](https://github.com/layumi/2016_person_re-ID/raw/master/paper.jpg)
 
-- Person-reID dataset is not large enough to train a deep-learned network? You may check [this paper](https://arxiv.org/abs/1701.07717) and try some data augmentation method like [random erasing](https://arxiv.org/abs/1708.04896).
+- Person-reID dataset is not large enough to train a deep-learned network? You may check [this paper](https://arxiv.org/abs/1701.07717) (use GAN to generate more samples) and try some data augmentation method like [random erasing](https://arxiv.org/abs/1708.04896).
+
+![](https://github.com/layumi/Person-reID_GAN/raw/master/fig0.jpg)
 
 - Pedestrian detection is bad? Try [Open Pose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) and [Spatial Transformer](https://github.com/layumi/Pedestrian_Alignment) to align the images.
+
+![](https://github.com/layumi/Pedestrian_Alignment/raw/master/fig2.jpg)
 
 ## Reference
 
