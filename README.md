@@ -90,7 +90,7 @@ python test.py --PCB --name PCB-64
 
 ## Trained Model
 I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. 
-The download link is [Here](https://drive.google.com/open?id=1EaRYVmfeIflibfNAXeDwXY0UyOlZ9otw).
+The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8SzazfYZlpH9CxyE).
 
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
