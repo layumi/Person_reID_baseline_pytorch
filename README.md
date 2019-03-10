@@ -97,7 +97,7 @@ The download link is [Here](https://drive.google.com/open?id=1EaRYVmfeIflibfNAXe
 | [ResNet-50] | 88.84% | 71.59% |  `python train.py --train_all` |
 | [DenseNet-121] | 90.17% | 74.02% | `python train.py --name ft_net_dense --use_dense --train_all` |
 | [PCB] | 92.64% | 77.47% | `python train.py --name PCB --PCB --train_all --lr 0.02` |
-| [ResNet-50 (fp16)] | 88.27% | 71.20% | `python train.py --name fp16 --fp16 --train_all` |
+| [ResNet-50 (fp16)] | 88.03% | 71.40% | `python train.py --name fp16 --fp16 --train_all` |
 
 ### Model Structure
 You may learn more from `model.py`. 
