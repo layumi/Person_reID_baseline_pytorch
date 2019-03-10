@@ -68,8 +68,8 @@ class ft_net(nn.Module):
         model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
         if stride == 1:
-            self.model.layer4[0].downsample[0].stride = (1,1)
-            self.model.layer4[0].conv2.stride = (1,1)
+            model_ft.layer4[0].downsample[0].stride = (1,1)
+            model_ft.layer4[0].conv2.stride = (1,1)
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
         self.classifier = ClassBlock(2048, class_num, droprate)
@@ -215,9 +215,10 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net(751)
+    net = ft_net(751, stride=1)
+    net.classifier = nn.Sequential()
     print(net)
-    input = Variable(torch.FloatTensor(8, 3, 224, 224))
+    input = Variable(torch.FloatTensor(8, 3, 256, 128))
     output = net(input)
     print('net output size:')
     print(output.shape)

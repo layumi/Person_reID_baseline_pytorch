@@ -48,6 +48,11 @@ opt.fp16 = config['fp16']
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
 
+if 'nclasses' in config: # tp compatible with old config files
+    opt.nclasses = config['nclasses']
+else: 
+    opt.nclasses = 751 
+
 str_ids = opt.gpu_ids.split(',')
 #which_epoch = opt.which_epoch
 name = opt.name
@@ -137,10 +142,8 @@ def extract_feature(model,dataloaders):
         n, c, h, w = img.size()
         count += n
         print(count)
-        if opt.use_dense:
-            ff = torch.FloatTensor(n,1024).zero_()
-        else:
-            ff = torch.FloatTensor(n,2048).zero_()
+        ff = torch.FloatTensor(n,512).zero_()
+
         if opt.PCB:
             ff = torch.FloatTensor(n,2048,6).zero_() # we have six parts
         for i in range(2):
@@ -196,12 +199,12 @@ if opt.multi:
 # Load Collected data Trained model
 print('-------test-----------')
 if opt.use_dense:
-    model_structure = ft_net_dense(751)
+    model_structure = ft_net_dense(opt.nclasses)
 else:
-    model_structure = ft_net(751)
+    model_structure = ft_net(opt.nclasses)
 
 if opt.PCB:
-    model_structure = PCB(751)
+    model_structure = PCB(opt.nclasses)
 
 #if opt.fp16:
 #    model_structure = network_to_half(model_structure)
@@ -220,7 +223,7 @@ else:
         #model[1].classifier = nn.Sequential()
     #else:
         model.model.fc = nn.Sequential()
-        model.classifier = nn.Sequential()
+        model.classifier.classifier = nn.Sequential()
 
 # Change to test mode
 model = model.eval()
