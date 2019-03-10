@@ -305,6 +305,8 @@ else:
 if opt.PCB:
     model = PCB(len(class_names))
 
+opt.nclasses = len(class_names)
+
 print(model)
 
 if not opt.PCB:

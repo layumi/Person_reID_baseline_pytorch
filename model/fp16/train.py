@@ -25,6 +25,7 @@ version =  torch.__version__
 #fp16
 try:
     from apex.fp16_utils import *
+    from apex import amp, optimizers
 except ImportError: # will be 3.x series
     print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
 ######################################################################
@@ -183,8 +184,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 else:
                     inputs, labels = Variable(inputs), Variable(labels)
                 # if we use low precision, input also need to be fp16
-                if fp16:
-                    inputs = inputs.half()
+                #if fp16:
+                #    inputs = inputs.half()
  
                 # zero the parameter gradients
                 optimizer.zero_grad()
@@ -216,7 +217,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # backward + optimize only if in training phase
                 if phase == 'train':
                     if fp16: # we use optimier to backward loss
-                        optimizer.backward(loss)
+                        with amp.scale_loss(loss, optimizer) as scaled_loss:
+                            scaled_loss.backward()
                     else:
                         loss.backward()
                     optimizer.step()
@@ -361,8 +363,9 @@ with open('%s/opts.yaml'%dir_name,'w') as fp:
 # model to gpu
 model = model.cuda()
 if fp16:
-    model = network_to_half(model)
-    optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
+    #model = network_to_half(model)
+    #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
+    model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
 
 criterion = nn.CrossEntropyLoss()
 
