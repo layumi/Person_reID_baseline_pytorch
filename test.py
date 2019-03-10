@@ -147,8 +147,8 @@ def extract_feature(model,dataloaders):
             if(i==1):
                 img = fliplr(img)
             input_img = Variable(img.cuda())
-            if opt.fp16:
-                input_img = input_img.half()
+            #if opt.fp16:
+            #    input_img = input_img.half()
             outputs = model(input_img) 
             f = outputs.data.cpu().float()
             ff = ff+f
@@ -203,22 +203,22 @@ else:
 if opt.PCB:
     model_structure = PCB(751)
 
-if opt.fp16:
-    model_structure = network_to_half(model_structure)
+#if opt.fp16:
+#    model_structure = network_to_half(model_structure)
 
 model = load_network(model_structure)
 
 # Remove the final fc layer and classifier layer
 if opt.PCB:
-    if opt.fp16:
-        model = PCB_test(model[1])
-    else:
+    #if opt.fp16:
+    #    model = PCB_test(model[1])
+    #else:
         model = PCB_test(model)
 else:
-    if opt.fp16:
-        model[1].model.fc = nn.Sequential()
-        model[1].classifier = nn.Sequential()
-    else:
+    #if opt.fp16:
+        #model[1].model.fc = nn.Sequential()
+        #model[1].classifier = nn.Sequential()
+    #else:
         model.model.fc = nn.Sequential()
         model.classifier = nn.Sequential()
 
