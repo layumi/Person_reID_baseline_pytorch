@@ -47,6 +47,7 @@ with open(config_path, 'r') as stream:
 opt.fp16 = config['fp16'] 
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
+opt.stride = config['stride']
 
 if 'nclasses' in config: # tp compatible with old config files
     opt.nclasses = config['nclasses']
@@ -201,7 +202,7 @@ print('-------test-----------')
 if opt.use_dense:
     model_structure = ft_net_dense(opt.nclasses)
 else:
-    model_structure = ft_net(opt.nclasses)
+    model_structure = ft_net(opt.nclasses, stride = opt.stride)
 
 if opt.PCB:
     model_structure = PCB(opt.nclasses)
