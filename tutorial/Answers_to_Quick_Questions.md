@@ -1,14 +1,14 @@
-# Answer to Quick Questions
+# Answers to Quick Questions
 -	How to recognize the images of the same ID?
 
 The datasets, e.g., Market-1501, DukeMTMC-reID, VeRi-776 and CUHK03-NP, involve the ID name in the file names. 
 So, as shown in the `prepare.py`, we read the ID from the file name and rearrange images according to their ID. 
-Here we use the naming rule of the DukeMTMC-reID dataset as example. 
+Here we use the naming rule of the DukeMTMC-reID dataset as an example. 
 In "0005_c2_f0046985.jpg", "0005" is the identity. "c2" means the image from Camera 2. "f0046985" is the 46985th frame in the video of Camera 2.
 
 - What is the difference between the AvgPool2d and AdaptiveAvgPool2d?
 
-`AdaptiveAvgPool2d` requires output dimension as parameter while `AvgPool2d` requires stride, padding as parameter just like conv layer. 
+`AdaptiveAvgPool2d` requires output dimension as the parameter, while `AvgPool2d` requires stride, padding as the parameter like conv layer. 
 If you would like to know more technical details, please refer to the official document [here](https://pytorch.org/docs/stable/nn.html?highlight=adaptiveavgpool2d#torch.nn.AdaptiveAvgPool2d).
 
 - Why do we use AdaptiveAvgPool2d? 
@@ -31,7 +31,7 @@ Otherwise, the gradient will be accumulated.
 
 -	The dimension of the outputs is batchsize * 751. Why?
 
-The output is the probablity of the samples over all classes. The class number of training samples in Market-1501 is 751. 
+The output is the probability of the samples over all classes. The class number of training samples in Market-1501 is 751. 
 
 -	Why we flip the test image horizontally when testing? How to fliplr in pytorch?
 
@@ -40,7 +40,7 @@ Please refer to this [issue](https://github.com/layumi/Person_reID_baseline_pyto
 -	Why we L2-norm the feature?
 
 We L2-norm the feature to apply the cosine distance in the next step. 
-You also may use the Euclidean distance, but cosine distance is more easy to implement (using metric multiplation). 
+You also may use the Euclidean distance, but cosine distance is more easy to implement (using metric multiplication). 
 
 -	Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
 
