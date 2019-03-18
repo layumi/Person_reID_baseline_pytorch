@@ -8,13 +8,13 @@ In "0005_c2_f0046985.jpg", "0005" is the identity. "c2" means the image from Cam
 
 - What is the difference between the AvgPool2d and AdaptiveAvgPool2d?
 
-AdaptiveAvgPool2d requires output dimension as parameter while AvgPool2d requires stride, padding as parameter just like conv layer. 
+`AdaptiveAvgPool2d` requires output dimension as parameter while `AvgPool2d` requires stride, padding as parameter just like conv layer. 
 If you would like to know more technical details, please refer to the official document [here](https://pytorch.org/docs/stable/nn.html?highlight=adaptiveavgpool2d#torch.nn.AdaptiveAvgPool2d).
 
 - Why do we use AdaptiveAvgPool2d? 
 
 For pedestrian images, of which the height is larger than the width, we need to specify the pooling kernel for `AvgPool2d`.
-Therefore, AdaptiveAvgPool2d is more easy to implement. Of course, you still could use `AvgPool2d`.
+Therefore, `AdaptiveAvgPool2d` is more easy to implement. Of course, you still could use `AvgPool2d`.
 
 -	Does the model have parameters now? How to initialize the parameter in the new layer?
 
@@ -31,20 +31,19 @@ Otherwise, the gradient will be accumulated.
 
 -	The dimension of the outputs is batchsize * 751. Why?
 
-The class number of training samples in Market-1501 is 751. 
+The output is the probablity of the samples over all classes. The class number of training samples in Market-1501 is 751. 
 
 -	Why we flip the test image horizontally when testing? How to fliplr in pytorch?
 
-Please refer to this (issue)[https://github.com/layumi/Person_reID_baseline_pytorch/issues/99].
-
-## Still in revision
+Please refer to this [issue](https://github.com/layumi/Person_reID_baseline_pytorch/issues/99).
 
 -	Why we L2-norm the feature?
 
-We L2-norm the feature so that we ensure the upper limit of every cos distance is the same. In this case, we can use the cosine distance to judge which pairs image is the same or not.
-We take 1*2-dimension feature as an example. A = [1,2], B = [1,1.9], C = [4,4]. We use cos-distance to judge which is more similar to A (from normal sense, C is more similar to A). First without L2-norm, A*B=4.8 while A*C = 12 which means C is more similar to A (the more cos-distance is, the more similar), then with L2-norm, A*B/|A|/|B| = 1.00 while A*C/|A|/|B|=0.948 which means B is more similar to A.
+We L2-norm the feature to apply the cosine distance in the next step. 
+You also may use the Euclidean distance, but cosine distance is more easy to implement (using metric multiplation). 
 
 -	Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
 
-No. Two datasets have domain gap, such as the different illumination, different city, different weather. Actually, some paper apply the model trained on Market-1501 to DukeMTMC-reID as a baseline. such as spgan. And in this paper, it calls direct transfer of which precision is very low.
+Yes. But the result is not good enough. As shown in many papers, different datasets usually have domain gap, which could be caused by various factors, such as different illumination and different occlusions. 
+For further reference, you may check the leaderboard of transfer learning on Market-1501 to DukeMTMC-reid (https://github.com/layumi/DukeMTMC-reID_evaluation/tree/master/State-of-the-art#transfer-learning). 
  
