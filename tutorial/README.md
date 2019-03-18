@@ -347,8 +347,8 @@ I write the code in a similar manner, so let's find what I changed.
 
 ![](https://github.com/layumi/Pedestrian_Alignment/raw/master/fig2.jpg)
 
-## Answer to Quick Questions
-You may check https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answer_to_Quick_Questions.md
+## Answers to Quick Questions
+You may check https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md
 
 ## Reference
 
