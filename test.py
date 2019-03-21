@@ -226,7 +226,6 @@ else:
         #model[1].model.fc = nn.Sequential()
         #model[1].classifier = nn.Sequential()
     #else:
-        model.model.fc = nn.Sequential()
         model.classifier.classifier = nn.Sequential()
 
 # Change to test mode
