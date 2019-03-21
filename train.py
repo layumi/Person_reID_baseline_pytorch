@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 #from PIL import Image
 import time
 import os
-from model import ft_net, ft_net_dense, PCB
+from model import ft_net, ft_net_dense, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 import yaml
 from shutil import copyfile
@@ -41,6 +41,7 @@ parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
 parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
@@ -299,6 +300,8 @@ def save_network(network, epoch_label):
 
 if opt.use_dense:
     model = ft_net_dense(len(class_names), opt.droprate)
+elif opt.use_NAS:
+    model = ft_net_NAS(len(class_names), opt.droprate)
 else:
     model = ft_net(len(class_names), opt.droprate, opt.stride)
 
@@ -310,11 +313,10 @@ opt.nclasses = len(class_names)
 print(model)
 
 if not opt.PCB:
-    ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
+    ignored_params = list(map(id, model.classifier.parameters() ))
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
     optimizer_ft = optim.SGD([
              {'params': base_params, 'lr': 0.1*opt.lr},
-             {'params': model.model.fc.parameters(), 'lr': opt.lr},
              {'params': model.classifier.parameters(), 'lr': opt.lr}
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 else:

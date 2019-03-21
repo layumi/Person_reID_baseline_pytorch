@@ -3,6 +3,7 @@ import torch.nn as nn
 from torch.nn import init
 from torchvision import models
 from torch.autograd import Variable
+import pretrainedmodels
 
 ######################################################################
 def weights_init_kaiming(m):
@@ -68,8 +69,8 @@ class ft_net(nn.Module):
         model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
         if stride == 1:
-            self.model.layer4[0].downsample[0].stride = (1,1)
-            self.model.layer4[0].conv2.stride = (1,1)
+            model_ft.layer4[0].downsample[0].stride = (1,1)
+            model_ft.layer4[0].conv2.stride = (1,1)
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
         self.classifier = ClassBlock(2048, class_num, droprate)
@@ -102,6 +103,27 @@ class ft_net_dense(nn.Module):
 
     def forward(self, x):
         x = self.model.features(x)
+        x = x.view(x.size(0), x.size(1))
+        x = self.classifier(x)
+        return x
+
+# Define the NAS-based Model
+class ft_net_NAS(nn.Module):
+
+    def __init__(self, class_num, droprate=0.5):
+        super().__init__()  
+        model_name = 'nasnetalarge' 
+        # pip install pretrainedmodels
+        model_ft = pretrainedmodels.__dict__[model_name](num_classes=1000, pretrained='imagenet')
+        model_ft.avg_pool = nn.AdaptiveAvgPool2d((1,1))
+        model_ft.dropout = nn.Sequential()
+        model_ft.last_linear = nn.Sequential()
+        self.model = model_ft
+        # For DenseNet, the feature dim is 4032
+        self.classifier = ClassBlock(4032, class_num, droprate)
+
+    def forward(self, x):
+        x = self.model(x)
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
@@ -215,9 +237,10 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net(751)
+    net = ft_net(751, stride=1)
+    net.classifier = nn.Sequential()
     print(net)
-    input = Variable(torch.FloatTensor(8, 3, 224, 224))
+    input = Variable(torch.FloatTensor(8, 3, 256, 128))
     output = net(input)
     print('net output size:')
     print(output.shape)

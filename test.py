@@ -16,7 +16,7 @@ import time
 import os
 import scipy.io
 import yaml
-from model import ft_net, ft_net_dense, PCB, PCB_test
+from model import ft_net, ft_net_dense, ft_net_NAS, PCB, PCB_test
 
 #fp16
 try:
@@ -47,6 +47,7 @@ with open(config_path, 'r') as stream:
 opt.fp16 = config['fp16'] 
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
+opt.use_NAS = config['use_NAS']
 opt.stride = config['stride']
 
 if 'nclasses' in config: # tp compatible with old config files
@@ -201,6 +202,8 @@ if opt.multi:
 print('-------test-----------')
 if opt.use_dense:
     model_structure = ft_net_dense(opt.nclasses)
+elif opt.use_NAS:
+    model_structure = ft_net_NAS(opt.nclasses)
 else:
     model_structure = ft_net(opt.nclasses, stride = opt.stride)
 
