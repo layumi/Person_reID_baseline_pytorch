@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 #from PIL import Image
 import time
 import os
-from model import ft_net, ft_net_dense, PCB
+from model import ft_net, ft_net_dense, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 import yaml
 from shutil import copyfile
@@ -25,6 +25,7 @@ version =  torch.__version__
 #fp16
 try:
     from apex.fp16_utils import *
+    from apex import amp, optimizers
 except ImportError: # will be 3.x series
     print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
 ######################################################################
@@ -40,6 +41,7 @@ parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
 parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
@@ -183,8 +185,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 else:
                     inputs, labels = Variable(inputs), Variable(labels)
                 # if we use low precision, input also need to be fp16
-                if fp16:
-                    inputs = inputs.half()
+                #if fp16:
+                #    inputs = inputs.half()
  
                 # zero the parameter gradients
                 optimizer.zero_grad()
@@ -216,7 +218,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # backward + optimize only if in training phase
                 if phase == 'train':
                     if fp16: # we use optimier to backward loss
-                        optimizer.backward(loss)
+                        with amp.scale_loss(loss, optimizer) as scaled_loss:
+                            scaled_loss.backward()
                     else:
                         loss.backward()
                     optimizer.step()
@@ -297,20 +300,23 @@ def save_network(network, epoch_label):
 
 if opt.use_dense:
     model = ft_net_dense(len(class_names), opt.droprate)
+elif opt.use_NAS:
+    model = ft_net_NAS(len(class_names), opt.droprate)
 else:
     model = ft_net(len(class_names), opt.droprate, opt.stride)
 
 if opt.PCB:
     model = PCB(len(class_names))
 
+opt.nclasses = len(class_names)
+
 print(model)
 
 if not opt.PCB:
-    ignored_params = list(map(id, model.model.fc.parameters() )) + list(map(id, model.classifier.parameters() ))
+    ignored_params = list(map(id, model.classifier.parameters() ))
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
     optimizer_ft = optim.SGD([
              {'params': base_params, 'lr': 0.1*opt.lr},
-             {'params': model.model.fc.parameters(), 'lr': opt.lr},
              {'params': model.classifier.parameters(), 'lr': opt.lr}
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 else:
@@ -361,8 +367,9 @@ with open('%s/opts.yaml'%dir_name,'w') as fp:
 # model to gpu
 model = model.cuda()
 if fp16:
-    model = network_to_half(model)
-    optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
+    #model = network_to_half(model)
+    #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
+    model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
 
 criterion = nn.CrossEntropyLoss()
 
