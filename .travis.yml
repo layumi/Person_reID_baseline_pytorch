@@ -16,7 +16,8 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda install numpy pretrainedmodels
+  - conda install numpy 
+  - pip install pretrainedmodels
   - conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 
 script:
