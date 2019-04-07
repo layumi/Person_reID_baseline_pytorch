@@ -26,6 +26,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
     * [Train](#train)
     * [Test](#test)
     * [Evaluation](#evaluation)
+* [Tips for training with other datasets](#tips)
 * [Citation](#citation)
 * [Related Repos](#related-repos)
 
@@ -199,6 +200,14 @@ python evaluate_rerank.py
 **It may take more than 10G Memory to run.** So run it on a powerful machine if possible. 
 
 It will output Rank@1, Rank@5, Rank@10 and mAP results.
+
+### Tips
+Notes the format of the camera id and the number of cameras.
+
+For some dataset, e.g., MSMT17, there are more than 10 cameras. You need to modify the `prepare.py` and `test.py` to read the double-digit camera ID.
+
+For some vehicle re-ID datasets. e.g. VeRi, you also need to modify the `prepare.py` and `test.py`.  It has different naming rules.
+https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is in Chinese)
 
 
 ## Citation
