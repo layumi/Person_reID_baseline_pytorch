@@ -111,6 +111,7 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 - Numpy
 - Pytorch 0.3+
 - [Optional] apex (for float16) 
+- [Optional] [pretrainedmodels](https://github.com/Cadene/pretrained-models.pytorch)
 
 **(Some reports found that updating numpy can arrive the right accuracy. If you only get 50~80 Top1 Accuracy, just try it.)**
 We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
