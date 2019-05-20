@@ -7,7 +7,7 @@
 
 A tiny, friendly, strong baseline code for Person-reID (based on [pytorch](https://pytorch.org)).
 
-- **Strong.** It is consistent with the new baseline result in several top-conference works, e.g., [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349) and [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). We arrived Rank@1=88.24%, mAP=70.68% only with softmax loss. 
+- **Strong.** It is consistent with the new baseline result in several top-conference works, e.g., [Joint Discriminative and Generative Learning for Person Re-identification(CVPR19)](https://arxiv.org/abs/1904.07223), [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349), [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). We arrived Rank@1=88.24%, mAP=70.68% only with softmax loss. 
 
 - **Small.** With fp16, our baseline could be trained with only 2GB GPU memory.
 
@@ -40,6 +40,7 @@ Now we have supported:
 - ResNet/DenseNet
 - Visualize Training Curves
 - Visualize Ranking Result
+- Linear Warm-up 
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
@@ -49,6 +50,8 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**20 May 2019** Linear Warm Up is added. It can be used by simply added `--warm_up`. You also can set warm-up the first 5 epoch by `--warm_epoch 5`.
+
 **What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex) and update your pytorch to 1.0. 
 
 Float16 could save about 50% GPU memory usage without accuracy drop. **Our baseline could be trained with only 2GB GPU memory.** 
