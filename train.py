@@ -19,6 +19,7 @@ import os
 from model import ft_net, ft_net_dense, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 import yaml
+import math
 from shutil import copyfile
 
 version =  torch.__version__
@@ -42,6 +43,8 @@ parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
+parser.add_argument('--warm_up', action='store_true', help='warm up learning rate/ In the code, I warm up the loss' )
+parser.add_argument('--warm_epoch', default=5, type=int, help='the first K epoch that needs warm up')
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
@@ -155,11 +158,13 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
     #best_model_wts = model.state_dict()
     #best_acc = 0.0
+    warm_up = 0.1 # We start from the 0.1*lrRate
+    warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
 
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
-
+        
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
             if phase == 'train':
@@ -216,6 +221,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         loss += criterion(part[i+1], labels)
 
                 # backward + optimize only if in training phase
+                if epoch<5 and phase == 'train': 
+                    warm_up = min(1.0, warm_up + 0.9 / warm_iteration)
+                    loss *= warm_up
+
                 if phase == 'train':
                     if fp16: # we use optimier to backward loss
                         with amp.scale_loss(loss, optimizer) as scaled_loss:

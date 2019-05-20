@@ -123,7 +123,8 @@ class ft_net_NAS(nn.Module):
         self.classifier = ClassBlock(4032, class_num, droprate)
 
     def forward(self, x):
-        x = self.model(x)
+        x = self.model.features(x)
+        x = self.model.avg_pool(x)
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
