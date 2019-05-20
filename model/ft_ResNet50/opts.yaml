@@ -13,3 +13,4 @@ stride: 2
 train_all: false
 use_NAS: false
 use_dense: false
+warm_up: true

@@ -19,7 +19,6 @@ import os
 from model import ft_net, ft_net_dense, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 import yaml
-import math
 from shutil import copyfile
 
 version =  torch.__version__
@@ -43,7 +42,6 @@ parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
-parser.add_argument('--warm_up', action='store_true', help='use NAS' )
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
@@ -71,18 +69,18 @@ if len(gpu_ids)>0:
 
 transform_train_list = [
         #transforms.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
-        transforms.Resize((256,128), interpolation=3),
-        transforms.Pad(10),
-        transforms.RandomCrop((256,128)),
+        transforms.Resize((384,192), interpolation=3),
+        transforms.Pad(15),
+        transforms.RandomCrop((384,192)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
         ]
 
 transform_val_list = [
-        transforms.Resize(size=(256,128),interpolation=3), #Image.BICUBIC
+        transforms.Resize(size=(384,192),interpolation=3), #Image.BICUBIC
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
         ]
 
 if opt.PCB:
@@ -90,12 +88,12 @@ if opt.PCB:
         transforms.Resize((384,192), interpolation=3),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
         ]
     transform_val_list = [
         transforms.Resize(size=(384,192),interpolation=3), #Image.BICUBIC
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
         ]
 
 if opt.erasing_p>0:
@@ -157,13 +155,11 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
     #best_model_wts = model.state_dict()
     #best_acc = 0.0
-    warm_up = 0.1
-    warm_iteration = round(dataset_sizes['train']/opt.batchsize)*5
 
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
-        
+
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
             if phase == 'train':
@@ -220,11 +216,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         loss += criterion(part[i+1], labels)
 
                 # backward + optimize only if in training phase
-                if epoch<5 and phase == 'train': 
-                    warm_up = min(1.0, warm_up + 0.9 / warm_iteration)
-                    print(warm_up)
-                    loss *= warm_up
-
                 if phase == 'train':
                     if fp16: # we use optimier to backward loss
                         with amp.scale_loss(loss, optimizer) as scaled_loss:
