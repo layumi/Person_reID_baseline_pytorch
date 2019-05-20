@@ -50,7 +50,7 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
-**20 May 2019** Linear Warm Up is added. It can be used by simply added `--warm_up`. You also can set warm-up the first 5 epoch by `--warm_epoch 5`.
+**20 May 2019:** Linear Warm Up is added. It can be used by simply added `--warm_up`. You also can set warm-up the first 5 epoch by `--warm_epoch 5`.
 
 **What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex) and update your pytorch to 1.0. 
 
