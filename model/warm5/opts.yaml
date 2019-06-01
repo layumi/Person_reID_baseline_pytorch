@@ -1,0 +1,16 @@
+PCB: false
+batchsize: 32
+color_jitter: false
+data_dir: ../Market/pytorch
+droprate: 0.5
+erasing_p: 0
+fp16: false
+gpu_ids: '0'
+lr: 0.05
+name: warm5
+nclasses: 751
+stride: 2
+train_all: false
+use_NAS: false
+use_dense: false
+warm_epoch: 5
