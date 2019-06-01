@@ -1,6 +1,6 @@
 # Don't track content of these folders
 outputs/
-models/
+model/
 logs/
 __pycache__/
 core
