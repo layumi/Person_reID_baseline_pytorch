@@ -237,7 +237,7 @@ As far as I know, the following papers may be the first two to use the bottlenec
 ```
 
 ## Related Repos
-1. [Pedestrian Alignment Network](https://github.com/layumi/Pedestrian_Alignment)
-2. [2stream Person re-ID](https://github.com/layumi/2016_person_re-ID)
-3. [Pedestrian GAN](https://github.com/layumi/Person-reID_GAN)
-4. [Language Person Search](https://github.com/layumi/Image-Text-Embedding)
+1. [Pedestrian Alignment Network](https://github.com/layumi/Pedestrian_Alignment) ![GitHub stars](https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=flat&label=Star)
+2. [2stream Person re-ID](https://github.com/layumi/2016_person_re-ID) ![GitHub stars](https://img.shields.io/github/stars/layumi/2016_person_re-ID.svg?style=flat&label=Star)
+3. [Pedestrian GAN](https://github.com/layumi/Person-reID_GAN) ![GitHub stars](https://img.shields.io/github/stars/layumi/Person-reID_GAN.svg?style=flat&label=Star)
+4. [Language Person Search](https://github.com/layumi/Image-Text-Embedding) ![GitHub stars](https://img.shields.io/github/stars/layumi/Image-Text-Embedding.svg?style=flat&label=Star)
