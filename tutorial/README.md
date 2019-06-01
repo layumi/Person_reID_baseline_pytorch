@@ -8,6 +8,8 @@ The practical explores the basis of learning pedestrian features. In this practi
 
 Person re-ID can be viewed as an image retrieval problem. Given one query image in Camera **A**, we need to find the images of the same person in other Cameras. The key of the person re-ID is to find a discriminative representation of the person. Many recent works apply deeply learned models to extract visual features, and achieve the state-of-the-art performance.
 
+We could use this tech to help people. Check the great video by Nvidia. (https://youtu.be/GiZ7kyrwZGQ?t=60)
+
 ## Keywords
 Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별, Réidentification des piétons, Ri-identificazione pedonale, Fußgänger-Neuidentifizierung, إعادة تحديد المشاة, Re-identificación de peatones
 
