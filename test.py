@@ -16,6 +16,7 @@ import time
 import os
 import scipy.io
 import yaml
+import math
 from model import ft_net, ft_net_dense, ft_net_NAS, PCB, PCB_test
 
 #fp16
@@ -37,6 +38,7 @@ parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
 parser.add_argument('--fp16', action='store_true', help='use fp16.' )
+parser.add_argument('--ms',default='1', type=str,help='multiple_scale: e.g. 1 1,1.1  1,1.1,1.2')
 
 opt = parser.parse_args()
 ###load config###
@@ -65,6 +67,13 @@ for str_id in str_ids:
     id = int(str_id)
     if id >=0:
         gpu_ids.append(id)
+
+print('We use the scale: %s'%opt.ms)
+str_ms = opt.ms.split(',')
+ms = []
+for s in str_ms:
+    s_f = float(s)
+    ms.append(math.sqrt(s_f))
 
 # set gpu ids
 if len(gpu_ids)>0:
@@ -144,19 +153,20 @@ def extract_feature(model,dataloaders):
         n, c, h, w = img.size()
         count += n
         print(count)
-        ff = torch.FloatTensor(n,512).zero_()
-
+        ff = torch.FloatTensor(n,512).zero_().cuda()
         if opt.PCB:
-            ff = torch.FloatTensor(n,2048,6).zero_() # we have six parts
+            ff = torch.FloatTensor(n,2048,6).zero_().cuda() # we have six parts
+
         for i in range(2):
             if(i==1):
                 img = fliplr(img)
             input_img = Variable(img.cuda())
-            #if opt.fp16:
-            #    input_img = input_img.half()
-            outputs = model(input_img) 
-            f = outputs.data.cpu().float()
-            ff = ff+f
+            for scale in ms:
+                if scale != 1:
+                    # bicubic is only  available in pytorch> 1.1
+                    input_img = nn.functional.interpolate(input_img, scale_factor=scale, mode='bicubic', align_corners=False)
+                outputs = model(input_img) 
+                ff += outputs
         # norm feature
         if opt.PCB:
             # feature size (n,2048,6)
@@ -169,7 +179,7 @@ def extract_feature(model,dataloaders):
             fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
             ff = ff.div(fnorm.expand_as(ff))
 
-        features = torch.cat((features,ff), 0)
+        features = torch.cat((features,ff.data.cpu()), 0)
     return features
 
 def get_id(img_path):
