@@ -253,6 +253,11 @@ with torch.no_grad():
 # Save to Matlab for check
 result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
 scipy.io.savemat('pytorch_result.mat',result)
+
+print(opt.name)
+result = './model/%s/result.txt'%opt.name
+os.system('python evaluate_gpu.py | tee -a %s'%result)
+
 if opt.multi:
     result = {'mquery_f':mquery_feature.numpy(),'mquery_label':mquery_label,'mquery_cam':mquery_cam}
     scipy.io.savemat('multi_query.mat',result)
