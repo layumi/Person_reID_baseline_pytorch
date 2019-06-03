@@ -50,7 +50,7 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
-**03 Jun 2019:** Testing with multiple-scale inputs is added. You can use '--ms 1,0.9' when extracting the feature. It could slightly improve the final result.
+**03 Jun 2019:** Testing with multiple-scale inputs is added. You can use `--ms 1,0.9` when extracting the feature. It could slightly improve the final result.
 
 **20 May 2019:** Linear Warm Up is added. You also can set warm-up the first K epoch by `--warm_epoch K`. If K <=0, there will be no warm-up.
 
