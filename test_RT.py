@@ -20,6 +20,8 @@ import math
 from model import ft_net, ft_net_dense, ft_net_NAS, PCB, PCB_test
 from utils import load_network
 
+from torch2trt import torch2trt
+
 #fp16
 try:
     from apex.fp16_utils import *
@@ -154,7 +156,8 @@ def extract_feature(model,dataloaders):
                 if scale != 1:
                     # bicubic is only  available in pytorch>= 1.1
                     input_img = nn.functional.interpolate(input_img, scale_factor=scale, mode='bilinear', align_corners=False)
-                outputs = model(input_img) 
+                outputs = torch2trt(model,input_img) 
+                  
                 ff += outputs
         # norm feature
         if opt.PCB:
