@@ -40,6 +40,7 @@ Now we have supported:
 - ResNet/DenseNet
 - Visualize Training Curves
 - Visualize Ranking Result
+- [Visualize Heatmap](https://github.com/layumi/Person_reID_baseline_pytorch/blob/dev/visual_heatmap.py)
 - Linear Warm-up 
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
