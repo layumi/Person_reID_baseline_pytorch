@@ -253,6 +253,20 @@ The following papers may be the first two to use the bottleneck baseline. You ma
 }
 ```
 
+Basic Model
+```
+@article{zheng2018discriminatively,
+  title={A discriminatively learned CNN embedding for person reidentification},
+  author={Zheng, Zhedong and Zheng, Liang and Yang, Yi},
+  journal={ACM Transactions on Multimedia Computing, Communications, and Applications (TOMM)},
+  volume={14},
+  number={1},
+  pages={13},
+  year={2018},
+  publisher={ACM}
+}
+```
+
 ## Related Repos
 1. [Pedestrian Alignment Network](https://github.com/layumi/Pedestrian_Alignment) ![GitHub stars](https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=flat&label=Star)
 2. [2stream Person re-ID](https://github.com/layumi/2016_person_re-ID) ![GitHub stars](https://img.shields.io/github/stars/layumi/2016_person_re-ID.svg?style=flat&label=Star)
