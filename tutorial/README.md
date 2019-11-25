@@ -15,7 +15,7 @@ Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별
 
 ## Prerequisites
 - Python 3.6
-- GPU Memory >= 6G
+- GPU Memory >= 4G
 - Numpy
 - Pytorch 0.3+ (http://pytorch.org/)
 - Torchvision from the source
