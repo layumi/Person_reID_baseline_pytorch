@@ -354,6 +354,10 @@ I write the code in a similar manner, so let's find what I changed.
 
 ![](https://github.com/layumi/Pedestrian_Alignment/raw/master/fig2.jpg)
 
+- Data Limitation? Generate more! [Code](https://github.com/NVlabs/DG-Net)
+
+![](https://github.com/NVlabs/DG-Net/raw/master/NxN.jpg)
+
 ## Answers to Quick Questions
 You may check https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md
 
