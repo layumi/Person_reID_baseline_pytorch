@@ -51,6 +51,8 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**30 April 2020** We have applied this code to the [AICity Challenge 2020](https://www.aicitychallenge.org/),  yielding the 1st Place Submission to the re-id track :red_car:. Check out [here](https://github.com/layumi/AICIty-reID-2020).
+
 **01 March 2020** We release one new image retrieval dataset, called [University-1652](https://github.com/layumi/University1652-Baseline), for drone-view target localization and drone navigation :helicopter:. It has a similar setting with the person re-ID. You are welcomed to check out it.
 
 **07 July 2019:** I added some new functions, such as `--resume`, auto-augmentation policy, acos loss, into [developing thread](https://github.com/layumi/Person_reID_baseline_pytorch/tree/dev) and rewrite the `save` and `load` functions. I haven't tested the functions throughly. Some new functions are worthy of having a try. If you are first to this repo, I suggest you stay with the master thread.
