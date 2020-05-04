@@ -28,7 +28,7 @@ except ImportError: # will be 3.x series
 # Options
 # --------
 
-parser = argparse.ArgumentParser(description='Training')
+parser = argparse.ArgumentParser(description='Test')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or last')
 parser.add_argument('--test_dir',default='../Market/pytorch',type=str, help='./test_data')
