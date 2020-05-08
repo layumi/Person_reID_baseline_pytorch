@@ -7,6 +7,12 @@ Priorities are given to papers whose codes are published.
  * [Supervised Learning](#supervised-learning)
  * [Transfer Learning](#transfer-learning)
  
+ ### Code
+ :red_car:  The 1st Place Submission to AICity Challenge 2020 re-id track [[code]](https://github.com/layumi/AICIty-reID-2020)
+ [[paper]](https://github.com/layumi/AICIty-reID-2020/blob/master/paper.pdf)
+ 
+ :helicopter:  Drone-based building re-id [[code]](https://github.com/layumi/University1652-Baseline)  [[paper]](https://arxiv.org/abs/2002.12186)
+ 
  ### Supervised Learning
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
