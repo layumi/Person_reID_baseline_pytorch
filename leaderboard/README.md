@@ -48,7 +48,7 @@ Priorities are given to papers whose codes are published.
 |Part-aligned（Inception V1, OpenPose) | 84.4% | 69.3% | "[Part-Aligned Bilinear Representations for Person Re-identification](https://arxiv.org/abs/1804.07094)", Yumin Suh, Jingdong Wang, Siyu Tang, Tao Mei, Kyoung Mu Lee, ECCV 2018 |
 |GP-reID | 85.2% | 72.8% | "[Re-ID done right: towards good practices for person re-identification](https://arxiv.org/abs/1801.05339)", Jon Almazan, Bojana Gajic, Naila Murray, Diane Larlus, arXiv:1801.05339 |
 |SPreID (Res-152) | 85.95% | 73.34% |  "[Human Semantic Parsing for Person Re-identification](https://arxiv.org/abs/1804.00216)", Kalayeh, Mahdi M., Emrah Basaran, Muhittin Gokmen, Mustafa E. Kamasak, and Mubarak Shah, CVPR 2018|
-| DG-Net (Res-50)|  86.6% | 74.8% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. |
+| DG-Net (Res-50)|  86.6% | 74.8% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) |
 <!-- |MGN| 88.7% | 78.4% | "[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438)" Wang, Guanshuo, Yufeng Yuan, Xiong Chen, Jiwei Li, and Xi Zhou. arXiv:1804.01438 | -->
 
 ### Transfer Learning
@@ -82,6 +82,6 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 |Methods | Use DukeMTMC Training Data (without ID label but may use the camera ID)| Rank@1 | mAP| Reference|
 | -------- | ----- | ----- | ---- | ---- |
 | Verif + Identif | :heavy_multiplication_x:|  48.7% | 27.5% | "[A Discriminatively Learned Cnn Embedding for Person Re-identification](https://arxiv.org/abs/1611.05666)",  Zhedong Zheng, Liang Zheng, and Yi Yang, TOMM 2017. [**[pytorch code]**](https://github.com/layumi/Person-reID-verification)| 
-| DG-Net | :heavy_multiplication_x:|  62.0% | 40.7% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. | 
+| DG-Net | :heavy_multiplication_x:|  62.0% | 40.7% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net)| 
 | MAR | :heavy_check_mark: | 67.1% | 48.0% | "[Unsupervised Person Re-identification by Soft Multilabel Learning](https://arxiv.org/abs/1903.06325)", Hong-Xing Yu, Wei-Shi Zheng, Ancong Wu, Xiaowei Guo, Shaogang Gong, Jian-Huang Lai, CVPR 2019. | 
 | UDARTP | :heavy_check_mark: | 75.0% | 57.1% | "[Unsupervised Domain Adaptive Re-Identification: Theory and Practice](https://arxiv.org/pdf/1807.11334.pdf)", Liangchen Song, Cheng Wang, Lefei Zhang, Bo Du, Qian Zhang, Chang Huang, and Xinggang Wang, arXiv:1807.11334|
