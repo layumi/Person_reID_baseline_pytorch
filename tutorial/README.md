@@ -358,6 +358,9 @@ I write the code in a similar manner, so let's find what I changed.
 
 ![](https://github.com/NVlabs/DG-Net/raw/master/NxN.jpg)
 
+- 3D Person Re-identification [Code](https://github.com/layumi/person-reid-3d)
+![](https://github.com/layumi/person-reid-3d/blob/master/imgs/demo-1.jpg)
+
 ## Answers to Quick Questions
 You may check https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md
 
