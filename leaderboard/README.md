@@ -77,7 +77,10 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | ARN | :heavy_check_mark: | 60.2% | 33.4% | "[Adaptation and Re-Identification Network: An Unsupervised Deep Transfer Learning Approach to Person Re-Identification](http://openaccess.thecvf.com/content_cvpr_2018_workshops/papers/w6/Li_Adaptation_and_Re-Identification_CVPR_2018_paper.pdf)", Yu-Jhe Li, Fu-En Yang, Yen-Cheng Liu, Yu-Ying Yeh, Xiaofei Du, and Yu-Chiang Frank Wang, CVPR 2018 Workshop|
 | TAUDL | :heavy_check_mark: | 61.7% | 43.5% | "[Unsupervised Person Re-identification by Deep Learning Tracklet Association](http://openaccess.thecvf.com/content_ECCV_2018/papers/Minxian_Li_Unsupervised_Person_Re-identification_ECCV_2018_paper.pdf)", Minxian Li, Xiatian Zhu, and Shaogang Gong, ECCV 2018 |
 | UDARTP | :heavy_check_mark: | 68.4% | 49.0% | "[Unsupervised Domain Adaptive Re-Identification: Theory and Practice](https://arxiv.org/pdf/1807.11334.pdf)", Liangchen Song, Cheng Wang, Lefei Zhang, Bo Du, Qian Zhang, Chang Huang, and Xinggang Wang, arXiv:1807.11334|
-
+| PCB-PAST | :heavy_check_mark: | 72.4% | 54.3% | "Self- training with progressive augmentation for unsupervised cross-domain person re-identification." Xinyu Zhang, Jiewei Cao, Chunhua Shen, and Mingyu You. ICCV 2019 | 
+| SSG | :heavy_check_mark: | 73.0% | 53.4%| "Self-similarity grouping: A simple unsupervised cross domain adaptation approach for person re-identification."Yang Fu, Yunchao Wei, Guanshuo Wang, Yuqian Zhou, Honghui Shi, and Thomas S Huang. ICCV 2019| 
+| MMCL | :heavy_check_mark: | 72.4% | 54.5% | "Unsupervised Person Re-identification via Multi-label Classification" Dongkai Wang and Shiliang Zhang. CVPR 2020. | 
+| AD-Cluster| :heavy_check_mark: | 72.6% | 54.1% |"AD-Cluster: Augmented Discriminative Clustering for Domain Adaptive Person Re-identification" Yunpeng Zhai, Shijian Lu, Qixiang Ye, Xuebo Shan, Jie Chen, Rongrong Ji, and Yonghong Tian. CVPR 2020|
 
 - Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on DukeMTMC-reID
 
