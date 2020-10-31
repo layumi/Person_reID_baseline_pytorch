@@ -271,6 +271,13 @@ Basic Model
   year={2018},
   publisher={ACM}
 }
+
+@article{zheng2020vehiclenet,
+  title={VehicleNet: Learning Robust Visual Representation for Vehicle Re-identification},
+  author={Zheng, Zhedong and Ruan, Tao and Wei, Yunchao and Yang, Yi and Mei, Tao},
+  journal={IEEE Transaction on Multimedia (TMM)},
+  year={2020}
+}
 ```
 
 ## Related Repos
