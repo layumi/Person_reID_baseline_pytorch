@@ -49,7 +49,8 @@ with open(config_path, 'r') as stream:
 opt.fp16 = config['fp16'] 
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
-opt.use_NAS = config['use_NAS']
+opt.use_NAS = False #在之后的新版pytorch中，use_NAS会报错，则改为False
+#opt.use_NAS = config['use_NAS']
 opt.stride = config['stride']
 
 if 'nclasses' in config: # tp compatible with old config files
