@@ -1,4 +1,5 @@
 <h1 align="center"> Pytorch ReID </h1>
+<h2 align="center"> Strong, Small, Friendly </h2>
 
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/layumi/Person_reID_baseline_pytorch.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/layumi/Person_reID_baseline_pytorch/context:python)
 [![Build Status](https://travis-ci.org/layumi/Person_reID_baseline_pytorch.svg?branch=master)](https://travis-ci.org/layumi/Person_reID_baseline_pytorch)
