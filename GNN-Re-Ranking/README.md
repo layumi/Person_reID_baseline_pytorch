@@ -1,7 +1,7 @@
 # Understanding Image Retrieval Re-Ranking: A Graph Neural Network Perspective
 
 [[Paper]](https://arxiv.org/abs/2012.07620v2)
-[[Repo]](https://github.com/Xuanmeng-Zhang/gnn-re-ranking)
+[[Repo]](https://github.com/Xuanmeng-Zhang/gnn-re-ranking/)
 
 On the Market-1501 dataset, we accelerate the re-ranking processing from **89.2s** to **9.4ms** with one K40m GPU, facilitating the real-time post-processing. 
 Similarly, we observe that our method achieves comparable or even better retrieval results on the other four image retrieval benchmarks, 
