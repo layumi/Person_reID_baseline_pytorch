@@ -37,7 +37,7 @@ Now we have supported:
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
-- Re-Ranking
+- Re-Ranking ([GPU Version](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/GPU-Re-Ranking))
 - Random Erasing
 - ResNet/DenseNet
 - Visualize Training Curves
