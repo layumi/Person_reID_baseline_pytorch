@@ -56,7 +56,7 @@ class ClassBlock(nn.Module):
         if self.return_f:
             f = x
             x = self.classifier(x)
-            return x,f
+            return [x,f]
         else:
             x = self.classifier(x)
             return x
@@ -64,7 +64,7 @@ class ClassBlock(nn.Module):
 # Define the ResNet50-based Model
 class ft_net(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5, stride=2):
+    def __init__(self, class_num, droprate=0.5, stride=2, circle=False):
         super(ft_net, self).__init__()
         model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
@@ -73,7 +73,8 @@ class ft_net(nn.Module):
             model_ft.layer4[0].conv2.stride = (1,1)
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
-        self.classifier = ClassBlock(2048, class_num, droprate)
+        self.circle = circle
+        self.classifier = ClassBlock(2048, class_num, droprate, return_f = circle)
 
     def forward(self, x):
         x = self.model.conv1(x)
@@ -92,14 +93,15 @@ class ft_net(nn.Module):
 # Define the DenseNet121-based Model
 class ft_net_dense(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5):
+    def __init__(self, class_num, droprate=0.5, circle=False):
         super().__init__()
         model_ft = models.densenet121(pretrained=True)
         model_ft.features.avgpool = nn.AdaptiveAvgPool2d((1,1))
         model_ft.fc = nn.Sequential()
         self.model = model_ft
+        self.circle = circle
         # For DenseNet, the feature dim is 1024 
-        self.classifier = ClassBlock(1024, class_num, droprate)
+        self.classifier = ClassBlock(1024, class_num, droprate, return_f=circle)
 
     def forward(self, x):
         x = self.model.features(x)

@@ -162,7 +162,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
     if opt.circle:
-        criterion_circle = CircleLoss(m=0.25, gamma=32)
+        criterion_circle = CircleLoss(m=0.25, gamma=16)
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
@@ -210,8 +210,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     logits, ff = outputs
                     fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
                     ff = ff.div(fnorm.expand_as(ff))
-                    loss = criterion(logits, labels) + criterion_circle(*convert_label_to_similarity( ff, labels))/now_batch_size
-                    #loss = criterion_circle(*convert_label_to_similarity( ff, labels))
+                    loss = criterion(logits, labels) + 0.1*criterion_circle(*convert_label_to_similarity( ff, labels))
                     _, preds = torch.max(logits.data, 1)
 
                 elif not opt.PCB:  #  norm
@@ -248,7 +247,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     running_loss += loss.item() * now_batch_size
                 else :  # for the old version like 0.3.0 and 0.3.1
                     running_loss += loss.data[0] * now_batch_size
-                running_corrects += float(torch.sum(preds == labels.data))
+                if not opt.circle:
+                    running_corrects += float(torch.sum(preds == labels.data))
 
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects / dataset_sizes[phase]
