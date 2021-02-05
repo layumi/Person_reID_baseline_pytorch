@@ -33,7 +33,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
-- Circle Loss (CVPR)
+- Circle Loss (**CVPR 2020 Oral**)
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
@@ -53,7 +53,7 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
-**5 Feb 2021** We support [Circle loss](https://arxiv.org/abs/2002.10857).  
+**5 Feb 2021** We support [Circle loss](https://arxiv.org/abs/2002.10857) by simply adding `--circle`.  
 
 **11 January 2021** On the Market-1501 dataset, we accelerate the re-ranking processing from **89.2s** to **9.4ms** with one K40m GPU, facilitating the real-time post-processing. The pytorch implementation can be found in [GPU-Re-Ranking](GPU-Re-Ranking/).
 
