@@ -33,6 +33,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
+- Circle Loss (CVPR)
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
@@ -52,6 +53,8 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**5 Feb 2021** We support [Circle loss](https://arxiv.org/abs/2002.10857).  
+
 **11 January 2021** On the Market-1501 dataset, we accelerate the re-ranking processing from **89.2s** to **9.4ms** with one K40m GPU, facilitating the real-time post-processing. The pytorch implementation can be found in [GPU-Re-Ranking](GPU-Re-Ranking/).
 
 **11 June 2020** People live in the 3D world. We release one new person re-id code [Person Re-identification in the 3D Space](https://github.com/layumi/person-reid-3d), which conduct representation learning in the 3D space. You are welcomed to check out it.
@@ -116,9 +119,11 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | -------- | ----- | ---- | ---- |
 | [ResNet-50] | 88.84% | 71.59% |  `python train.py --train_all` |
 | [DenseNet-121] | 90.17% | 74.02% | `python train.py --name ft_net_dense --use_dense --train_all` |
+| [DenseNet-121 (Circle)] | 91.00% | 76.54% | `python train.py --name ft_net_dense_circle_w5 --circle --use_dense --train_all --warm_epoch 5` |
 | [PCB] | 92.64% | 77.47% | `python train.py --name PCB --PCB --train_all --lr 0.02` |
 | [ResNet-50 (fp16)] | 88.03% | 71.40% | `python train.py --name fp16 --fp16 --train_all` |
 | [ResNet-50 (all tricks)] | 91.83% | 78.32% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5` |
+| [ResNet-50 (all tricks+Circle)] | 92.13% | 79.84% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5_circle  --circle` |
 
 ### Model Structure
 You may learn more from `model.py`. 
