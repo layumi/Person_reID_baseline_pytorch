@@ -1,4 +1,4 @@
-# zhedong modify from https://github.com/TinyZeaMays/CircleLoss/blob/master/circle_loss.py 
+#from https://github.com/TinyZeaMays/CircleLoss/blob/master/circle_loss.py 
 
 from typing import Tuple
 
