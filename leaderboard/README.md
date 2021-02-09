@@ -50,7 +50,7 @@ Priorities are given to papers whose codes are published.
 |GP-reID | 85.2% | 72.8% | "[Re-ID done right: towards good practices for person re-identification](https://arxiv.org/abs/1801.05339)", Jon Almazan, Bojana Gajic, Naila Murray, Diane Larlus, arXiv:1801.05339 |
 |SPreID (Res-152) | 85.95% | 73.34% |  "[Human Semantic Parsing for Person Re-identification](https://arxiv.org/abs/1804.00216)", Kalayeh, Mahdi M., Emrah Basaran, Muhittin Gokmen, Mustafa E. Kamasak, and Mubarak Shah, CVPR 2018|
 | DG-Net (Res-50)|  86.6% | 74.8% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) |
-<!-- |MGN| 88.7% | 78.4% | "[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438)" Wang, Guanshuo, Yufeng Yuan, Xiong Chen, Jiwei Li, and Xi Zhou. arXiv:1804.01438 | -->
+|MGN| 88.7% | 78.4% | "[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438)" Wang, Guanshuo, Yufeng Yuan, Xiong Chen, Jiwei Li, and Xi Zhou. ACM MM 2018. |
 
 ### Transfer Learning
 - Train on [Market-1501](http://www.liangzheng.com.cn/Project/project_reid.html), Test on DukeMTMC-reID
@@ -77,13 +77,14 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | ARN | :heavy_check_mark: | 60.2% | 33.4% | "[Adaptation and Re-Identification Network: An Unsupervised Deep Transfer Learning Approach to Person Re-Identification](http://openaccess.thecvf.com/content_cvpr_2018_workshops/papers/w6/Li_Adaptation_and_Re-Identification_CVPR_2018_paper.pdf)", Yu-Jhe Li, Fu-En Yang, Yen-Cheng Liu, Yu-Ying Yeh, Xiaofei Du, and Yu-Chiang Frank Wang, CVPR 2018 Workshop|
 | TAUDL | :heavy_check_mark: | 61.7% | 43.5% | "[Unsupervised Person Re-identification by Deep Learning Tracklet Association](http://openaccess.thecvf.com/content_ECCV_2018/papers/Minxian_Li_Unsupervised_Person_Re-identification_ECCV_2018_paper.pdf)", Minxian Li, Xiatian Zhu, and Shaogang Gong, ECCV 2018 |
 | UDARTP | :heavy_check_mark: | 68.4% | 49.0% | "[Unsupervised Domain Adaptive Re-Identification: Theory and Practice](https://arxiv.org/pdf/1807.11334.pdf)", Liangchen Song, Cheng Wang, Lefei Zhang, Bo Du, Qian Zhang, Chang Huang, and Xinggang Wang, arXiv:1807.11334|
-| PCB-PAST | :heavy_check_mark: | 72.4% | 54.3% | "Self- training with progressive augmentation for unsupervised cross-domain person re-identification." Xinyu Zhang, Jiewei Cao, Chunhua Shen, and Mingyu You. ICCV 2019 | 
-| SSG | :heavy_check_mark: | 73.0% | 53.4%| "Self-similarity grouping: A simple unsupervised cross domain adaptation approach for person re-identification."Yang Fu, Yunchao Wei, Guanshuo Wang, Yuqian Zhou, Honghui Shi, and Thomas S Huang. ICCV 2019| 
-| MMCL | :heavy_check_mark: | 72.4% | 54.5% | "Unsupervised Person Re-identification via Multi-label Classification" Dongkai Wang and Shiliang Zhang. CVPR 2020. | 
-| AD-Cluster| :heavy_check_mark: | 72.6% | 54.1% |"AD-Cluster: Augmented Discriminative Clustering for Domain Adaptive Person Re-identification" Yunpeng Zhai, Shijian Lu, Qixiang Ye, Xuebo Shan, Jie Chen, Rongrong Ji, and Yonghong Tian. CVPR 2020|
-| MMT |:heavy_check_mark: | 78.0% | 65.1% | "Mutual Mean-Teaching: Pseudo Label Refinery for Unsupervised Domain Adaptation on Person Re-identification" Yixiao Ge, Dapeng Chen, Hongsheng Li. ICLR 2020|
-| MEB-Net |:heavy_check_mark: | 79.6% | 66.1% | "Multiple expert brainstorming for domain adaptive person re-identification" Yunpeng Zhai, Qixiang Ye, Shijian Lu, Mengxi Jia, Rongrong Ji, Yonghong Tian. ECCV 2020|
-| UNRN |:heavy_check_mark: | 82.0% | 69.1% | "Exploiting Sample Uncertainty for Domain Adaptive Person Re-Identification" Kecheng Zheng, Cuiling Lan, Wenjun Zeng, Zhizheng Zhang, and Zheng-Jun Zha. AAAI 2021 |
+| PCB-PAST | :heavy_check_mark: | 72.4% | 54.3% | "[Self-training with progressive augmentation for unsupervised cross-domain person re-identification](https://arxiv.org/abs/1907.13315)" Xinyu Zhang, Jiewei Cao, Chunhua Shen, and Mingyu You. ICCV 2019 | 
+| SSG | :heavy_check_mark: | 73.0% | 53.4%| "[Self-similarity grouping: A simple unsupervised cross domain adaptation approach for person re-identification](https://arxiv.org/abs/1811.10144)" Yang Fu, Yunchao Wei, Guanshuo Wang, Yuqian Zhou, Honghui Shi, and Thomas S Huang. ICCV 2019| 
+| MMCL | :heavy_check_mark: | 72.4% | 54.5% | "[Unsupervised Person Re-identification via Multi-label Classification](https://arxiv.org/abs/2004.09228)" Dongkai Wang and Shiliang Zhang. CVPR 2020. | 
+| AD-Cluster| :heavy_check_mark: | 72.6% | 54.1% |"[AD-Cluster: Augmented Discriminative Clustering for Domain Adaptive Person Re-identification](https://arxiv.org/abs/2004.08787)" Yunpeng Zhai, Shijian Lu, Qixiang Ye, Xuebo Shan, Jie Chen, Rongrong Ji, and Yonghong Tian. CVPR 2020|
+| DAAM | :heavy_check_mark: | 77.6% | 63.9% | "[Domain Adaptive Attention Model for Unsupervised Cross-Domain Person Re-Identification](https://arxiv.org/abs/1905.10529)" Yangru Huang, Peixi Peng, Yi Jin, Junliang Xing, Congyan Lang, Songhe Feng. AAAI 2020 |
+| MMT |:heavy_check_mark: | 78.0% | 65.1% | "[Mutual Mean-Teaching: Pseudo Label Refinery for Unsupervised Domain Adaptation on Person Re-identification](https://arxiv.org/abs/2001.01526)" Yixiao Ge, Dapeng Chen, Hongsheng Li. ICLR 2020|
+| MEB-Net |:heavy_check_mark: | 79.6% | 66.1% | "[Multiple expert brainstorming for domain adaptive person re-identification](https://arxiv.org/abs/2007.01546)" Yunpeng Zhai, Qixiang Ye, Shijian Lu, Mengxi Jia, Rongrong Ji, Yonghong Tian. ECCV 2020|
+| UNRN |:heavy_check_mark: | 82.0% | 69.1% | "[Exploiting Sample Uncertainty for Domain Adaptive Person Re-Identification](https://arxiv.org/abs/2012.08733)" Kecheng Zheng, Cuiling Lan, Wenjun Zeng, Zhizheng Zhang, and Zheng-Jun Zha. AAAI 2021 |
 
 - Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on DukeMTMC-reID
 
