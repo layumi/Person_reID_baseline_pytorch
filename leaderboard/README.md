@@ -81,7 +81,7 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | SSG | :heavy_check_mark: | 73.0% | 53.4%| "Self-similarity grouping: A simple unsupervised cross domain adaptation approach for person re-identification."Yang Fu, Yunchao Wei, Guanshuo Wang, Yuqian Zhou, Honghui Shi, and Thomas S Huang. ICCV 2019| 
 | MMCL | :heavy_check_mark: | 72.4% | 54.5% | "Unsupervised Person Re-identification via Multi-label Classification" Dongkai Wang and Shiliang Zhang. CVPR 2020. | 
 | AD-Cluster| :heavy_check_mark: | 72.6% | 54.1% |"AD-Cluster: Augmented Discriminative Clustering for Domain Adaptive Person Re-identification" Yunpeng Zhai, Shijian Lu, Qixiang Ye, Xuebo Shan, Jie Chen, Rongrong Ji, and Yonghong Tian. CVPR 2020|
-| MMT |:heavy_check_mark: | "Mutual Mean-Teaching: Pseudo Label Refinery for Unsupervised Domain Adaptation on Person Re-identification" Yixiao Ge, Dapeng Chen, Hongsheng Li. ICLR 2020|
+| MMT |:heavy_check_mark: | 78.0% | 65.1% | "Mutual Mean-Teaching: Pseudo Label Refinery for Unsupervised Domain Adaptation on Person Re-identification" Yixiao Ge, Dapeng Chen, Hongsheng Li. ICLR 2020|
 | MEB-Net |:heavy_check_mark: | 79.6% | 66.1% | "Multiple expert brainstorming for domain adaptive person re-identification" Yunpeng Zhai, Qixiang Ye, Shijian Lu, Mengxi Jia, Rongrong Ji, Yonghong Tian. ECCV 2020|
 | UNRN |:heavy_check_mark: | 82.0% | 69.1% | "Exploiting Sample Uncertainty for Domain Adaptive Person Re-Identification" Kecheng Zheng, Cuiling Lan, Wenjun Zeng, Zhizheng Zhang, and Zheng-Jun Zha. AAAI 2021 |
 
