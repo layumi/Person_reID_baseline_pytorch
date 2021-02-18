@@ -16,10 +16,8 @@
     with limited time cost.
 """
 
-import os
 import torch
 import argparse
-import numpy as np
 
 from utils import *
 from gnn_reranking import *
