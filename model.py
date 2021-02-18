@@ -195,7 +195,7 @@ class PCB(nn.Module):
         predict = {}
         # get six part feature batchsize*2048*6
         for i in range(self.part):
-            part[i] = torch.squeeze(x[:,:,i])
+            part[i] = x[:,:,i].view(x.size(0), x.size(1))
             name = 'classifier'+str(i)
             c = getattr(self,name)
             predict[i] = c(part[i])
