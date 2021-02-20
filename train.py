@@ -19,7 +19,6 @@ import os
 from model import ft_net, ft_net_dense, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 import yaml
-import math
 from shutil import copyfile
 from circle_loss import CircleLoss, convert_label_to_similarity
 
