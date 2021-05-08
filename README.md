@@ -238,7 +238,7 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
 
 ## Citation
 The following paper uses and reports the result of the baseline model. You may cite it in your paper.
-```
+```bib
 @article{zheng2019joint,
   title={Joint discriminative and generative learning for person re-identification},
   author={Zheng, Zhedong and Yang, Xiaodong and Yu, Zhiding and Zheng, Liang and Yang, Yi and Kautz, Jan},
@@ -248,7 +248,7 @@ The following paper uses and reports the result of the baseline model. You may c
 ```
 
 The following papers may be the first two to use the bottleneck baseline. You may cite them in your paper.
-```
+```bib
 @article{DBLP:journals/corr/SunZDW17,
   author    = {Yifan Sun and
                Liang Zheng and
@@ -268,7 +268,7 @@ The following papers may be the first two to use the bottleneck baseline. You ma
 ```
 
 Basic Model
-```
+```bib
 @article{zheng2018discriminatively,
   title={A discriminatively learned CNN embedding for person reidentification},
   author={Zheng, Zhedong and Zheng, Liang and Yang, Yi},
