@@ -18,7 +18,7 @@ install:
   - conda info -a
   - conda install numpy 
   - conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
-  - pip install pretrainedmodels
+  - conda install -c conda-forge pretrainedmodels
 
 script:
   # Simple Forward
