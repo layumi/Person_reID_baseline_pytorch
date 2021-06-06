@@ -161,7 +161,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
     if opt.circle:
-        criterion_circle = CircleLoss(m=0.25, gamma=32)
+        criterion_circle = CircleLoss(m=0.25, gamma=32) # gamma = 64 may lead to a better result.
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
