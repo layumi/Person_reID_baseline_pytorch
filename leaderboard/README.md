@@ -88,6 +88,7 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | DGNet++|:heavy_check_mark: | 78.9% | 63.8% | "[Joint disentangling and adaptation for cross-domain person re-identification](https://arxiv.org/abs/2007.10315)" Yang Zou, Xiaodong Yang, Zhiding Yu, B.V.K. Vijaya Kumar, Jan Kautz. ECCV20 |
 | MEB-Net |:heavy_check_mark: | 79.6% | 66.1% | "[Multiple expert brainstorming for domain adaptive person re-identification](https://arxiv.org/abs/2007.01546)" Yunpeng Zhai, Qixiang Ye, Shijian Lu, Mengxi Jia, Rongrong Ji, Yonghong Tian. ECCV 2020|
 | UNRN |:heavy_check_mark: | 82.0% | 69.1% | "[Exploiting Sample Uncertainty for Domain Adaptive Person Re-Identification](https://arxiv.org/abs/2012.08733)" Kecheng Zheng, Cuiling Lan, Wenjun Zeng, Zhizheng Zhang, and Zheng-Jun Zha. AAAI 2021 |
+| Cluster Contrast + GEM |:heavy_check_mark: | 86.8% | 76.0% | "[Cluster Contrast for Unsupervised Person Re-Identification](https://arxiv.org/abs/2103.11568)" Dai, Zuozhuo and Wang, Guangyuan and Zhu, Siyu and Yuan, Weihao and Tan, Ping. arXiv 2021| 
 
 - Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on DukeMTMC-reID
 
