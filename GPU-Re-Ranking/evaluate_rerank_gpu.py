@@ -19,8 +19,8 @@
 import torch
 import argparse
 
-from utils import *
-from gnn_reranking import *
+from utils import load_pickle, evaluate_ranking_list
+from gnn_reranking import gnn_reranking
 
 parser = argparse.ArgumentParser(description='Reranking_is_GNN')
 parser.add_argument('--data_path', 
