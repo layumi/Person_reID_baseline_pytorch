@@ -21,8 +21,6 @@ import torch
 import build_adjacency_matrix
 import gnn_propagate
 
-from utils import *
-
 
 
 def gnn_reranking(X_q, X_g, k1, k2):
