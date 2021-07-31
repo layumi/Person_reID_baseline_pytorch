@@ -10,7 +10,7 @@ GPU-Re-Ranking/extension/adjacency_matrix/dist
 GPU-Re-Ranking/extension/propagation/dist
 
 # But not 
-model/.gitkeep
+!model/.gitkeep
 
 # Compiled source #
 ###################
