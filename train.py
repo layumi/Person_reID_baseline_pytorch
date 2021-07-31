@@ -9,6 +9,7 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 from torch.autograd import Variable
 from torchvision import datasets, transforms
+import torchvision
 import torch.backends.cudnn as cudnn
 import matplotlib
 matplotlib.use('agg')
@@ -27,8 +28,11 @@ version =  torch.__version__
 try:
     from apex.fp16_utils import *
     from apex import amp
+    from apex.optimizers import FusedSGD
 except ImportError: # will be 3.x series
     print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
+
+
 ######################################################################
 # Options
 # --------
@@ -49,6 +53,7 @@ parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
 parser.add_argument('--circle', action='store_true', help='use Circle loss' )
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50% memory' )
+parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
 opt = parser.parse_args()
 
 fp16 = opt.fp16
@@ -69,6 +74,7 @@ if len(gpu_ids)>0:
 # Load Data
 # ---------
 #
+torchvision.set_image_backend('accimage') # Please install accimage via 'conda install accimage'  or set it as default  'PIL'
 
 transform_train_list = [
         #transforms.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
@@ -123,7 +129,7 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=8, pin_memory=True) # 8 workers may work faster
+                                             shuffle=True, num_workers=4, pin_memory=True) # 8 workers may work faster
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
@@ -169,7 +175,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
             if phase == 'train':
-                scheduler.step()
                 model.train(True)  # Set model to training mode
             else:
                 model.train(False)  # Set model to evaluate mode
@@ -241,7 +246,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     else:
                         loss.backward()
                     optimizer.step()
-
                 # statistics
                 if int(version[0])>0 or int(version[2]) > 3: # for the new version like 0.4.0, 0.5.0 and 1.0.0
                     running_loss += loss.item() * now_batch_size
@@ -263,7 +267,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 if epoch%10 == 9:
                     save_network(model, epoch)
                 draw_curve(epoch)
-
+            if phase == 'train':
+               scheduler.step()
         time_elapsed = time.time() - since
         print('Training complete in {:.0f}m {:.0f}s'.format(
             time_elapsed // 60, time_elapsed % 60))
@@ -330,12 +335,20 @@ opt.nclasses = len(class_names)
 
 print(model)
 
+# model to gpu
+model = model.cuda()
+
+optim_name = optim.SGD #apex.optimizers.FusedSGD
+if opt.FSGD: # apex is needed
+    optim_name = FusedSGD
+
 if not opt.PCB:
     ignored_params = list(map(id, model.classifier.parameters() ))
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
-    optimizer_ft = optim.SGD([
+    classifier_params = model.classifier.parameters()
+    optimizer_ft = optim_name([
              {'params': base_params, 'lr': 0.1*opt.lr},
-             {'params': model.classifier.parameters(), 'lr': opt.lr}
+             {'params': classifier_params, 'lr': opt.lr}
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 else:
     ignored_params = list(map(id, model.model.fc.parameters() ))
@@ -349,17 +362,10 @@ else:
                      #+list(map(id, model.classifier7.parameters() ))
                       )
     base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
-    optimizer_ft = optim.SGD([
+    classifier_params = filter(lambda p: id(p) in ignored_params, model.parameters())
+    optimizer_ft = optim_name([
              {'params': base_params, 'lr': 0.1*opt.lr},
-             {'params': model.model.fc.parameters(), 'lr': opt.lr},
-             {'params': model.classifier0.parameters(), 'lr': opt.lr},
-             {'params': model.classifier1.parameters(), 'lr': opt.lr},
-             {'params': model.classifier2.parameters(), 'lr': opt.lr},
-             {'params': model.classifier3.parameters(), 'lr': opt.lr},
-             {'params': model.classifier4.parameters(), 'lr': opt.lr},
-             {'params': model.classifier5.parameters(), 'lr': opt.lr},
-             #{'params': model.classifier6.parameters(), 'lr': 0.01},
-             #{'params': model.classifier7.parameters(), 'lr': 0.01}
+             {'params': classifier_params, 'lr': opt.lr}
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 
 # Decay LR by a factor of 0.1 every 40 epochs
@@ -382,14 +388,12 @@ copyfile('./model.py', dir_name+'/model.py')
 with open('%s/opts.yaml'%dir_name,'w') as fp:
     yaml.dump(vars(opt), fp, default_flow_style=False)
 
-# model to gpu
-model = model.cuda()
+criterion = nn.CrossEntropyLoss()
+
 if fp16:
     #model = network_to_half(model)
     #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
     model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
-
-criterion = nn.CrossEntropyLoss()
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=60)
