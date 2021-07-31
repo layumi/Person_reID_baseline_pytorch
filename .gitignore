@@ -4,7 +4,10 @@ model/
 logs/
 __pycache__/
 core
-
+GPU-Re-Ranking/extension/adjacency_matrix/build_adjacency_matrix.egg-info/
+GPU-Re-Ranking/extension/propagation/gnn_propagate.egg-info/
+GPU-Re-Ranking/extension/adjacency_matrix/dist
+GPU-Re-Ranking/extension/propagation/dist
 # Compiled source #
 ###################
 *.com
