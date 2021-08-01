@@ -74,7 +74,6 @@ if len(gpu_ids)>0:
 # Load Data
 # ---------
 #
-torchvision.set_image_backend('accimage') # Please install accimage via 'conda install accimage'  or set it as default  'PIL'
 
 transform_train_list = [
         #transforms.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
