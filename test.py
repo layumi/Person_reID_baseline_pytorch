@@ -17,7 +17,7 @@ import os
 import scipy.io
 import yaml
 import math
-from model import ft_net, ft_net_dense, ft_net_NAS, PCB, PCB_test
+from model import ft_net, ft_net_dense, ft_net_swin, ft_net_NAS, PCB, PCB_test
 
 #fp16
 try:
@@ -50,6 +50,7 @@ opt.fp16 = config['fp16']
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
 opt.use_NAS = config['use_NAS']
+opt.use_swin = config['use_swin']
 opt.stride = config['stride']
 
 if 'nclasses' in config: # tp compatible with old config files
@@ -87,8 +88,13 @@ if len(gpu_ids)>0:
 # We will use torchvision and torch.utils.data packages for loading the
 # data.
 #
+if opt.use_swin:
+    h, w = 224, 224
+else:
+    h, w = 256, 128
+
 data_transforms = transforms.Compose([
-        transforms.Resize((256,128), interpolation=3),
+        transforms.Resize((h, w), interpolation=3),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ############### Ten Crop        
@@ -214,6 +220,8 @@ if opt.use_dense:
     model_structure = ft_net_dense(opt.nclasses)
 elif opt.use_NAS:
     model_structure = ft_net_NAS(opt.nclasses)
+elif opt.use_swin:
+    model_structure = ft_net_swin(opt.nclasses)
 else:
     model_structure = ft_net(opt.nclasses, stride = opt.stride)
 
