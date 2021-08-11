@@ -4,6 +4,7 @@ from torch.nn import init
 from torchvision import models
 from torch.autograd import Variable
 import pretrainedmodels
+import timm
 
 ######################################################################
 def weights_init_kaiming(m):
@@ -89,6 +90,26 @@ class ft_net(nn.Module):
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
+
+
+# Define the swin_base_patch4_window7_224 Model
+# pytorch > 1.6
+class ft_net_swin(nn.Module):
+
+    def __init__(self, class_num, droprate=0.5, stride=2, circle=False):
+        super(ft_net_swin, self).__init__()
+        model_ft = timm.create_model('swin_base_patch4_window7_224', pretrained=True)
+        # avg pooling to global pooling
+        #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        self.model = model_ft
+        self.circle = circle
+        self.classifier = ClassBlock(1024, class_num, droprate, return_f = circle)
+
+    def forward(self, x):
+        x = self.model.forward_features(x)
+        x = self.classifier(x)
+        return x
+
 
 # Define the DenseNet121-based Model
 class ft_net_dense(nn.Module):
@@ -240,10 +261,10 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net(751, stride=1)
+    net = ft_net_swin(751, stride=1)
     net.classifier = nn.Sequential()
     print(net)
-    input = Variable(torch.FloatTensor(8, 3, 256, 128))
+    input = Variable(torch.FloatTensor(8, 3, 224, 224))
     output = net(input)
     print('net output size:')
     print(output.shape)

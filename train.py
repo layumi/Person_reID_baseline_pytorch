@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 #from PIL import Image
 import time
 import os
-from model import ft_net, ft_net_dense, ft_net_NAS, PCB
+from model import ft_net, ft_net_dense, ft_net_swin, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 import yaml
 from shutil import copyfile
@@ -46,6 +46,7 @@ parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
 parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--use_swin', action='store_true', help='use swin transformer 224x224' )
 parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
 parser.add_argument('--warm_epoch', default=0, type=int, help='the first K epoch that needs warm up')
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
@@ -75,18 +76,23 @@ if len(gpu_ids)>0:
 # ---------
 #
 
+if opt.use_swin:
+    h, w = 224, 224
+else:
+    h, w = 256, 128
+
 transform_train_list = [
         #transforms.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
-        transforms.Resize((256,128), interpolation=3),
+        transforms.Resize((h, w), interpolation=3),
         transforms.Pad(10),
-        transforms.RandomCrop((256,128)),
+        transforms.RandomCrop((h, w)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]
 
 transform_val_list = [
-        transforms.Resize(size=(256,128),interpolation=3), #Image.BICUBIC
+        transforms.Resize(size=(h, w),interpolation=3), #Image.BICUBIC
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]
@@ -324,6 +330,8 @@ if opt.use_dense:
     model = ft_net_dense(len(class_names), opt.droprate, circle = opt.circle)
 elif opt.use_NAS:
     model = ft_net_NAS(len(class_names), opt.droprate)
+elif opt.use_swin:
+    model = ft_net_swin(len(class_names), opt.droprate, opt.stride, circle =opt.circle)
 else:
     model = ft_net(len(class_names), opt.droprate, opt.stride, circle =opt.circle)
 
