@@ -141,6 +141,7 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 - GPU Memory >= 6G
 - Numpy
 - Pytorch 0.3+
+- timm `pip install timm` for Swin-Transformer with Pytorch >1.7.0
 - [Optional] apex (for float16) 
 - [Optional] [pretrainedmodels](https://github.com/Cadene/pretrained-models.pytorch)
 
