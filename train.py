@@ -9,7 +9,6 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 from torch.autograd import Variable
 from torchvision import datasets, transforms
-import torchvision
 import torch.backends.cudnn as cudnn
 import matplotlib
 matplotlib.use('agg')
