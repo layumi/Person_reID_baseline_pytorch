@@ -57,6 +57,8 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**12 Aug 2021** We have supported the transformer-based model `Swin` by `--use_swin`. The basic performance is 92.73% Rank@1 and 79.71%mAP.
+
 **23 Jun 2021** Attack your re-ID model via Query! They are not robust as you expected! Check the code at [Here](https://github.com/layumi/A_reID).
 
 **5 Feb 2021** We have supported [Circle loss](https://arxiv.org/abs/2002.10857)(CVPR20 Oral). You can try it by simply adding `--circle`.  
@@ -130,6 +132,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | [ResNet-50 (fp16)] | 88.03% | 71.40% | `python train.py --name fp16 --fp16 --train_all` |
 | [ResNet-50 (all tricks)] | 91.83% | 78.32% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5` |
 | [ResNet-50 (all tricks+Circle)] | 92.13% | 79.84% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5_circle  --circle` |
+| [Swin] | 92.73% | 79.71% | `python train.py --use_swin --name swin; python test.py --name swin`|
 
 ### Model Structure
 You may learn more from `model.py`. 
