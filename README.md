@@ -133,6 +133,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | [ResNet-50 (all tricks)] | 91.83% | 78.32% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5` |
 | [ResNet-50 (all tricks+Circle)] | 92.13% | 79.84% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5_circle  --circle` |
 | [Swin] | 92.73% | 79.71% | `python train.py --use_swin --name swin; python test.py --name swin`|
+| [Swin (all tricks+Circle)] | 93.65% | 83.65% | `python train.py --use_swin --name swin_p0.5_circle_w5  --erasing_p 0.5 --circle --warm_epoch 5;  python test.py --name swin_p0.5_circle_w5`|
 
 ### Model Structure
 You may learn more from `model.py`. 
