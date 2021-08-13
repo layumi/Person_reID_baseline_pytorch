@@ -37,6 +37,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
+- [Swin Transformer](https://github.com/microsoft/Swin-Transformer)
 - Circle Loss (**CVPR 2020 Oral**)
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
