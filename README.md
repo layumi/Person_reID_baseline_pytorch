@@ -37,6 +37,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
+- [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer)
 - Circle Loss (**CVPR 2020 Oral**)
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
@@ -58,6 +59,8 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**14 Aug 2021** We have supported the training with [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) for regularization via [Self-supervised Memory Learning](https://www.ijcai.org/proceedings/2020/150) by `--DG`. 
+
 **12 Aug 2021** We have supported the transformer-based model `Swin` by `--use_swin`. The basic performance is 92.73% Rank@1 and 79.71%mAP.
 
 **23 Jun 2021** Attack your re-ID model via Query! They are not robust as you expected! Check the code at [Here](https://github.com/layumi/A_reID).
@@ -133,6 +136,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | [ResNet-50 (fp16)] | 88.03% | 71.40% | `python train.py --name fp16 --fp16 --train_all` |
 | [ResNet-50 (all tricks)] | 91.83% | 78.32% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5` |
 | [ResNet-50 (all tricks+Circle)] | 92.13% | 79.84% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5_circle  --circle` |
+| [ResNet-50 (all tricks+Circle+DG)] | 92.13% | 80.13% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5_circle_DG --circle --DG; python test.py --name warm5_s1_b8_lr2_p0.5_circle_DG` |
 | [Swin] | 92.73% | 79.71% | `python train.py --use_swin --name swin; python test.py --name swin`|
 | [Swin (all tricks+Circle)] | 93.65% | 83.65% | `python train.py --use_swin --name swin_p0.5_circle_w5  --erasing_p 0.5 --circle --warm_epoch 5;  python test.py --name swin_p0.5_circle_w5`|
 
