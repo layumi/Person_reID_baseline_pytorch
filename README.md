@@ -59,7 +59,7 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
-**14 Aug 2021** We have supported the training with [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) for regularization via [Self-supervised Memory Learning](https://www.ijcai.org/proceedings/2020/150) by `--DG`. 
+**14 Aug 2021** We have supported the training with [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) for regularization via [Self-supervised Memory Learning](https://www.ijcai.org/proceedings/2020/150). You only neeed to download/unzip the dataset and add `--DG` to train model. 
 
 **12 Aug 2021** We have supported the transformer-based model `Swin` by `--use_swin`. The basic performance is 92.73% Rank@1 and 79.71%mAP.
 
