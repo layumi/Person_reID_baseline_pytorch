@@ -52,6 +52,7 @@ parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
 parser.add_argument('--circle', action='store_true', help='use Circle loss' )
+parser.add_argument('--DG', action='store_true', help='use extra DG-Market Dataset for training. Please download it.' )
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50% memory' )
 parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
 opt = parser.parse_args()
@@ -135,6 +136,14 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
                                              shuffle=True, num_workers=4, pin_memory=True) # 8 workers may work faster
               for x in ['train', 'val']}
+
+if opt.DG:
+    image_datasets['DG'] = datasets.ImageFolder(os.path.join('../DG-Market' ),
+                                          data_transforms['train'])
+    dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size=opt.batchsize,
+                                             shuffle=True, num_workers=4, pin_memory=True)
+    DGloader_iter = enumerate(dataloaders['DG'])
+
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
@@ -162,6 +171,12 @@ y_loss['val'] = []
 y_err = {}
 y_err['train'] = []
 y_err['val'] = []
+
+def fliplr(img):
+    '''flip horizontal'''
+    inv_idx = torch.arange(img.size(3)-1,-1,-1).long().cuda()  # N x C x H x W
+    img_flip = img.index_select(3,inv_idx)
+    return img_flip
 
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
@@ -214,6 +229,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     outputs = model(inputs)
 
                 sm = nn.Softmax(dim=1)
+                log_sm = nn.LogSoftmax(dim=1)
                 if opt.circle: 
                     logits, ff = outputs
                     fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
@@ -237,6 +253,29 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     loss = criterion(part[0], labels)
                     for i in range(num_part-1):
                         loss += criterion(part[i+1], labels)
+
+                # use extra DG Dataset (https://github.com/NVlabs/DG-Net#dg-market)
+                if opt.DG and phase == 'train':
+                    try:
+                        _, batch = DGloader_iter.__next__()
+                    except: 
+                        DGloader_iter = enumerate(dataloaders['DG'])
+                        _, batch = DGloader_iter.__next__()
+                        
+                    inputs, _ = batch
+                    inputs = inputs.cuda()
+                    # use memory in vivo loss (https://arxiv.org/abs/1912.11164)
+                    outputs1 = model(inputs)
+                    if opt.circle:
+                        outputs1, _ = outputs1
+
+                    outputs2 = model(fliplr(inputs))
+                    if opt.circle:
+                        outputs2, _ = outputs2
+
+                    mean_pred = sm(outputs1 + outputs2)
+                    kl_loss = nn.KLDivLoss(size_average=False)
+                    loss += 0.01*(kl_loss(log_sm(outputs2) , mean_pred)  + kl_loss(log_sm(outputs1) , mean_pred))/2
 
                 # backward + optimize only if in training phase
                 if epoch<opt.warm_epoch and phase == 'train': 
