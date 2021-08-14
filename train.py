@@ -134,14 +134,14 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=4, pin_memory=True) # 8 workers may work faster
+                                             shuffle=True, num_workers=2, pin_memory=True) # 8 workers may work faster
               for x in ['train', 'val']}
 
 if opt.DG:
     image_datasets['DG'] = datasets.ImageFolder(os.path.join('../DG-Market' ),
                                           data_transforms['train'])
-    dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=4, pin_memory=True)
+    dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size=opt.batchsize//2,
+                                             shuffle=True, num_workers=2, pin_memory=True)
     DGloader_iter = enumerate(dataloaders['DG'])
 
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
@@ -238,10 +238,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     #loss = criterion_circle(*convert_label_to_similarity( ff, labels))
                     _, preds = torch.max(logits.data, 1)
 
-                elif not opt.PCB:  #  norm
-                    _, preds = torch.max(outputs.data, 1)
-                    loss = criterion(outputs, labels)
-                else: # PCB
+                elif opt.PCB:  #  PCB
                     part = {}
                     num_part = 6
                     for i in range(num_part):
@@ -253,6 +250,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     loss = criterion(part[0], labels)
                     for i in range(num_part-1):
                         loss += criterion(part[i+1], labels)
+                else:  #  norm
+                    _, preds = torch.max(outputs.data, 1)
+                    loss = criterion(outputs, labels)
 
                 # use extra DG Dataset (https://github.com/NVlabs/DG-Net#dg-market)
                 if opt.DG and phase == 'train':
@@ -263,15 +263,22 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         _, batch = DGloader_iter.__next__()
                         
                     inputs, _ = batch
-                    inputs = inputs.cuda()
+                    inputs = inputs.cuda().detach()
                     # use memory in vivo loss (https://arxiv.org/abs/1912.11164)
                     outputs1 = model(inputs)
                     if opt.circle:
                         outputs1, _ = outputs1
-
+                    elif opt.PCB:
+                        for i in range(num_part):
+                            part[i] = outputs1[i]
+                        outputs1 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
                     outputs2 = model(fliplr(inputs))
                     if opt.circle:
                         outputs2, _ = outputs2
+                    elif opt.PCB:
+                        for i in range(num_part):
+                            part[i] = outputs2[i]
+                        outputs2 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
 
                     mean_pred = sm(outputs1 + outputs2)
                     kl_loss = nn.KLDivLoss(size_average=False)
