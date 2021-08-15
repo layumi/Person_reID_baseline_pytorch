@@ -141,7 +141,7 @@ dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.
 if opt.DG:
     image_datasets['DG'] = DGFolder(os.path.join('../DG-Market' ),
                                           data_transforms['train'])
-    dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size=opt.batchsize//2,
+    dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size = max(8, opt.batchsize//2),
                                              shuffle=True, num_workers=2, pin_memory=True)
     DGloader_iter = enumerate(dataloaders['DG'])
 
