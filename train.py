@@ -306,6 +306,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     running_loss += loss.item() * now_batch_size
                 else :  # for the old version like 0.3.0 and 0.3.1
                     running_loss += loss.data[0] * now_batch_size
+                del loss
                 running_corrects += float(torch.sum(preds == labels.data))
 
             epoch_loss = running_loss / dataset_sizes[phase]

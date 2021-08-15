@@ -101,6 +101,7 @@ class ft_net_swin(nn.Module):
         model_ft = timm.create_model('swin_base_patch4_window7_224', pretrained=True)
         # avg pooling to global pooling
         #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        model_ft.head = nn.Sequential() # save memory
         self.model = model_ft
         self.circle = circle
         self.classifier = ClassBlock(1024, class_num, droprate, return_f = circle)
