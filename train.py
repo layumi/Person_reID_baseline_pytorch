@@ -18,6 +18,7 @@ import time
 import os
 from model import ft_net, ft_net_dense, ft_net_swin, ft_net_NAS, PCB
 from random_erasing import RandomErasing
+from dgfolder import DGFolder
 import yaml
 from shutil import copyfile
 from circle_loss import CircleLoss, convert_label_to_similarity
@@ -138,7 +139,7 @@ dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.
               for x in ['train', 'val']}
 
 if opt.DG:
-    image_datasets['DG'] = datasets.ImageFolder(os.path.join('../DG-Market' ),
+    image_datasets['DG'] = DGFolder(os.path.join('../DG-Market' ),
                                           data_transforms['train'])
     dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size=opt.batchsize//2,
                                              shuffle=True, num_workers=2, pin_memory=True)
@@ -254,25 +255,27 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     _, preds = torch.max(outputs.data, 1)
                     loss = criterion(outputs, labels)
 
+                del inputs
                 # use extra DG Dataset (https://github.com/NVlabs/DG-Net#dg-market)
-                if opt.DG and phase == 'train':
+                if opt.DG and phase == 'train' and epoch > num_epochs*0.2:
                     try:
                         _, batch = DGloader_iter.__next__()
                     except: 
                         DGloader_iter = enumerate(dataloaders['DG'])
                         _, batch = DGloader_iter.__next__()
                         
-                    inputs, _ = batch
-                    inputs = inputs.cuda().detach()
+                    inputs1, inputs2, _ = batch
+                    inputs1 = inputs1.cuda().detach()
+                    inputs2 = inputs2.cuda().detach()
                     # use memory in vivo loss (https://arxiv.org/abs/1912.11164)
-                    outputs1 = model(inputs)
+                    outputs1 = model(inputs1)
                     if opt.circle:
                         outputs1, _ = outputs1
                     elif opt.PCB:
                         for i in range(num_part):
                             part[i] = outputs1[i]
                         outputs1 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
-                    outputs2 = model(fliplr(inputs))
+                    outputs2 = model(inputs2)
                     if opt.circle:
                         outputs2, _ = outputs2
                     elif opt.PCB:
@@ -282,8 +285,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                     mean_pred = sm(outputs1 + outputs2)
                     kl_loss = nn.KLDivLoss(size_average=False)
-                    loss += 0.01*(kl_loss(log_sm(outputs2) , mean_pred)  + kl_loss(log_sm(outputs1) , mean_pred))/2
-
+                    reg= (kl_loss(log_sm(outputs2) , mean_pred)  + kl_loss(log_sm(outputs1) , mean_pred))/2
+                    loss += 0.01*reg
+                    del inputs1, inputs2
+                    print(0.01*reg)
                 # backward + optimize only if in training phase
                 if epoch<opt.warm_epoch and phase == 'train': 
                     warm_up = min(1.0, warm_up + 0.9 / warm_iteration)
