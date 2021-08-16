@@ -71,6 +71,9 @@ Different framework need to be tuned in a different way.
 
 **11 June 2020** People live in the 3D world. We release one new person re-id code [Person Re-identification in the 3D Space](https://github.com/layumi/person-reid-3d), which conduct representation learning in the 3D space. You are welcomed to check out it.
 
+<img width="250" height="150" src="https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/pdf/3D-demo.png"/>
+
+
 **30 April 2020** We have applied this code to the [AICity Challenge 2020](https://www.aicitychallenge.org/),  yielding the 1st Place Submission to the re-id track :red_car:. Check out [here](https://github.com/layumi/AICIty-reID-2020).
 
 **01 March 2020** We release one new image retrieval dataset, called [University-1652](https://github.com/layumi/University1652-Baseline), for drone-view target localization and drone navigation :helicopter:. It has a similar setting with the person re-ID. You are welcomed to check out it.
