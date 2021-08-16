@@ -4,7 +4,7 @@ The whole process of using colab to train Person_reID
 If this is your first time associating Google Drive with colab :  
 Click New -> More -> Connect more apps, find Google Colaboratory, and connect.  
 
-Create a new colab notebook :
+Create a new colab notebook :  
 Click New -> More ->Google Colaboratory  
 ## 2. Use free GPU  
 Edit-> Notebook settings, select GPU   
