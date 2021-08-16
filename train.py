@@ -257,7 +257,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                 del inputs
                 # use extra DG Dataset (https://github.com/NVlabs/DG-Net#dg-market)
-                if opt.DG and phase == 'train' and epoch > num_epochs*0.2:
+                if opt.DG and phase == 'train' and epoch > num_epochs*0.1:
                     try:
                         _, batch = DGloader_iter.__next__()
                     except: 
