@@ -16,7 +16,6 @@ colab is equivalent to jupyter notebook, you can run python code directly, This 
 ## 4. Due to the needs of the project, pytorch needs to be installed here and related configuration is performed. Enter the following code in colab:  
 ```
 !pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
-!pip install torchvision
 !python -m pip install matplotlib
 !pip install  pretrainedmodels
 !pip install timm
