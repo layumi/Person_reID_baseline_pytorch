@@ -65,7 +65,7 @@ class ClassBlock(nn.Module):
 # Define the ResNet50-based Model
 class ft_net(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5, stride=2, circle=False):
+    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False):
         super(ft_net, self).__init__()
         model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
@@ -157,13 +157,13 @@ class ft_net_NAS(nn.Module):
 # In the spirit of "The Devil is in the Middle: Exploiting Mid-level Representations for Cross-Domain Instance Matching." Yu, Qian, et al. arXiv:1711.08106 (2017).
 class ft_net_middle(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5):
+    def __init__(self, class_num=751, droprate=0.5):
         super(ft_net_middle, self).__init__()
         model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
-        self.classifier = ClassBlock(2048+1024, class_num, droprate)
+        self.classifier = ClassBlock(2048, class_num, droprate)
 
     def forward(self, x):
         x = self.model.conv1(x)
@@ -173,14 +173,10 @@ class ft_net_middle(nn.Module):
         x = self.model.layer1(x)
         x = self.model.layer2(x)
         x = self.model.layer3(x)
-        # x0  n*1024*1*1
-        x0 = self.model.avgpool(x)
         x = self.model.layer4(x)
-        # x1  n*2048*1*1
-        x1 = self.model.avgpool(x)
-        x = torch.cat((x0,x1),1)
-        x = x.view(x.size(0), x.size(1))
-        x = self.classifier(x)
+        x = self.model.avgpool(x)
+        x = torch.squeeze(x)
+        x = self.classifier(x) #use our classifier.
         return x
 
 # Part Model proposed in Yifan Sun etal. (2018)
