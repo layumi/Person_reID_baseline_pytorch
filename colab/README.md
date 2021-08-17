@@ -20,7 +20,7 @@ colab is equivalent to jupyter notebook, you can run python code directly, This 
 !pip install  pretrainedmodels
 !pip install timm
 ```
-## 5. Hang colab on Google Cloud Disk Drive, so that you can save the results to Google Cloud Disk:
+## 5. Hang colab on Google Drive, so that you can save the results to Google Drive:
 ```
 from google.colab import drive
 drive.mount('/content/drive/')
@@ -105,6 +105,12 @@ make_targz_one_by_one('peo', '/content/drive/MyDrive/Person_reID_baseline_pytorc
 ```
 peo is the name of the compressed file, which can be anything you want. /content/drive/MyDrive/people/person/person reid is the name of the file to be downloaded.
 
-
-
-
+## Note: Every time you reopen colab, you must reinstall the environment and match Google Drive.
+```
+!pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+!python -m pip install matplotlib
+!pip install  pretrainedmodels
+!pip install timm
+from google.colab import drive
+drive.mount('/content/drive/')
+```
