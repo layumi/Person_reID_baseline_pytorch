@@ -1,5 +1,5 @@
 from torchvision import datasets
-import numpy as 
+import numpy as np
 
 class DGFolder(datasets.ImageFolder):
 
