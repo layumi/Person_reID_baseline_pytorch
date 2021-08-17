@@ -37,6 +37,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
+- Running the code on Google Colab with Free GPU (Thanks to @ronghao233)
 - [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer)
 - Circle Loss (**CVPR 2020 Oral**)
@@ -59,6 +60,8 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+**17 Aug 2021** We support running code on Google Colab with free GPU. Please check it out at https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab .
+
 **14 Aug 2021** We have supported the training with [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) for regularization via [Self-supervised Memory Learning](https://www.ijcai.org/proceedings/2020/150). You only neeed to download/unzip the dataset and add `--DG` to train model. 
 
 **12 Aug 2021** We have supported the transformer-based model `Swin` by `--use_swin`. The basic performance is 92.73% Rank@1 and 79.71%mAP.
