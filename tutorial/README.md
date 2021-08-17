@@ -67,6 +67,7 @@ We create a subfolder called `pytorch` under the download folder.
 │       ├── train_all/               /* train+val      
 │       ├── query/                   /* query files  
 │       ├── gallery/                 /* gallery files  
+│       ├── multi-query/    
 ```
 
 In every subdir, such as `pytorch/train/0002`, images with the same ID are arranged in the folder.
