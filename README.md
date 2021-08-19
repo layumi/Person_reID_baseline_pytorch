@@ -37,7 +37,7 @@ Besides, if you are new to person re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
-- Running the code on Google Colab with Free GPU (Thanks to @ronghao233)
+- Running the code on Google Colab with Free GPU. Check [Here](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab) (Thanks to @ronghao233)
 - [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market **CVPR 2019 Oral**)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer)
 - Circle Loss (**CVPR 2020 Oral**)
