@@ -164,6 +164,7 @@ We add one linear layer(bottleneck), one batchnorm layer and relu.
 - Numpy
 - Pytorch 0.3+
 - timm `pip install timm` for Swin-Transformer with Pytorch >1.7.0
+- pretrainedmodels via `pip install pretrainedmodels`
 - [Optional] apex (for float16) 
 - [Optional] [pretrainedmodels](https://github.com/Cadene/pretrained-models.pytorch)
 
