@@ -38,6 +38,7 @@ parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
 parser.add_argument('--fp16', action='store_true', help='use fp16.' )
+parser.add_argument('--ibn', action='store_true', help='use ibn.' )
 parser.add_argument('--ms',default='1', type=str,help='multiple_scale: e.g. 1 1,1.1  1,1.1,1.2')
 
 opt = parser.parse_args()
@@ -57,6 +58,9 @@ if 'nclasses' in config: # tp compatible with old config files
     opt.nclasses = config['nclasses']
 else: 
     opt.nclasses = 751 
+
+if 'ibn' in config:
+    opt.ibn = config['ibn']
 
 str_ids = opt.gpu_ids.split(',')
 #which_epoch = opt.which_epoch
@@ -223,7 +227,7 @@ elif opt.use_NAS:
 elif opt.use_swin:
     model_structure = ft_net_swin(opt.nclasses)
 else:
-    model_structure = ft_net(opt.nclasses, stride = opt.stride)
+    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn )
 
 if opt.PCB:
     model_structure = PCB(opt.nclasses)

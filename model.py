@@ -65,9 +65,11 @@ class ClassBlock(nn.Module):
 # Define the ResNet50-based Model
 class ft_net(nn.Module):
 
-    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False):
+    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False, ibn=False):
         super(ft_net, self).__init__()
         model_ft = models.resnet50(pretrained=True)
+        if ibn==True:
+            model_ft = torch.hub.load('XingangPan/IBN-Net', 'resnet50_ibn_a', pretrained=True)
         # avg pooling to global pooling
         if stride == 1:
             model_ft.layer4[0].downsample[0].stride = (1,1)
@@ -258,7 +260,8 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net_swin(751, stride=1)
+    net = ft_net(751, stride=1, ibn=True)
+    #net = ft_net_swin(751, stride=1)
     net.classifier = nn.Sequential()
     print(net)
     input = Variable(torch.FloatTensor(8, 3, 224, 224))

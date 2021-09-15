@@ -53,6 +53,7 @@ parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
 parser.add_argument('--circle', action='store_true', help='use Circle loss' )
+parser.add_argument('--ibn', action='store_true', help='use resnet+ibn' )
 parser.add_argument('--DG', action='store_true', help='use extra DG-Market Dataset for training. Please download it.' )
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50% memory' )
 parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
@@ -384,7 +385,7 @@ elif opt.use_NAS:
 elif opt.use_swin:
     model = ft_net_swin(len(class_names), opt.droprate, opt.stride, circle =opt.circle)
 else:
-    model = ft_net(len(class_names), opt.droprate, opt.stride, circle =opt.circle)
+    model = ft_net(len(class_names), opt.droprate, opt.stride, circle =opt.circle, ibn=opt.ibn)
 
 if opt.PCB:
     model = PCB(len(class_names))
