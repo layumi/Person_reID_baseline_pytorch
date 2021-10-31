@@ -154,7 +154,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 
 * More training iterations may lead to better results. 
 * Swin costs more GPU memory (11G GPU is needed) to run. 
-* The hyper-parameter of DG-Market `--DG` is not tuned. Better hyper-parameter may lead to better results.
+* The hyper-parameter of [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) `--DG` is not tuned. Better hyper-parameter may lead to better results.
 
 ### Model Structure
 You may learn more from `model.py`. 
