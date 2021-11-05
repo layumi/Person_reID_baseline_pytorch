@@ -4,7 +4,7 @@ from shutil import copyfile
 # 1-100 train
 # 101-200 test
 os.system('wget http://www.vision.caltech.edu/visipedia-data/CUB-200-2011/CUB_200_2011.tgz')
-os.system('')
+os.system('tar -zxvf CUB_200_2011.tgz')
 os.system('cd ./CUB_200_2011/images')
 os.system('mkdir train_all')
 os.system('mkdir test')
