@@ -46,7 +46,7 @@ opt = parser.parse_args()
 # load the training config
 config_path = os.path.join('./model',opt.name,'opts.yaml')
 with open(config_path, 'r') as stream:
-        config = yaml.load(stream)
+        config = yaml.load(stream, Loader=yaml.FullLoader) # for the new pyyaml via 'conda install pyyaml'
 opt.fp16 = config['fp16'] 
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
