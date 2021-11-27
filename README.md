@@ -46,7 +46,7 @@ Now we have supported:
 - Multiple Query Evaluation
 - Re-Ranking ([GPU Version](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/GPU-Re-Ranking))
 - Random Erasing
-- ResNet/DenseNet
+- ResNet/ResNet-ibn/DenseNet
 - Visualize Training Curves
 - Visualize Ranking Result
 - [Visualize Heatmap](https://github.com/layumi/Person_reID_baseline_pytorch/blob/dev/visual_heatmap.py)
