@@ -32,7 +32,7 @@ Besides, if you are new to object re-ID, you may check out our **[Tutorial](http
     * [Test](#test)
     * [Evaluation](#evaluation)
 * [Tips for training with other datasets](#tips)
-* [Citation](#citation)
+* [How to Cite?](#citation)
 * [Related Repos](#related-repos)
 
 ## Features
