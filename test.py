@@ -17,7 +17,7 @@ import os
 import scipy.io
 import yaml
 import math
-from model import ft_net, ft_net_dense, ft_net_swin, ft_net_NAS, PCB, PCB_test
+from model import ft_net, ft_net_dense, ft_net_swin, ft_net_efficient, ft_net_NAS, PCB, PCB_test
 
 #fp16
 try:
@@ -52,6 +52,7 @@ opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
 opt.use_NAS = config['use_NAS']
 opt.use_swin = config['use_swin']
+opt.use_efficient = config['use_efficient']
 opt.stride = config['stride']
 
 if 'nclasses' in config: # tp compatible with old config files

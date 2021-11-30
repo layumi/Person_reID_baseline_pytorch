@@ -133,6 +133,28 @@ class ft_net_dense(nn.Module):
         x = self.classifier(x)
         return x
 
+# Define the DenseNet121-based Model
+class ft_net_efficient(nn.Module):
+
+    def __init__(self, class_num, droprate=0.5, circle=False):
+        super().__init__()
+        model_ft = models.efficientnet_b4(pretrained=True)
+        model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        model_ft.classifier = nn.Sequential()
+        self.model = model_ft
+        self.circle = circle
+        # For EfficientNet, the feature dim is not fixed
+        # for efficientnet_b2 1408
+        # for efficientnet_b4 1792
+        self.classifier = ClassBlock(1792, class_num, droprate, return_f=circle)
+    def forward(self, x):
+        x = self.model.features(x)
+        x = self.model.avgpool(x)
+        x = x.view(x.size(0), x.size(1))
+        x = self.classifier(x)
+        return x
+
+
 # Define the NAS-based Model
 class ft_net_NAS(nn.Module):
 
@@ -260,7 +282,7 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net(751, stride=1, ibn=True)
+    net = ft_net_efficient(751)
     #net = ft_net_swin(751, stride=1)
     net.classifier = nn.Sequential()
     print(net)
