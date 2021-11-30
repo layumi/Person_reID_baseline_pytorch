@@ -49,6 +49,7 @@ parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--use_swin', action='store_true', help='use swin transformer 224x224' )
 parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
 parser.add_argument('--warm_epoch', default=0, type=int, help='the first K epoch that needs warm up')
+parser.add_argument('--total_epoch', default=60, type=int, help='total training epoch')
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
@@ -429,7 +430,7 @@ else:
          ], weight_decay=5e-4, momentum=0.9, nesterov=True)
 
 # Decay LR by a factor of 0.1 every 40 epochs
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=40, gamma=0.1)
+exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=opt.total_epoch*2//3, gamma=0.1)
 
 ######################################################################
 # Train and evaluate
@@ -456,5 +457,5 @@ if fp16:
     model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=60)
+                       num_epochs=opt.total_epoch)
 
