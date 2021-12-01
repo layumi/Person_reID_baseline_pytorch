@@ -138,7 +138,7 @@ class ft_net_efficient(nn.Module):
 
     def __init__(self, class_num, droprate=0.5, circle=False):
         super().__init__()
-        model_ft = timm.create_model('efficientnet_b4', pretrained=True)
+        model_ft = timm.create_model('tf_efficientnet_b4', pretrained=True)
         # avg pooling to global pooling
         #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         model_ft.head = nn.Sequential() # save memory
