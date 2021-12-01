@@ -88,6 +88,7 @@ Different framework need to be tuned in a different way.
  <summary><b>
   2020 News
  </b></summary>
+   
 **11 June 2020** People live in the 3D world. We release one new person re-id code [Person Re-identification in the 3D Space](https://github.com/layumi/person-reid-3d), which conduct representation learning in the 3D space. You are welcomed to check out it.
 
 <img width="250" height="150" src="https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/pdf/3D-demo.png"/>
@@ -102,6 +103,7 @@ Different framework need to be tuned in a different way.
  <summary><b>
   2019 News
  </b></summary>
+   
 **07 July 2019:** I added some new functions, such as `--resume`, auto-augmentation policy, acos loss, into [developing thread](https://github.com/layumi/Person_reID_baseline_pytorch/tree/dev) and rewrite the `save` and `load` functions. I haven't tested the functions throughly. Some new functions are worthy of having a try. If you are first to this repo, I suggest you stay with the master thread.
 
 **01 July 2019:** [My CVPR19 Paper](https://arxiv.org/abs/1904.07223) is online. It is based on this baseline repo as teacher model to provide pseudo label for the generated images to train a better student model. You are welcomed to check out the opensource code at [here](https://github.com/NVlabs/DG-Net).
@@ -114,8 +116,9 @@ Different framework need to be tuned in a different way.
    
 <details>
  <summary><b>
-  2018 News
+  2018 & 2017 News
  </b></summary> 
+   
 **What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex) and update your pytorch to 1.0. 
 
 Float16 could save about 50% GPU memory usage without accuracy drop. **Our baseline could be trained with only 2GB GPU memory.** 
