@@ -292,7 +292,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     reg= (kl_loss(log_sm(outputs2) , mean_pred)  + kl_loss(log_sm(outputs1) , mean_pred))/2
                     loss += 0.01*reg
                     del inputs1, inputs2
-                    print(0.01*reg)
+                    #print(0.01*reg)
                 # backward + optimize only if in training phase
                 if epoch<opt.warm_epoch and phase == 'train': 
                     warm_up = min(1.0, warm_up + 0.9 / warm_iteration)

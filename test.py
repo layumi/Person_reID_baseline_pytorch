@@ -227,6 +227,8 @@ elif opt.use_NAS:
     model_structure = ft_net_NAS(opt.nclasses)
 elif opt.use_swin:
     model_structure = ft_net_swin(opt.nclasses)
+elif opt.use_efficient:
+    model_structure = ft_net_efficient(opt.nclasses)
 else:
     model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn )
 
