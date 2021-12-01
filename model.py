@@ -138,7 +138,12 @@ class ft_net_efficient(nn.Module):
 
     def __init__(self, class_num, droprate=0.5, circle=False):
         super().__init__()
-        model_ft = timm.create_model('tf_efficientnet_b4', pretrained=True)
+        #model_ft = timm.create_model('tf_efficientnet_b4', pretrained=True)
+        try:
+            from efficientnet_pytorch import EfficientNet
+        except:
+            print('pip install efficientnet_pytorch')
+        model_ft = EfficientNet.from_pretrained('efficientnet-b4')
         # avg pooling to global pooling
         #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         model_ft.head = nn.Sequential() # save memory
@@ -151,7 +156,8 @@ class ft_net_efficient(nn.Module):
         # for efficientnet_b4 1792
         self.classifier = ClassBlock(1792, class_num, droprate, return_f=circle)
     def forward(self, x):
-        x = self.model.forward_features(x)
+        #x = self.model.forward_features(x)
+        x = self.model.extract_features(x)
         x = self.model.avgpool(x)
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
