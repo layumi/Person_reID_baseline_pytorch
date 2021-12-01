@@ -17,7 +17,7 @@ Besides, if you are new to object re-ID, you may check out our **[Tutorial](http
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show-cub.jpg)
 ## Tutorial
-* [8 min Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/README.md)
+* [8 min Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/README.md)，[8分钟教程](https://zhuanlan.zhihu.com/p/50387521)
 * [Answer](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md)
 
 ## Table of contents
@@ -60,6 +60,14 @@ You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvne
 Different framework need to be tuned in a different way.
 
 ## Some News
+
+<details>
+ <summary><b>
+  2021 News
+ </b></summary>
+   
+**1 Dec 2021** We support EfficientNet/HRNet.
+   
 **15 Sep 2021** We support ResNet-ibn from ECCV2018 (https://github.com/XingangPan/IBN-Net). 
 
 **17 Aug 2021** We support running code on Google Colab with free GPU. Please check it out at https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab .
@@ -74,6 +82,12 @@ Different framework need to be tuned in a different way.
 
 **11 January 2021** On the Market-1501 dataset, we accelerate the re-ranking processing from **89.2s** to **9.4ms** with one K40m GPU, facilitating the real-time post-processing. The pytorch implementation can be found in [GPU-Re-Ranking](GPU-Re-Ranking/).
 
+</details>
+
+<details>
+ <summary><b>
+  2020 News
+ </b></summary>
 **11 June 2020** People live in the 3D world. We release one new person re-id code [Person Re-identification in the 3D Space](https://github.com/layumi/person-reid-3d), which conduct representation learning in the 3D space. You are welcomed to check out it.
 
 <img width="250" height="150" src="https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/pdf/3D-demo.png"/>
@@ -82,7 +96,12 @@ Different framework need to be tuned in a different way.
 **30 April 2020** We have applied this code to the [AICity Challenge 2020](https://www.aicitychallenge.org/),  yielding the 1st Place Submission to the re-id track :red_car:. Check out [here](https://github.com/layumi/AICIty-reID-2020).
 
 **01 March 2020** We release one new image retrieval dataset, called [University-1652](https://github.com/layumi/University1652-Baseline), for drone-view target localization and drone navigation :helicopter:. It has a similar setting with the person re-ID. You are welcomed to check out it.
+</details>
 
+<details>
+ <summary><b>
+  2019 News
+ </b></summary>
 **07 July 2019:** I added some new functions, such as `--resume`, auto-augmentation policy, acos loss, into [developing thread](https://github.com/layumi/Person_reID_baseline_pytorch/tree/dev) and rewrite the `save` and `load` functions. I haven't tested the functions throughly. Some new functions are worthy of having a try. If you are first to this repo, I suggest you stay with the master thread.
 
 **01 July 2019:** [My CVPR19 Paper](https://arxiv.org/abs/1904.07223) is online. It is based on this baseline repo as teacher model to provide pseudo label for the generated images to train a better student model. You are welcomed to check out the opensource code at [here](https://github.com/NVlabs/DG-Net).
@@ -91,6 +110,12 @@ Different framework need to be tuned in a different way.
 
 **20 May 2019:** Linear Warm Up is added. You also can set warm-up the first K epoch by `--warm_epoch K`. If K <=0, there will be no warm-up.
 
+ </details>
+   
+<details>
+ <summary><b>
+  2018 News
+ </b></summary> 
 **What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex) and update your pytorch to 1.0. 
 
 Float16 could save about 50% GPU memory usage without accuracy drop. **Our baseline could be trained with only 2GB GPU memory.** 
@@ -130,7 +155,8 @@ python test.py --PCB --name PCB-64
 **What's new:** I add some code to generate training curves. The figure will be saved into the model folder when training.
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.jpg)
-
+ </details>
+   
 ## Trained Model
 I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. 
 The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8SzazfYZlpH9CxyE).
