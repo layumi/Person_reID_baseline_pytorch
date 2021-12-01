@@ -137,6 +137,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
+| [EfficientNet-b4](from tf) | 83.61% | 62.22% |  `python train.py --use_efficient --name eff; python test.py --name eff` |
 | [ResNet-50] | 88.84% | 71.59% |  `python train.py --train_all` |
 | [ResNet-50-ibn] | 89.13% | 73.40% | `python train.py --train_all --name res-ibn --ibn` |
 | [DenseNet-121] | 90.17% | 74.02% | `python train.py --name ft_net_dense --use_dense --train_all` |
