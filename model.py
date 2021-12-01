@@ -113,6 +113,26 @@ class ft_net_swin(nn.Module):
         x = self.classifier(x)
         return x
 
+# Define the HRNet18-based Model
+class ft_net_hr(nn.Module):
+    def __init__(self, class_num, droprate=0.5, circle=False):
+        super().__init__()
+        model_ft = timm.create_model('hrnet_w18', pretrained=True)
+        # avg pooling to global pooling
+        #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        model_ft.classifier = nn.Sequential() # save memory
+        self.model = model_ft
+        self.circle = circle
+        self.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        self.classifier = ClassBlock(2048, class_num, droprate, return_f = circle)
+
+    def forward(self, x):
+        x = self.model.forward_features(x)
+        x = self.avgpool(x)
+        x = x.view(x.size(0), x.size(1))
+        x = self.classifier(x)
+        return x
+
 
 # Define the DenseNet121-based Model
 class ft_net_dense(nn.Module):
@@ -133,7 +153,7 @@ class ft_net_dense(nn.Module):
         x = self.classifier(x)
         return x
 
-# Define the DenseNet121-based Model
+# Define the Efficient-b4-based Model
 class ft_net_efficient(nn.Module):
 
     def __init__(self, class_num, droprate=0.5, circle=False):
@@ -291,7 +311,7 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net_efficient(751)
+    net = ft_net_hr(751)
     #net = ft_net_swin(751, stride=1)
     net.classifier = nn.Sequential()
     print(net)
