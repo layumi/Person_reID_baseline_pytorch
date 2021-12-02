@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-import torch
 
 from torchvision.transforms import *
 
@@ -7,7 +6,6 @@ from torchvision.transforms import *
 import random
 import math
 #import numpy as np
-#import torch
 
 class RandomErasing(object):
     """ Randomly selects a rectangle region in an image and erases its pixels.
@@ -74,7 +72,7 @@ class RandomGrayscaleErasing(object):
         self.sh = sh
         self.r1 = r1
 
-    def __call__(self, img: torch.Tensor) -> torch.Tensor:
+    def __call__(self, img):
         """
         Args:
             img: after ToTensor() and Normalize([...]), img's type is Tensor
