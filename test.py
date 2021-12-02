@@ -17,7 +17,7 @@ import os
 import scipy.io
 import yaml
 import math
-from model import ft_net, ft_net_dense, ft_net_swin, ft_net_efficient, ft_net_NAS, PCB, PCB_test
+from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_efficient, ft_net_NAS, PCB, PCB_test
 
 #fp16
 try:
@@ -35,6 +35,8 @@ parser.add_argument('--test_dir',default='../Market/pytorch',type=str, help='./t
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
 parser.add_argument('--batchsize', default=256, type=int, help='batchsize')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
+parser.add_argument('--use_efficient', action='store_true', help='use efficient-b4' )
+parser.add_argument('--use_hr', action='store_true', help='use hr18 net' )
 parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
 parser.add_argument('--fp16', action='store_true', help='use fp16.' )
@@ -51,9 +53,13 @@ opt.fp16 = config['fp16']
 opt.PCB = config['PCB']
 opt.use_dense = config['use_dense']
 opt.use_NAS = config['use_NAS']
-opt.use_swin = config['use_swin']
-opt.use_efficient = config['use_efficient']
 opt.stride = config['stride']
+if 'use_swin' in config:
+    opt.use_swin = config['use_swin']
+if 'use_efficient' in config:
+    opt.use_efficient = config['use_efficient']
+if 'use_hr' in config:
+    opt.use_hr = config['use_hr']
 
 if 'nclasses' in config: # tp compatible with old config files
     opt.nclasses = config['nclasses']
@@ -227,6 +233,10 @@ elif opt.use_NAS:
     model_structure = ft_net_NAS(opt.nclasses)
 elif opt.use_swin:
     model_structure = ft_net_swin(opt.nclasses)
+elif opt.use_efficient:
+    model_structure = ft_net_efficient(opt.nclasses)
+elif opt.use_hr:
+    model_structure = ft_net_hr(opt.nclasses)
 else:
     model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn )
 
