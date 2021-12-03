@@ -65,6 +65,7 @@ Different framework need to be tuned in a different way.
  <summary><b>
   2021 News
  </b></summary>
+   
 **3 Dec 2021** We add supports for four losses, including triplet loss, contrastive loss, sphere loss and lifted loss. The hyper-parameters are still tunning.
    
 **1 Dec 2021** We support EfficientNet/HRNet.
