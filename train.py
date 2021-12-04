@@ -56,7 +56,9 @@ parser.add_argument('--total_epoch', default=60, type=int, help='total training 
 parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
+parser.add_argument('--arcface', action='store_true', help='use ArcFace loss' )
 parser.add_argument('--circle', action='store_true', help='use Circle loss' )
+parser.add_argument('--cosface', action='store_true', help='use CosFace loss' )
 parser.add_argument('--contrast', action='store_true', help='use contrast loss' )
 parser.add_argument('--triplet', action='store_true', help='use triplet loss' )
 parser.add_argument('--lifted', action='store_true', help='use lifted loss' )
@@ -196,6 +198,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     #best_acc = 0.0
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
+    if opt.arcface:
+        criterion_arcface = losses.ArcFaceLoss(num_classes=opt.nclasses, embedding_size=512)
+    if opt.cosface: 
+        criterion_cosface = losses.CosFaceLoss(num_classes=opt.nclasses, embedding_size=512)
     if opt.circle:
         criterion_circle = CircleLoss(m=0.25, gamma=32) # gamma = 64 may lead to a better result.
     if opt.triplet:
@@ -250,12 +256,17 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                 sm = nn.Softmax(dim=1)
                 log_sm = nn.LogSoftmax(dim=1)
-                if opt.circle or opt.triplet or opt.lifted or opt.contrast or opt.sphere: 
+                return_feature = opt.arcface or opt.cosface or opt.circle or opt.triplet or opt.contrast or opt.lifted or opt.sphere
+                if return_feature: 
                     logits, ff = outputs
                     fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
                     ff = ff.div(fnorm.expand_as(ff))
                     loss = criterion(logits, labels) 
                     _, preds = torch.max(logits.data, 1)
+                    if opt.arcface:
+                        loss +=  criterion_arcface(ff, labels) #/now_batch_size
+                    if opt.cosface:
+                        loss +=  criterion_cosface(ff, labels) #/now_batch_size
                     if opt.circle:
                         loss +=  criterion_circle(*convert_label_to_similarity( ff, labels))/now_batch_size
                     if opt.triplet:
@@ -297,14 +308,14 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     inputs2 = inputs2.cuda().detach()
                     # use memory in vivo loss (https://arxiv.org/abs/1912.11164)
                     outputs1 = model(inputs1)
-                    if opt.circle:
+                    if return_feature:
                         outputs1, _ = outputs1
                     elif opt.PCB:
                         for i in range(num_part):
                             part[i] = outputs1[i]
                         outputs1 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
                     outputs2 = model(inputs2)
-                    if opt.circle:
+                    if return_feature:
                         outputs2, _ = outputs2
                     elif opt.PCB:
                         for i in range(num_part):
@@ -405,7 +416,7 @@ def save_network(network, epoch_label):
 # Load a pretrainied model and reset final fully connected layer.
 #
 
-return_feature = opt.circle or opt.triplet or opt.contrast or opt.lifted or opt.sphere
+return_feature = opt.arcface or opt.cosface or opt.circle or opt.triplet or opt.contrast or opt.lifted or opt.sphere
 
 if opt.use_dense:
     model = ft_net_dense(len(class_names), opt.droprate, circle = return_feature)
