@@ -264,9 +264,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     loss = criterion(logits, labels) 
                     _, preds = torch.max(logits.data, 1)
                     if opt.arcface:
-                        loss +=  criterion_arcface(ff, labels) #/now_batch_size
+                        loss +=  criterion_arcface(ff, labels)/now_batch_size
                     if opt.cosface:
-                        loss +=  criterion_cosface(ff, labels) #/now_batch_size
+                        loss +=  criterion_cosface(ff, labels)/now_batch_size
                     if opt.circle:
                         loss +=  criterion_circle(*convert_label_to_similarity( ff, labels))/now_batch_size
                     if opt.triplet:
