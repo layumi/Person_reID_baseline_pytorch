@@ -162,7 +162,7 @@ class ft_net_efficient(nn.Module):
         try:
             from efficientnet_pytorch import EfficientNet
         except ImportError:
-            print('pip install efficientnet_pytorch')
+            print('Please pip install efficientnet_pytorch')
         model_ft = EfficientNet.from_pretrained('efficientnet-b4')
         # avg pooling to global pooling
         #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
