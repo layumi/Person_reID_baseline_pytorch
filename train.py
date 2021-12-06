@@ -299,7 +299,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 if opt.DG and phase == 'train' and epoch > num_epochs*0.1:
                     try:
                         _, batch = DGloader_iter.__next__()
-                    except: 
+                    except StopIteration: 
                         DGloader_iter = enumerate(dataloaders['DG'])
                         _, batch = DGloader_iter.__next__()
                         
