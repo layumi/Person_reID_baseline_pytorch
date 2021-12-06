@@ -161,7 +161,7 @@ class ft_net_efficient(nn.Module):
         #model_ft = timm.create_model('tf_efficientnet_b4', pretrained=True)
         try:
             from efficientnet_pytorch import EfficientNet
-        except:
+        except ImportError:
             print('pip install efficientnet_pytorch')
         model_ft = EfficientNet.from_pretrained('efficientnet-b4')
         # avg pooling to global pooling
