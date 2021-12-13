@@ -201,6 +201,9 @@ I do not optimize the hyper-parameters. You are free to tune them for better per
 | CE + Lifted [[Paper]](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Song_Deep_Metric_Learning_CVPR_2016_paper.pdf)|  91.78% | 79.77% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_lifted100 --lifted --total 100; python test.py --name warm5_s1_b32_lr8_p0.5_lifted100` |
 | CE + Contrast [[Paper]](https://zdzheng.xyz/files/TOMM18.pdf) | 92.28% | 81.42% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_contrast100 --contrast  --total 100; python test.py  --name warm5_s1_b32_lr8_p0.5_contrast100`|
 | CE + Circle [[Paper]](https://arxiv.org/abs/2002.10857) | 92.46% | 81.70% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_circle100 --circle --total 100 ; python test.py  --name  warm5_s1_b32_lr8_p0.5_circle100` |
+| CE + Contrast + Triplet | 92.61% | 82.01% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 24 --lr 0.062 --name warm5_s1_b24_lr6.2_p0.5_contrast_triplet_133 --contrast --triplet --total 133 ; python test.py  --name  warm5_s1_b24_lr6.2_p0.5_contrast_triplet_133` |
+| CE + Contrast + Circle | 92.19% | 82.07% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 24 --lr 0.08 --name warm5_s1_b24_lr8_p0.5_contrast_circle133 --contrast --circle --total 133 ; python test.py  --name  warm5_s1_b24_lr8_p0.5_contrast_circle133` |
+| CE + Contrast + Sphere | 92.84% | 82.37% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 24 --lr 0.06 --name warm5_s1_b24_lr6_p0.5_contrast_sphere133 --contrast --sphere --total 133 ; python test.py  --name  warm5_s1_b24_lr6_p0.5_contrast_sphere133` |
 
 
 ### Model Structure
