@@ -303,6 +303,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     except StopIteration: 
                         DGloader_iter = enumerate(dataloaders['DG'])
                         _, batch = DGloader_iter.__next__()
+                    except UnboundLocalError:  # first iteration
+                        DGloader_iter = enumerate(dataloaders['DG'])
+                        _, batch = DGloader_iter.__next__()
                         
                     inputs1, inputs2, _ = batch
                     inputs1 = inputs1.cuda().detach()
