@@ -66,6 +66,7 @@ parser.add_argument('--sphere', action='store_true', help='use sphere loss' )
 parser.add_argument('--ibn', action='store_true', help='use resnet+ibn' )
 parser.add_argument('--DG', action='store_true', help='use extra DG-Market Dataset for training. Please download it from https://github.com/NVlabs/DG-Net#dg-market.' )
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50% memory' )
+parser.add_argument('--cosine', action='store_true', help='use cosine lrRate' )
 parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
 opt = parser.parse_args()
 
@@ -473,6 +474,8 @@ else:
 
 # Decay LR by a factor of 0.1 every 40 epochs
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=opt.total_epoch*2//3, gamma=0.1)
+if opt.cosine:
+    exp_lr_scheduler = lr_scheduler.CosineAnnealingLR(optimizer_ft, opt.total_epoch, eta_min=0.01*opt.lr)
 
 ######################################################################
 # Train and evaluate
