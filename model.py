@@ -65,7 +65,7 @@ class ClassBlock(nn.Module):
 # Define the ResNet50-based Model
 class ft_net(nn.Module):
 
-    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False, ibn=False):
+    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False, ibn=False, use_2048dim=False):
         super(ft_net, self).__init__()
         model_ft = models.resnet50(pretrained=True)
         if ibn==True:
@@ -77,7 +77,11 @@ class ft_net(nn.Module):
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
         self.circle = circle
-        self.classifier = ClassBlock(2048, class_num, droprate, return_f = circle)
+        if use_2048dim==True:
+            num = 2048
+        else:
+            num = 512
+        self.classifier = ClassBlock(2048, class_num, droprate, num_bottleneck=num, return_f = circle)
 
     def forward(self, x):
         x = self.model.conv1(x)
