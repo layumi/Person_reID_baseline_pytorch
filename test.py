@@ -41,6 +41,7 @@ parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
 parser.add_argument('--fp16', action='store_true', help='use fp16.' )
 parser.add_argument('--ibn', action='store_true', help='use ibn.' )
+parser.add_argument('--use_2048dim', action='store_true', help='use 2048 feature dimension' )
 parser.add_argument('--ms',default='1', type=str,help='multiple_scale: e.g. 1 1,1.1  1,1.1,1.2')
 
 opt = parser.parse_args()
@@ -170,7 +171,10 @@ def extract_feature(model,dataloaders):
         n, c, h, w = img.size()
         count += n
         print(count)
-        ff = torch.FloatTensor(n,512).zero_().cuda()
+        if opt.use_2048dim:
+            ff = torch.FloatTensor(n,2048).zero_().cuda()
+        else:
+            ff = torch.FloatTensor(n,512).zero_().cuda()
         if opt.PCB:
             ff = torch.FloatTensor(n,2048,6).zero_().cuda() # we have six parts
 
