@@ -64,6 +64,7 @@ parser.add_argument('--triplet', action='store_true', help='use triplet loss' )
 parser.add_argument('--lifted', action='store_true', help='use lifted loss' )
 parser.add_argument('--sphere', action='store_true', help='use sphere loss' )
 parser.add_argument('--ibn', action='store_true', help='use resnet+ibn' )
+parser.add_argument('--use_2048dim', action='store_true', help='use 2048 feature dimension' )
 parser.add_argument('--DG', action='store_true', help='use extra DG-Market Dataset for training. Please download it from https://github.com/NVlabs/DG-Net#dg-market.' )
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50% memory' )
 parser.add_argument('--cosine', action='store_true', help='use cosine lrRate' )
@@ -433,7 +434,7 @@ elif opt.use_efficient:
 elif opt.use_hr:
     model = ft_net_hr(len(class_names), opt.droprate, circle = return_feature)
 else:
-    model = ft_net(len(class_names), opt.droprate, opt.stride, circle = return_feature, ibn=opt.ibn)
+    model = ft_net(len(class_names), opt.droprate, opt.stride, circle = return_feature, ibn=opt.ibn, use_2048dim=opt.use_2048dim)
 
 if opt.PCB:
     model = PCB(len(class_names))
