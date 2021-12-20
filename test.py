@@ -242,7 +242,7 @@ elif opt.use_efficient:
 elif opt.use_hr:
     model_structure = ft_net_hr(opt.nclasses)
 else:
-    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn )
+    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn, use_2048dim=opt.use_2048dim )
 
 if opt.PCB:
     model_structure = PCB(opt.nclasses)
