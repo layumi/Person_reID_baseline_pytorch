@@ -171,8 +171,8 @@ def extract_feature(model,dataloaders):
         n, c, h, w = img.size()
         count += n
         print(count)
-        if opt.linear_num == 512:
-            ff = torch.FloatTensor(n,512).zero_().cuda()
+        if opt.linear_num > 0:
+            ff = torch.FloatTensor(n,opt.linear_num).zero_().cuda()
         else:
             ff = torch.FloatTensor(n,2048).zero_().cuda()
         if opt.PCB:
