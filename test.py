@@ -34,6 +34,7 @@ parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or
 parser.add_argument('--test_dir',default='../Market/pytorch',type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
 parser.add_argument('--batchsize', default=256, type=int, help='batchsize')
+parser.add_argument('--linear_num', default=512, type=int, help='feature dimension: 512 or 2048 or 0 (linear=False)')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--use_efficient', action='store_true', help='use efficient-b4' )
 parser.add_argument('--use_hr', action='store_true', help='use hr18 net' )
@@ -170,7 +171,10 @@ def extract_feature(model,dataloaders):
         n, c, h, w = img.size()
         count += n
         print(count)
-        ff = torch.FloatTensor(n,512).zero_().cuda()
+        if opt.linear_num == 512:
+            ff = torch.FloatTensor(n,512).zero_().cuda()
+        else:
+            ff = torch.FloatTensor(n,2048).zero_().cuda()
         if opt.PCB:
             ff = torch.FloatTensor(n,2048,6).zero_().cuda() # we have six parts
 
@@ -238,7 +242,7 @@ elif opt.use_efficient:
 elif opt.use_hr:
     model_structure = ft_net_hr(opt.nclasses)
 else:
-    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn )
+    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn, linear_num=opt.linear_num )
 
 if opt.PCB:
     model_structure = PCB(opt.nclasses)
