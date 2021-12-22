@@ -31,8 +31,9 @@ class ClassBlock(nn.Module):
     def __init__(self, input_dim, class_num, droprate, relu=False, bnorm=True, num_bottleneck=512, linear=True, return_f = False):
         super(ClassBlock, self).__init__()
         self.return_f = return_f
-        add_block = []
+        add_block = []     
         if linear:
+            num_bottleneck = linear
             add_block += [nn.Linear(input_dim, num_bottleneck)]
         else:
             num_bottleneck = input_dim
@@ -77,10 +78,7 @@ class ft_net(nn.Module):
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
         self.model = model_ft
         self.circle = circle
-        if linear_num:
-            self.classifier = ClassBlock(2048, class_num, droprate, num_bottleneck=linear_num, return_f=circle)
-        else:
-            self.classifier = ClassBlock(2048, class_num, droprate, linear=False, return_f=circle)
+        self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f = circle)
 
     def forward(self, x):
         x = self.model.conv1(x)
