@@ -44,6 +44,7 @@ parser.add_argument('--data_dir',default='../Market/pytorch',type=str, help='tra
 parser.add_argument('--train_all', action='store_true', help='use all training data' )
 parser.add_argument('--color_jitter', action='store_true', help='use color jitter in training' )
 parser.add_argument('--batchsize', default=32, type=int, help='batchsize')
+parser.add_argument('--linear_num', default=512, type=int, help='feature dimension: 512 or 2048 or 0 (linear=False)')
 parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--erasing_p', default=0, type=float, help='Random Erasing probability, in [0,1]')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
@@ -433,7 +434,7 @@ elif opt.use_efficient:
 elif opt.use_hr:
     model = ft_net_hr(len(class_names), opt.droprate, circle = return_feature)
 else:
-    model = ft_net(len(class_names), opt.droprate, opt.stride, circle = return_feature, ibn=opt.ibn)
+    model = ft_net(len(class_names), opt.droprate, opt.stride, circle = return_feature, ibn=opt.ibn, linear_num=opt.linear_num)
 
 if opt.PCB:
     model = PCB(len(class_names))
