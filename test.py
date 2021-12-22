@@ -69,6 +69,8 @@ else:
 
 if 'ibn' in config:
     opt.ibn = config['ibn']
+if 'linear_num' in config:
+    opt.linear_num = config['linear_num']
 
 str_ids = opt.gpu_ids.split(',')
 #which_epoch = opt.which_epoch
