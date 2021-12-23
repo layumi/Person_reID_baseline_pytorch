@@ -18,7 +18,8 @@ Besides, if you are new to object re-ID, you may check out our **[Tutorial](http
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show-cub.jpg)
 ## Tutorial
 * [8 min Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/README.md)，[8分钟教程](https://zhuanlan.zhihu.com/p/50387521)
-* [Answer](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md)
+* [中文视频简介](https://www.bilibili.com/video/BV11K4y1f7eQ)
+* [Answer to Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md)
 
 ## Table of contents
 * [Features](#features)
