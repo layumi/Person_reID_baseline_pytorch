@@ -16,6 +16,7 @@ A tiny, friendly, strong baseline code for Object-reID (based on [pytorch](https
 Besides, if you are new to object re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show-cub.jpg)
+
 ## Tutorial
 * [8 min Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/README.md)，[8分钟教程](https://zhuanlan.zhihu.com/p/50387521)
 * [中文视频简介](https://www.bilibili.com/video/BV11K4y1f7eQ)
@@ -41,7 +42,7 @@ Now we have supported:
 - Running the code on Google Colab with Free GPU. Check [Here](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab) (Thanks to @ronghao233)
 - [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market **CVPR 2019 Oral**)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer) / [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) / [HRNet](https://github.com/HRNet)
-- Circle Loss (**CVPR 2020 Oral**)
+- Circle Loss (**CVPR 2020 Oral**), Triplet Loss, Contrastive Loss, Sphere Loss, Lifted Loss and Instance Loss
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
@@ -66,6 +67,8 @@ Different framework need to be tuned in a different way.
  <summary><b>
   2021 News
  </b></summary>
+
+**30 Dec 2021** We add supports for new losses, including arcface loss, cosface loss and instance loss. The hyper-parameters are still tunning.
    
 **3 Dec 2021** We add supports for four losses, including triplet loss, contrastive loss, sphere loss and lifted loss. The hyper-parameters are still tunning.
    
