@@ -216,7 +216,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     if opt.contrast: 
         criterion_contrast = losses.ContrastiveLoss(pos_margin=0, neg_margin=1)
     if opt.instance:
-        criterion_instance = InstanceLoss()
+        criterion_instance = InstanceLoss(gamma=1)
     if opt.sphere:
         criterion_sphere = losses.SphereFaceLoss(num_classes=opt.nclasses, embedding_size=512, margin=4)
     for epoch in range(num_epochs):
