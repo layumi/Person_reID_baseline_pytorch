@@ -22,6 +22,7 @@ from dgfolder import DGFolder
 import yaml
 from shutil import copyfile
 from circle_loss import CircleLoss, convert_label_to_similarity
+from instance_loss import InstanceLoss
 
 version =  torch.__version__
 #fp16
@@ -61,6 +62,7 @@ parser.add_argument('--arcface', action='store_true', help='use ArcFace loss' )
 parser.add_argument('--circle', action='store_true', help='use Circle loss' )
 parser.add_argument('--cosface', action='store_true', help='use CosFace loss' )
 parser.add_argument('--contrast', action='store_true', help='use contrast loss' )
+parser.add_argument('--instance', action='store_true', help='use instance loss' )
 parser.add_argument('--triplet', action='store_true', help='use triplet loss' )
 parser.add_argument('--lifted', action='store_true', help='use lifted loss' )
 parser.add_argument('--sphere', action='store_true', help='use sphere loss' )
@@ -213,6 +215,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         criterion_lifted = losses.GeneralizedLiftedStructureLoss(neg_margin=1, pos_margin=0)
     if opt.contrast: 
         criterion_contrast = losses.ContrastiveLoss(pos_margin=0, neg_margin=1)
+    if opt.instance:
+        criterion_instance = InstanceLoss()
     if opt.sphere:
         criterion_sphere = losses.SphereFaceLoss(num_classes=opt.nclasses, embedding_size=512, margin=4)
     for epoch in range(num_epochs):
@@ -258,7 +262,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                 sm = nn.Softmax(dim=1)
                 log_sm = nn.LogSoftmax(dim=1)
-                return_feature = opt.arcface or opt.cosface or opt.circle or opt.triplet or opt.contrast or opt.lifted or opt.sphere
+                return_feature = opt.arcface or opt.cosface or opt.circle or opt.triplet or opt.contrast or opt.instance or opt.lifted or opt.sphere
                 if return_feature: 
                     logits, ff = outputs
                     fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
@@ -278,6 +282,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         loss +=  criterion_lifted(ff, labels) #/now_batch_size
                     if opt.contrast:
                         loss +=  criterion_contrast(ff, labels) #/now_batch_size
+                    if opt.instance:
+                        loss += criterion_instance(ff, labels)
                     if opt.sphere:
                         loss +=  criterion_sphere(ff, labels)/now_batch_size
                 elif opt.PCB:  #  PCB
@@ -421,7 +427,7 @@ def save_network(network, epoch_label):
 # Load a pretrainied model and reset final fully connected layer.
 #
 
-return_feature = opt.arcface or opt.cosface or opt.circle or opt.triplet or opt.contrast or opt.lifted or opt.sphere
+return_feature = opt.arcface or opt.cosface or opt.circle or opt.triplet or opt.contrast or opt.instance or opt.lifted or opt.sphere
 
 if opt.use_dense:
     model = ft_net_dense(len(class_names), opt.droprate, circle = return_feature)
