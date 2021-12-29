@@ -10,19 +10,22 @@ def l2_norm(v):
     return v
 
 class InstanceLoss(nn.Module):
-    def __init__(self) -> None:
+    def __init__(self, gamma = 1) -> None:
         super(InstanceLoss, self).__init__()
+        self.gamma = gamma
 
-    def forward(self, feature, label) -> Tensor:
+    def forward(self, feature, label = None) -> Tensor:
         # Dual-Path Convolutional Image-Text Embeddings with Instance Loss, ACM TOMM 2020 
         # https://arxiv.org/abs/1711.05535 
-        # using cross-entropy loss for every class 
+        # using cross-entropy loss for every sample if label is not available. else use given label.
         normed_feature = l2_norm(feature)
-        sim1 = torch.mm(normed_feature, torch.t(normed_feature)) 
-        sim2 = sim1.t()
-        #sim_label = torch.arange(sim1.size(0)).cuda().detach()
-        _, sim_label = torch.unique(label, return_inverse=True)
-        loss = F.cross_entropy(sim1, sim_label) + F.cross_entropy(sim2, sim_label)
+        sim1 = torch.mm(normed_feature*self.gamma, torch.t(normed_feature)) 
+        #sim2 = sim1.t()
+        if label is None:
+            sim_label = torch.arange(sim1.size(0)).cuda().detach()
+        else:
+            _, sim_label = torch.unique(label, return_inverse=True)
+        loss = F.cross_entropy(sim1, sim_label) #+ F.cross_entropy(sim2, sim_label)
         return loss
 
 
