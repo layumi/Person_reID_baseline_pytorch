@@ -16,7 +16,7 @@ class InstanceLoss(nn.Module):
 
     def forward(self, feature, label = None) -> Tensor:
         # Dual-Path Convolutional Image-Text Embeddings with Instance Loss, ACM TOMM 2020 
-        # https://arxiv.org/abs/1711.05535 
+        # https://zdzheng.xyz/files/TOMM20.pdf 
         # using cross-entropy loss for every sample if label is not available. else use given label.
         normed_feature = l2_norm(feature)
         sim1 = torch.mm(normed_feature*self.gamma, torch.t(normed_feature)) 
