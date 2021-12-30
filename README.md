@@ -42,7 +42,7 @@ Now we have supported:
 - Running the code on Google Colab with Free GPU. Check [Here](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab) (Thanks to @ronghao233)
 - [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market **CVPR 2019 Oral**)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer) / [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) / [HRNet](https://github.com/HRNet)
-- Circle Loss (**CVPR 2020 Oral**), Triplet Loss, Contrastive Loss, Sphere Loss, Lifted Loss and Instance Loss
+- Circle Loss, Triplet Loss, Contrastive Loss, Sphere Loss, Lifted Loss, Arcface, Cosface  and Instance Loss
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Multiple Query Evaluation
@@ -203,6 +203,7 @@ I do not optimize the hyper-parameters. You are free to tune them for better per
 | CE + Sphere [[Paper]](https://openaccess.thecvf.com/content_cvpr_2017/papers/Liu_SphereFace_Deep_Hypersphere_CVPR_2017_paper.pdf) | 92.01% | 79.39% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_sphere100 --sphere --total 100; python test.py --name warm5_s1_b32_lr8_p0.5_sphere100` |
 | CE + Triplet [[Paper]](https://arxiv.org/pdf/1703.07737) | 92.40%	| 79.71% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_triplet100 --triplet --total 100; python test.py  --name warm5_s1_b32_lr8_p0.5_triplet100` |
 | CE + Lifted [[Paper]](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Song_Deep_Metric_Learning_CVPR_2016_paper.pdf)|  91.78% | 79.77% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_lifted100 --lifted --total 100; python test.py --name warm5_s1_b32_lr8_p0.5_lifted100` |
+| CE + Instance [[Paper]](https://zdzheng.xyz/files/TOMM20.pdf) | 92.49% | 80.51% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_instance100_gamma32 --instance --ins_gamma 32 --total 100 ; python test.py  --name  warm5_s1_b32_lr8_p0.5_instance100_gamma32`|
 | CE + Contrast [[Paper]](https://zdzheng.xyz/files/TOMM18.pdf) | 92.28% | 81.42% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_contrast100 --contrast  --total 100; python test.py  --name warm5_s1_b32_lr8_p0.5_contrast100`|
 | CE + Circle [[Paper]](https://arxiv.org/abs/2002.10857) | 92.46% | 81.70% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_circle100 --circle --total 100 ; python test.py  --name  warm5_s1_b32_lr8_p0.5_circle100` |
 | CE + Contrast + Sphere | 92.79% | 82.02% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_cs100 --contrast --sphere --total 100; python test.py --name warm5_s1_b32_lr8_p0.5_cs100`|
