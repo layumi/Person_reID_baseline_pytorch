@@ -99,7 +99,7 @@ class ft_net(nn.Module):
 # pytorch > 1.6
 class ft_net_swin(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5, stride=2, circle=False):
+    def __init__(self, class_num, droprate=0.5, stride=2, circle=False, linear_num=512):
         super(ft_net_swin, self).__init__()
         model_ft = timm.create_model('swin_base_patch4_window7_224', pretrained=True)
         # avg pooling to global pooling
@@ -107,7 +107,7 @@ class ft_net_swin(nn.Module):
         model_ft.head = nn.Sequential() # save memory
         self.model = model_ft
         self.circle = circle
-        self.classifier = ClassBlock(1024, class_num, droprate, return_f = circle)
+        self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
 
     def forward(self, x):
         x = self.model.forward_features(x)
@@ -116,7 +116,7 @@ class ft_net_swin(nn.Module):
 
 # Define the HRNet18-based Model
 class ft_net_hr(nn.Module):
-    def __init__(self, class_num, droprate=0.5, circle=False):
+    def __init__(self, class_num, droprate=0.5, circle=False, linear_num=512):
         super().__init__()
         model_ft = timm.create_model('hrnet_w18', pretrained=True)
         # avg pooling to global pooling
@@ -125,7 +125,7 @@ class ft_net_hr(nn.Module):
         self.model = model_ft
         self.circle = circle
         self.avgpool = nn.AdaptiveAvgPool2d((1,1))
-        self.classifier = ClassBlock(2048, class_num, droprate, return_f = circle)
+        self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f = circle)
 
     def forward(self, x):
         x = self.model.forward_features(x)
@@ -138,7 +138,7 @@ class ft_net_hr(nn.Module):
 # Define the DenseNet121-based Model
 class ft_net_dense(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5, circle=False):
+    def __init__(self, class_num, droprate=0.5, circle=False, linear_num=512):
         super().__init__()
         model_ft = models.densenet121(pretrained=True)
         model_ft.features.avgpool = nn.AdaptiveAvgPool2d((1,1))
@@ -146,7 +146,7 @@ class ft_net_dense(nn.Module):
         self.model = model_ft
         self.circle = circle
         # For DenseNet, the feature dim is 1024 
-        self.classifier = ClassBlock(1024, class_num, droprate, return_f=circle)
+        self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f=circle)
 
     def forward(self, x):
         x = self.model.features(x)
@@ -157,7 +157,7 @@ class ft_net_dense(nn.Module):
 # Define the Efficient-b4-based Model
 class ft_net_efficient(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5, circle=False):
+    def __init__(self, class_num, droprate=0.5, circle=False, linear_num=512):
         super().__init__()
         #model_ft = timm.create_model('tf_efficientnet_b4', pretrained=True)
         try:
@@ -175,7 +175,7 @@ class ft_net_efficient(nn.Module):
         # For EfficientNet, the feature dim is not fixed
         # for efficientnet_b2 1408
         # for efficientnet_b4 1792
-        self.classifier = ClassBlock(1792, class_num, droprate, return_f=circle)
+        self.classifier = ClassBlock(1792, class_num, droprate, linear=linear_num, return_f=circle)
     def forward(self, x):
         #x = self.model.forward_features(x)
         x = self.model.extract_features(x)
@@ -188,7 +188,7 @@ class ft_net_efficient(nn.Module):
 # Define the NAS-based Model
 class ft_net_NAS(nn.Module):
 
-    def __init__(self, class_num, droprate=0.5):
+    def __init__(self, class_num, droprate=0.5, linear_num=512):
         super().__init__()  
         model_name = 'nasnetalarge' 
         # pip install pretrainedmodels
@@ -198,7 +198,7 @@ class ft_net_NAS(nn.Module):
         model_ft.last_linear = nn.Sequential()
         self.model = model_ft
         # For DenseNet, the feature dim is 4032
-        self.classifier = ClassBlock(4032, class_num, droprate)
+        self.classifier = ClassBlock(4032, class_num, droprate, linear=linear_num)
 
     def forward(self, x):
         x = self.model.features(x)
@@ -249,7 +249,7 @@ class PCB(nn.Module):
         # define 6 classifiers
         for i in range(self.part):
             name = 'classifier'+str(i)
-            setattr(self, name, ClassBlock(2048, class_num, droprate=0.5, relu=False, bnorm=True, num_bottleneck=256))
+            setattr(self, name, ClassBlock(2048, class_num, droprate=0.5, linear=256, relu=False, bnorm=True, num_bottleneck=256))
 
     def forward(self, x):
         x = self.model.conv1(x)
