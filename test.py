@@ -34,7 +34,7 @@ parser.add_argument('--which_epoch',default='last', type=str, help='0,1,2,3...or
 parser.add_argument('--test_dir',default='../Market/pytorch',type=str, help='./test_data')
 parser.add_argument('--name', default='ft_ResNet50', type=str, help='save model path')
 parser.add_argument('--batchsize', default=256, type=int, help='batchsize')
-parser.add_argument('--linear_num', default=512, type=int, help='feature dimension: 512 or 2048 or 0 (linear=False)')
+parser.add_argument('--linear_num', default=512, type=int, help='feature dimension: 512 or default or 0 (linear=False)')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--use_efficient', action='store_true', help='use efficient-b4' )
 parser.add_argument('--use_hr', action='store_true', help='use hr18 net' )
@@ -176,7 +176,14 @@ def extract_feature(model,dataloaders):
         if opt.linear_num > 0:
             ff = torch.FloatTensor(n,opt.linear_num).zero_().cuda()
         else:
-            ff = torch.FloatTensor(n,2048).zero_().cuda()
+            if opt.use_swin or opt.use_dense:
+                ff = torch.FloatTensor(n,1024).zero_().cuda()
+            elif opt.use_efficient:
+                ff = torch.FloatTensor(n,1792).zero_().cuda()
+            elif opt.use_NAS:
+                ff = torch.FloatTensor(n,4032).zero_().cuda()
+            else:
+                ff = torch.FloatTensor(n,2048).zero_().cuda()
         if opt.PCB:
             ff = torch.FloatTensor(n,2048,6).zero_().cuda() # we have six parts
 
@@ -234,15 +241,15 @@ if opt.multi:
 # Load Collected data Trained model
 print('-------test-----------')
 if opt.use_dense:
-    model_structure = ft_net_dense(opt.nclasses)
+    model_structure = ft_net_dense(opt.nclasses, linear_num=opt.linear_num)
 elif opt.use_NAS:
-    model_structure = ft_net_NAS(opt.nclasses)
+    model_structure = ft_net_NAS(opt.nclasses, linear_num=opt.linear_num)
 elif opt.use_swin:
-    model_structure = ft_net_swin(opt.nclasses)
+    model_structure = ft_net_swin(opt.nclasses, linear_num=opt.linear_num)
 elif opt.use_efficient:
-    model_structure = ft_net_efficient(opt.nclasses)
+    model_structure = ft_net_efficient(opt.nclasses, linear_num=opt.linear_num)
 elif opt.use_hr:
-    model_structure = ft_net_hr(opt.nclasses)
+    model_structure = ft_net_hr(opt.nclasses, linear_num=opt.linear_num)
 else:
     model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn, linear_num=opt.linear_num)
 
