@@ -2,7 +2,7 @@
 If you notice any result or the public code that has not been included in this table, please connect [Zhedong Zheng](mailto:zdzheng12@gmail.com) without hesitation to add the method. You are welcomed! 
 or create pull request.
 
- ### Cross Modality
+ ### Cross Modality (REGDB Dataset)
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
 |HOG | 13.49% | 10.31% | "[Histograms of oriented gradients for human detection](https://ieeexplore.ieee.org/document/1467360)", Navneet Dalal, Bill Triggs, CVPR 2005|
