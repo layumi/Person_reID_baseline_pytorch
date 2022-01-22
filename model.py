@@ -248,7 +248,7 @@ class PCB(nn.Module):
         # define 6 classifiers
         for i in range(self.part):
             name = 'classifier'+str(i)
-            setattr(self, name, ClassBlock(2048, class_num, droprate=0.5, linear=256, relu=False, bnorm=True, num_bottleneck=256))
+            setattr(self, name, ClassBlock(2048, class_num, droprate=0.5, linear=256, relu=False, bnorm=True))
 
     def forward(self, x):
         x = self.model.conv1(x)
