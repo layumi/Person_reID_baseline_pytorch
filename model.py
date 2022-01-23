@@ -28,17 +28,16 @@ def weights_init_classifier(m):
 # Defines the new fc layer and classification layer
 # |--Linear--|--bn--|--relu--|--Linear--|
 class ClassBlock(nn.Module):
-    def __init__(self, input_dim, class_num, droprate, relu=False, bnorm=True, num_bottleneck=512, linear=True, return_f = False):
+    def __init__(self, input_dim, class_num, droprate, relu=False, bnorm=True, linear=True, return_f = False):
         super(ClassBlock, self).__init__()
         self.return_f = return_f
         add_block = []
         if linear:
-            num_bottleneck = linear
-            add_block += [nn.Linear(input_dim, num_bottleneck)]
+            add_block += [nn.Linear(input_dim, linear)]
         else:
-            num_bottleneck = input_dim
+            linear = input_dim
         if bnorm:
-            add_block += [nn.BatchNorm1d(num_bottleneck)]
+            add_block += [nn.BatchNorm1d(linear)]
         if relu:
             add_block += [nn.LeakyReLU(0.1)]
         if droprate>0:
@@ -47,7 +46,7 @@ class ClassBlock(nn.Module):
         add_block.apply(weights_init_kaiming)
 
         classifier = []
-        classifier += [nn.Linear(num_bottleneck, class_num)]
+        classifier += [nn.Linear(linear, class_num)]
         classifier = nn.Sequential(*classifier)
         classifier.apply(weights_init_classifier)
 
@@ -249,7 +248,7 @@ class PCB(nn.Module):
         # define 6 classifiers
         for i in range(self.part):
             name = 'classifier'+str(i)
-            setattr(self, name, ClassBlock(2048, class_num, droprate=0.5, linear=256, relu=False, bnorm=True, num_bottleneck=256))
+            setattr(self, name, ClassBlock(2048, class_num, droprate=0.5, linear=256, relu=False, bnorm=True))
 
     def forward(self, x):
         x = self.model.conv1(x)
