@@ -32,7 +32,7 @@ class ClassBlock(nn.Module):
         super(ClassBlock, self).__init__()
         self.return_f = return_f
         add_block = []
-        if linear:
+        if linear>0:
             add_block += [nn.Linear(input_dim, linear)]
         else:
             linear = input_dim
