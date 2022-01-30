@@ -129,7 +129,7 @@ if opt.PCB:
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) 
     ])
-
+    h, w = 384, 192
 
 data_dir = test_dir
 
@@ -278,14 +278,20 @@ else:
 model = model.eval()
 if use_gpu:
     model = model.cuda()
-
+# warmup cuda graph. and it only works with cuda>=11
+if float(torch.version.cuda) >=11.0:
+    x = torch.randn(opt.batchsize, 3, h, w, device='cuda')
+    model = torch.cuda.make_graphed_callables(model, (x,))
 # Extract feature
+since = time.time()
 with torch.no_grad():
     gallery_feature = extract_feature(model,dataloaders['gallery'])
     query_feature = extract_feature(model,dataloaders['query'])
     if opt.multi:
         mquery_feature = extract_feature(model,dataloaders['multi-query'])
-    
+time_elapsed = time.time() - since
+print('Training complete in {:.0f}m {:.0f}s'.format(
+            time_elapsed // 60, time_elapsed % 60))
 # Save to Matlab for check
 result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
 scipy.io.savemat('pytorch_result.mat',result)
