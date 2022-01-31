@@ -166,24 +166,25 @@ def fliplr(img):
     return img_flip
 
 def extract_feature(model,dataloaders):
-    features = torch.FloatTensor()
+    #features = torch.FloatTensor()
     count = 0
-    for data in dataloaders:
+    if opt.linear_num <= 0:
+        if opt.use_swin or opt.use_dense:
+            opt.linear_num = 1024
+        elif opt.use_efficient:
+            opt.linear_num = 1792
+        elif opt.use_NAS:
+            opt.linear_num = 4032
+        else:
+            opt.linear_num = 2048
+
+    for iter, data in enumerate(dataloaders):
         img, label = data
         n, c, h, w = img.size()
         count += n
         print(count)
-        if opt.linear_num > 0:
-            ff = torch.FloatTensor(n,opt.linear_num).zero_().cuda()
-        else:
-            if opt.use_swin or opt.use_dense:
-                ff = torch.FloatTensor(n,1024).zero_().cuda()
-            elif opt.use_efficient:
-                ff = torch.FloatTensor(n,1792).zero_().cuda()
-            elif opt.use_NAS:
-                ff = torch.FloatTensor(n,4032).zero_().cuda()
-            else:
-                ff = torch.FloatTensor(n,2048).zero_().cuda()
+        ff = torch.FloatTensor(n,opt.linear_num).zero_().cuda()
+
         if opt.PCB:
             ff = torch.FloatTensor(n,2048,6).zero_().cuda() # we have six parts
 
@@ -209,7 +210,13 @@ def extract_feature(model,dataloaders):
             fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
             ff = ff.div(fnorm.expand_as(ff))
 
-        features = torch.cat((features,ff.data.cpu()), 0)
+        
+        if iter == 0:
+            features = torch.FloatTensor( len(dataloaders.dataset), ff.shape[1])
+        #features = torch.cat((features,ff.data.cpu()), 0)
+        start = iter*opt.batchsize
+        end = min( (iter+1)*opt.batchsize, len(dataloaders.dataset))
+        features[ start:end, :] = ff
     return features
 
 def get_id(img_path):
