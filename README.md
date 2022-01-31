@@ -65,6 +65,17 @@ Different framework need to be tuned in a different way.
 
 <details>
  <summary><b>
+  2022 News
+</b></summary>
+   
+**1 Feb 2022** Speed up the inference process about 10 seconds by removing the ``cat`` function in ``test.py``. 
+   
+**1 Feb 2022** Add the demo with ``TensorRT`` (The fast inference speed may depend on the GPU with the latest RT Core).
+   
+</details>   
+
+<details>
+ <summary><b>
   2021 News
  </b></summary>
 
