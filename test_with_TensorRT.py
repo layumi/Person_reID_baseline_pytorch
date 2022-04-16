@@ -247,7 +247,6 @@ if opt.multi:
 
 ######################################################################
 # Load Collected data Trained model
-print('-------test-----------')
 if opt.use_dense:
     model_structure = ft_net_dense(opt.nclasses, linear_num=opt.linear_num)
 elif opt.use_NAS:
@@ -288,11 +287,13 @@ if use_gpu:
     model = model.cuda()
 
 # create example data
+# batchsize= 1
 x = torch.ones((opt.batchsize, 3, h, w)).cuda()
 # convert to TensorRT feeding sample data as input
 print('Please pip install nvidia-pyindex; pip install nvidia-tensorrt; git clone https://github.com/NVIDIA-AI-IOT/torch2trt; cd torch2trt; python setup.py install')
-model_trt = torch2trt(model, [x])
+model = torch2trt(model, [x], fp16_mode=True, max_batch_size=opt.batchsize)
 
+print('-------test-----------')
 # Extract feature
 since = time.time()
 with torch.no_grad():
@@ -301,7 +302,7 @@ with torch.no_grad():
     if opt.multi:
         mquery_feature = extract_feature(model,dataloaders['multi-query'])
 time_elapsed = time.time() - since
-print('Training complete in {:.0f}m {:.2f}s'.format(
+print('Testing complete in {:.0f}m {:.2f}s'.format(
             time_elapsed // 60, time_elapsed % 60))
 # Save to Matlab for check
 result = {'gallery_f':gallery_feature.numpy(),'gallery_label':gallery_label,'gallery_cam':gallery_cam,'query_f':query_feature.numpy(),'query_label':query_label,'query_cam':query_cam}
