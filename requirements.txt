@@ -1,0 +1,5 @@
+pyyaml
+pretrainedmodels
+timm
+scipy
+efficientnet_pytorch
