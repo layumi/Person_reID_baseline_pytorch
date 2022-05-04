@@ -18,7 +18,7 @@ import scipy.io
 import yaml
 import math
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_efficient, ft_net_NAS, PCB, PCB_test
-
+from utils import fuse_all_conv_bn
 #fp16
 try:
     from apex.fp16_utils import *
@@ -287,14 +287,18 @@ model = model.eval()
 if use_gpu:
     model = model.cuda()
 
+
+print('Here I fuse conv and bn for faster inference, and it does not work for transformers. Comment out this following line if you do not want to fuse conv&bn.')
+model = fuse_all_conv_bn(model)
+
 # We can optionally trace the forward method with PyTorch JIT so it runs faster.
 # To do so, we can call `.trace` on the reparamtrized module with dummy inputs
 # expected by the module.
 # Comment out this following line if you do not want to trace.
-# swin model may be slower
 dummy_forward_input = torch.rand(opt.batchsize, 3, h, w).cuda()
 model = torch.jit.trace(model, dummy_forward_input)
 
+print(model)
 # Extract feature
 since = time.time()
 with torch.no_grad():
