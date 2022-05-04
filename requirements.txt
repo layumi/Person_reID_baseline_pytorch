@@ -3,3 +3,4 @@ pretrainedmodels
 timm
 scipy
 efficientnet_pytorch
+pytorch_metric_learning
