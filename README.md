@@ -39,21 +39,28 @@ Besides, if you are new to object re-ID, you may check out our **[Tutorial](http
 
 ## Features
 Now we have supported:
-- TensorRT 
+
+### Training 
 - Running the code on Google Colab with Free GPU. Check [Here](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab) (Thanks to @ronghao233)
 - [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market **CVPR 2019 Oral**)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer) / [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) / [HRNet](https://github.com/HRNet)
+- ResNet/ResNet-ibn/DenseNet
 - Circle Loss, Triplet Loss, Contrastive Loss, Sphere Loss, Lifted Loss, Arcface, Cosface  and Instance Loss
 - Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
-- Multiple Query Evaluation
-- Re-Ranking ([GPU Version](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/GPU-Re-Ranking))
 - Random Erasing
-- ResNet/ResNet-ibn/DenseNet
+- Linear Warm-up 
+
+### Testing
+- TensorRT 
+- Pytorch JIT
+- Fuse Conv and BN layer into one Conv layer
+- Multiple Query Evaluation
+- Re-Ranking (CPU & [GPU Version](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/GPU-Re-Ranking))
 - Visualize Training Curves
 - Visualize Ranking Result
 - [Visualize Heatmap](https://github.com/layumi/Person_reID_baseline_pytorch/blob/dev/visual_heatmap.py)
-- Linear Warm-up 
+
 
 Here we provide hyperparameters and architectures, that were used to generate the result. 
 Some of them (i.e. learning rate) are far from optimal. Do not hesitate to change them and see the effect. 
