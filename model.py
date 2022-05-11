@@ -106,10 +106,14 @@ class ft_net_swin(nn.Module):
         model_ft.head = nn.Sequential() # save memory
         self.model = model_ft
         self.circle = circle
+        self.avgpool = nn.AdaptiveAvgPool1d(1)
         self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
 
     def forward(self, x):
         x = self.model.forward_features(x)
+        # swin is update in latest timm>0.6.0, so I add the following two lines.
+        x = self.avgpool(x.permute((0,2,1)))
+        x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
 
