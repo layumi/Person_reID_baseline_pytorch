@@ -1,5 +1,4 @@
 import os
-from PIL import Image
 from shutil import copyfile
 
 def copy_file(s, t):
