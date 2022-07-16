@@ -1,0 +1,41 @@
+# Don't track content of these folders
+outputs/
+model/*
+logs/
+__pycache__/
+core
+GPU-Re-Ranking/extension/adjacency_matrix/build_adjacency_matrix.egg-info/
+GPU-Re-Ranking/extension/propagation/gnn_propagate.egg-info/
+GPU-Re-Ranking/extension/adjacency_matrix/dist
+GPU-Re-Ranking/extension/propagation/dist
+
+# But not 
+!model/.gitkeep
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.mat
+*.jpg
+*.npy
+*.pt
+*.pth
