@@ -76,7 +76,7 @@ Different framework need to be tuned in a different way.
   2022 News
 </b></summary>
 
-**24 Jul 2022** Market-HQ is released with super-resolution quality from 128*64 to 512*256. Please check at https://github.com/layumi/HQ-Market
+**24 Jul 2022** Market-HQ is released with super-resolution quality from 128\*64 to 512\*256. Please check at https://github.com/layumi/HQ-Market
 
 **14 Jul 2022** Add adversarial training by ``python train.py --name ftnet_adv --adv 0.1 --aiter 40``. 
 
