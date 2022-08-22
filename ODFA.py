@@ -16,7 +16,6 @@ def ODFA(model, img, rate = 16):
             # The input has been whiten.
             # So when we recover, we need to use a alpha
             alpha = 1.0 / (0.226 * 255.0)
-            criterion = nn.CrossEntropyLoss()
             inputs_copy = Variable(inputs.data, requires_grad = False)
             diff = torch.FloatTensor(inputs.shape).zero_()
             diff = Variable(diff.cuda(), requires_grad = False)
@@ -29,8 +28,8 @@ def ODFA(model, img, rate = 16):
             outputs = outputs.div(fnorm.expand_as(outputs))
             outputs = outputs.view(outputs.size(0), -1)
             #print(outputs.shape)
-            feature_dim = outputs.shape[1]
-            batch_size = inputs.shape[0]
+            #feature_dim = outputs.shape[1]
+            #batch_size = inputs.shape[0]
             #zero_feature = torch.zeros(batch_size,feature_dim)
             target = Variable(-outputs.data, requires_grad=False)
             criterion2 = nn.MSELoss()
