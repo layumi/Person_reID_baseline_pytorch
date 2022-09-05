@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 #from PIL import Image
 import time
 import os
-from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_convnext, ft_net_efficient, ft_net_NAS, PCB
+from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_convnext, ft_net_efficient, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 from dgfolder import DGFolder
 import yaml

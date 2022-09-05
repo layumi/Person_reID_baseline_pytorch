@@ -5,7 +5,7 @@ from torchvision import models
 from torch.autograd import Variable
 import pretrainedmodels
 import timm
-
+from utils import load_state_dict_mute
 ######################################################################
 def weights_init_kaiming(m):
     classname = m.__class__.__name__
@@ -136,13 +136,12 @@ class ft_net_swinv2(nn.Module):
         model_ft.head = nn.Sequential() # save memory
         self.model = model_ft
         self.circle = circle
-        self.avgpool = nn.AdaptiveAvgPool2d((1,1))
+        self.avgpool = nn.AdaptiveAvgPool1d(1)
         self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
         print('Make sure timm > 0.6.0 and you can install latest timm version by pip install git+https://github.com/rwightman/pytorch-image-models.git')
     def forward(self, x):
         x = self.model.forward_features(x)
-        print(x.shape)
-        x = self.avgpool(x)
+        x = self.avgpool(x.permute((0,2,1))) # B * 1024 * WinNum
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
