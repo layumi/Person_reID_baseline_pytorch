@@ -60,6 +60,7 @@ parser.add_argument('--stride', default=2, type=int, help='stride')
 parser.add_argument('--droprate', default=0.5, type=float, help='drop rate')
 parser.add_argument('--use_dense', action='store_true', help='use densenet121' )
 parser.add_argument('--use_swin', action='store_true', help='use swin transformer 224x224' )
+parser.add_argument('--use_swinv2', action='store_true', help='use swin transformerv2' )
 parser.add_argument('--use_efficient', action='store_true', help='use efficientnet-b4' )
 parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
 parser.add_argument('--use_hr', action='store_true', help='use hrNet' )
@@ -455,6 +456,8 @@ elif opt.use_NAS:
     model = ft_net_NAS(len(class_names), opt.droprate, linear_num=opt.linear_num)
 elif opt.use_swin:
     model = ft_net_swin(len(class_names), opt.droprate, opt.stride, circle = return_feature, linear_num=opt.linear_num)
+elif opt.use_swinv2:
+    model = ft_net_swinv2(len(class_names), (h, w), opt.droprate, opt.stride, circle = return_feature, linear_num=opt.linear_num)
 elif opt.use_efficient:
     model = ft_net_efficient(len(class_names), opt.droprate, circle = return_feature, linear_num=opt.linear_num)
 elif opt.use_hr:
