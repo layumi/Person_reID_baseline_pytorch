@@ -211,10 +211,11 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | [ResNet-50 (all tricks+Circle+DG)] | 92.13% | 80.13% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name warm5_s1_b8_lr2_p0.5_circle_DG --circle --DG; python test.py --name warm5_s1_b8_lr2_p0.5_circle_DG` |
 | [DenseNet-121 (all tricks+Circle)] | 92.61% | 80.24% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 8 --lr 0.02 --name dense_warm5_s1_b8_lr2_p0.5_circle --circle --use_dense; python test.py --name  dense_warm5_s1_b8_lr2_p0.5_circle` |
 | [HRNet-18 (all tricks+Circle+DG)]| 92.19% | 81.00% | `python train.py --use_hr --name  hr18_p0.5_circle_w5_b16_lr0.01_DG --lr 0.01 --batch 16 --DG --erasing_p 0.5 --circle --warm_epoch 5; python test.py --name  hr18_p0.5_circle_w5_b16_lr0.01_DG` |
-| [Swin] | 92.75% | 79.70% | `python train.py --use_swin --name swin; python test.py --name swin`|
-| [Swin (all tricks+Circle)] | 94.12% | 84.39% | `python train.py --use_swin --name swin_p0.5_circle_w5  --erasing_p 0.5 --circle --warm_epoch 5;  python test.py --name swin_p0.5_circle_w5`|
-| [Swin (all tricks+Circle+b16)] | 94.00% | 85.21% | `python train.py --use_swin --name swin_p0.5_circle_w5_b16_lr0.01 --lr 0.01 --batch 16  --erasing_p 0.5 --circle --warm_epoch 5; python test.py --name swin_p0.5_circle_w5_b16_lr0.01`|
-| [Swin (all tricks+Circle+b16+DG)] | 94.00% | 85.36% | `python train.py --use_swin --name swin_p0.5_circle_w5_b16_lr0.01_DG --lr 0.01 --batch 16 --DG --erasing_p 0.5 --circle --warm_epoch 5; python test.py --name swin_p0.5_circle_w5_b16_lr0.01_DG`|
+| [Swin] (224x224) | 92.75% | 79.70% | `python train.py --use_swin --name swin; python test.py --name swin`|
+| [SwinV2 (all tricks+Circle 256x128)] | 92.58% | 81.59% | `python train.py --use_swinv2 --name swinv2_p0.5_circle_w5_b16_lr0.01  --lr 0.01 --batch 16 --erasing_p 0.5 --circle --warm_epoch 5; python test.py --name   swinv2_p0.5_circle_w5_b16_lr0.01 --batch 32`|
+| [Swin (all tricks+Circle 224x224)] | 94.12% | 84.39% | `python train.py --use_swin --name swin_p0.5_circle_w5  --erasing_p 0.5 --circle --warm_epoch 5;  python test.py --name swin_p0.5_circle_w5`|
+| [Swin (all tricks+Circle+b16 224x224)] | 94.00% | 85.21% | `python train.py --use_swin --name swin_p0.5_circle_w5_b16_lr0.01 --lr 0.01 --batch 16  --erasing_p 0.5 --circle --warm_epoch 5; python test.py --name swin_p0.5_circle_w5_b16_lr0.01`|
+| [Swin (all tricks+Circle+b16+DG 224x224)] | 94.00% | 85.36% | `python train.py --use_swin --name swin_p0.5_circle_w5_b16_lr0.01_DG --lr 0.01 --batch 16 --DG --erasing_p 0.5 --circle --warm_epoch 5; python test.py --name swin_p0.5_circle_w5_b16_lr0.01_DG`|
 
 * More training iterations may lead to better results. 
 * Swin costs more GPU memory (11G GPU is needed) to run. 
