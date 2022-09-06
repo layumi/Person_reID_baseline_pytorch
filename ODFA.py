@@ -5,6 +5,7 @@ import torch.nn as nn
 import numpy as np
 from PIL import Image
 from torchvision import transforms
+#   Online Adversarial Defense Trainnig via ODFA.
 #   https://github.com/layumi/U_turn/blob/master/README.md
 def ODFA(model, img, rate = 16):
             model = deepcopy(model)
