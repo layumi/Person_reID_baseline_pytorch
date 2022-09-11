@@ -160,7 +160,8 @@ image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=2, pin_memory=True) # 8 workers may work faster
+                                             shuffle=True, num_workers=2, pin_memory=True,
+                                             prefetch_factor=2, persistent_workers=True) # 8 workers may work faster
               for x in ['train', 'val']}
 
 # Use extra DG-Market Dataset for training. Please download it from https://github.com/NVlabs/DG-Net#dg-market.
