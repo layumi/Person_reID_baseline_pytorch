@@ -17,37 +17,38 @@
 """
 
 import torch
+import scipy.io
 import argparse
 
 from utils import load_pickle, evaluate_ranking_list
 from gnn_reranking import gnn_reranking
 
 parser = argparse.ArgumentParser(description='Reranking_is_GNN')
-parser.add_argument('--data_path', 
-                    type=str, 
-                    default='../xm_rerank_gpu_2/features/market_88_test.pkl',
+parser.add_argument('--data_path',
+                    type=str,
+                    default='../pytorch_result.mat',
                     help='path to dataset')
-parser.add_argument('--k1', 
-                    type=int, 
+parser.add_argument('--k1',
+                    type=int,
                     default=26,     # Market-1501
                     # default=60,   # Veri-776
                     help='parameter k1')
-parser.add_argument('--k2', 
-                    type=int, 
+parser.add_argument('--k2',
+                    type=int,
                     default=7,      # Market-1501
                     # default=10,   # Veri-776
                     help='parameter k2')
 
 args = parser.parse_args()
 
-def main():   
-    data = load_pickle(args.data_path)
-    
-    query_cam = data['query_cam']
-    query_label = data['query_label']
-    gallery_cam = data['gallery_cam']
-    gallery_label = data['gallery_label']
-          
+def main():
+    data = scipy.io.loadmat(args.data_path)
+
+    query_cam = data['query_cam'][0]
+    query_label = data['query_label'][0]
+    gallery_cam = data['gallery_cam'][0]
+    gallery_label = data['gallery_label'][0]
+
     gallery_feature = torch.FloatTensor(data['gallery_f'])
     query_feature = torch.FloatTensor(data['query_f'])
     query_feature = query_feature.cuda()
@@ -55,6 +56,6 @@ def main():
 
     indices = gnn_reranking(query_feature, gallery_feature, args.k1, args.k2)
     evaluate_ranking_list(indices, query_label, query_cam, gallery_label, gallery_cam)
-    
+
 if __name__ == '__main__':
     main()
