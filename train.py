@@ -303,7 +303,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     if opt.contrast:
                         loss +=  criterion_contrast(ff, labels) #/now_batch_size
                     if opt.instance:
-                        loss += criterion_instance(ff, labels) /now_batch_size
+                        loss += criterion_instance(ff) /now_batch_size
                     if opt.sphere:
                         loss +=  criterion_sphere(ff, labels)/now_batch_size
                 elif opt.PCB:  #  PCB
