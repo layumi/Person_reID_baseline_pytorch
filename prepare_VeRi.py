@@ -81,7 +81,7 @@ if not os.path.isdir(train_save_path):
 #---------------------------------------
 #train_all
 train_path = save_path
-train_save_path = download_path + '/train_ALL'
+train_save_path = download_path + '/train_all'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
 
