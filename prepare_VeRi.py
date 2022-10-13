@@ -26,6 +26,7 @@ if not os.path.isdir(save_path):
 
 #---------------------------------------
 #train
+os.mkdir(download_path + '/pytorch')
 train_save_path = download_path + '/pytorch/train'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
