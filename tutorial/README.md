@@ -365,6 +365,12 @@ I write the code in a similar manner, so let's find what I changed.
 ## Answers to Quick Questions
 You may check https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/Answers_to_Quick_Questions.md
 
+## Star History
+
+If you like this repo, please star it. Thanks a lot!
+
+[![Star History Chart](https://api.star-history.com/svg?repos=layumi/Person_reID_baseline_pytorch&type=Date)](https://star-history.com/#layumi/Person_reID_baseline_pytorch&Date)
+
 ## Reference
 
 [1] Deng, Jia, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Li Fei-Fei. "Imagenet: A large-scale hierarchical image database." In Computer Vision and Pattern Recognition, 2009. CVPR 2009. IEEE Conference on, pp. 248-255. Ieee, 2009.
