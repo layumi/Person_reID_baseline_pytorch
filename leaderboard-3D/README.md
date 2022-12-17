@@ -9,7 +9,10 @@ Priorities are given to papers whose codes are published.
 
 
 
- ### 3D Supervised Learning (Point Cloud Input)
+ ### 3D Supervised Learning (Market-1501 Point Cloud Input)
+
 |Methods | #params(M) | Rank@1 | mAP| Reference|
 | -------- | ----- | ----- | ---- | ---- |
+|OG-Net-Small | 1.20 | 87.38 | 70.48 | "Parameter-Efficient Person Re-identification in the 3D Space", Zhedong Zheng and Yi Yang, TNNLS 2022. [[Pdf]](https://zdzheng.xyz/files/TNNLS_3D_PersonReID.pdf) [[Code]](https://github.com/layumi/person-reid-3d) [[中文解读]](https://zhuanlan.zhihu.com/p/149121098) |
+|OG-Net | 1.95 | 87.80 | 70.56 | "Parameter-Efficient Person Re-identification in the 3D Space", Zhedong Zheng and Yi Yang, TNNLS 2022. [[Pdf]](https://zdzheng.xyz/files/TNNLS_3D_PersonReID.pdf) [[Code]](https://github.com/layumi/person-reid-3d) [[中文解读]](https://zhuanlan.zhihu.com/p/149121098) |
 |OG-Net-Deep | 2.47 | 88.81 | 72.91 | "Parameter-Efficient Person Re-identification in the 3D Space", Zhedong Zheng and Yi Yang, TNNLS 2022. [[Pdf]](https://zdzheng.xyz/files/TNNLS_3D_PersonReID.pdf) [[Code]](https://github.com/layumi/person-reid-3d) [[中文解读]](https://zhuanlan.zhihu.com/p/149121098) |
