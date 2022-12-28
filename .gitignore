@@ -34,7 +34,6 @@ GPU-Re-Ranking/extension/propagation/dist
 *.jar
 *.rar
 *.tar
-*.zip
 *.mat
 *.jpg
 *.npy
