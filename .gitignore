@@ -11,6 +11,7 @@ GPU-Re-Ranking/extension/propagation/dist
 
 # But not 
 !model/.gitkeep
+!dataset/
 
 # Compiled source #
 ###################
