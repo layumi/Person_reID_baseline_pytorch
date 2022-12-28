@@ -1,1 +1,4 @@
 dataset/Market-1501-v15.09.15.zip filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+dataset filter=lfs diff=lfs merge=lfs -text
+dataset/* filter=lfs diff=lfs merge=lfs -text
