@@ -31,7 +31,14 @@ python setup.py install
 Check the Prerequisites. The download links for this practice are:
 
 - Code: [Practical-Baseline](https://github.com/layumi/Person_reID_baseline_pytorch)
-- Data: [Market-1501](http://188.138.127.15:81/Datasets/Market-1501-v15.09.15.zip)
+- Data: [Market-1501](http://188.138.127.15:81/Datasets/Market-1501-v15.09.15.zip) [[Google]](https://drive.google.com/file/d/0B8-rUzbwVRk0c054eEozWG9COHM/view) [[Baidu]](https://pan.baidu.com/s/1ntIi2Op)
+
+A quick command line to download Market-1501 is: 
+```
+pip install gdown
+gdown https://drive.google.com/uc\?id\=0B8-rUzbwVRk0c054eEozWG9COHM
+```
+
 
 ## Part 1: Training
 ### Part 1.1: Prepare Data Folder (`python prepare.py`)
