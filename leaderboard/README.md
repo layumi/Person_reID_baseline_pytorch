@@ -1,4 +1,4 @@
-## LeaderBoard
+# LeaderBoard
 If you notice any result or the public code that has not been included in this table, please connect [Zhedong Zheng](mailto:zdzheng12@gmail.com) without hesitation to add the method. You are welcomed! 
 or create pull request.
 
@@ -13,7 +13,7 @@ Priorities are given to papers whose codes are published.
  
  :helicopter:  Drone-based building re-id [[code]](https://github.com/layumi/University1652-Baseline)  [[paper]](https://arxiv.org/abs/2002.12186)
  
- ### Supervised Learning
+ ## Supervised Learning
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
 |BoW+kissme | 25.13% | 12.17% | "[Scalable person re-identification: a benchmark](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7410490)", Liang Zheng, Liyue Shen, Lu Tian, Shengjin Wang, Jingdong Wang and Qi Tian, ICCV 2015 [**[project]**](http://www.liangzheng.org/Project/project_reid.html)|
@@ -52,7 +52,7 @@ Priorities are given to papers whose codes are published.
 | DG-Net (Res-50)|  86.6% | 74.8% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) |
 |MGN| 88.7% | 78.4% | "[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438)" Wang, Guanshuo, Yufeng Yuan, Xiong Chen, Jiwei Li, and Xi Zhou. ACM MM 2018. |
 
-### Transfer Learning
+## Transfer Learning
 - Train on [Market-1501](http://www.liangzheng.com.cn/Project/project_reid.html), Test on DukeMTMC-reID
 
 The primary motivation is that collecting ID annotation is relatively-expensive in human resource and time cost. 
@@ -69,7 +69,7 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | SPGAN | :heavy_check_mark: | 41.4% | 22.3% | "[Image-Image Domain Adaptation with Preserved Self-Similarity and Domain-Dissimilarity for Person Re-identification](https://arxiv.org/abs/1711.07027)", Weijian Deng, Liang Zheng, Guoliang Kang, Yi Yang, Qixiang Ye, Jianbin Jiao, CVPR 2018|
 | TJ-AIDL | :heavy_check_mark: | 44.3% | 23.0% | "[Transferable Joint Attribute-Identity Deep Learning for Unsupervised Person Re-Identification](http://www.eecs.qmul.ac.uk/~xiatian/papers/WangEtAl_CVPR2018.pdf)", Jingya Wang, Xiatian Zhu, Shaogang Gong, Wei Li, ECCV 2018 |
 | MMFA | :heavy_check_mark: | 45.3% | 24.7% | "[Multi-task Mid-level Feature Alignment Network for Unsupervised Cross-Dataset Person Re-Identification](https://arxiv.org/abs/1807.01440)", Shan Lin, Haoliang Li, Chang-Tsun Li, Alex Chichung Kot, BMVC 2018|
-| DG-Net | :heavy_multiplication_x:|  43.5% | 25.4% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. | 
+| DG-Net | :heavy_multiplication_x:|  43.5% | 25.4% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. (Results are in Appendix) | 
 | SPGAN+LMP | :heavy_check_mark: | 46.4% | 26.2% | |
 | HHL | :heavy_check_mark: | 46.9% | 27.2% | "[Generalizing A Person Retrieval Model Hetero- and Homogeneously](https://github.com/zhunzhong07/zhunzhong07.github.io/blob/master/paper/HHL.pdf)", Zhun Zhong, Liang Zheng, Shaozi Li, Yi Yang, ECCV 2018|
 | BUC | :heavy_check_mark: | 47.4% | 27.5% | "[A Bottom-up Clustering Approach to Unsupervised Person Re-identification](http://xuanyidong.com/pdf/AAAI19-vana.pdf)", Yutian Lin, Xuanyi Dong, Liang Zheng,Yan Yan, Yi Yang, AAAI 2018|
@@ -90,14 +90,22 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | UNRN |:heavy_check_mark: | 82.0% | 69.1% | "[Exploiting Sample Uncertainty for Domain Adaptive Person Re-Identification](https://arxiv.org/abs/2012.08733)" Kecheng Zheng, Cuiling Lan, Wenjun Zeng, Zhizheng Zhang, and Zheng-Jun Zha. AAAI 2021 |
 | Cluster Contrast + GEM |:heavy_check_mark: | 86.8% | 76.0% | "[Cluster Contrast for Unsupervised Person Re-Identification](https://arxiv.org/abs/2103.11568)" Dai, Zuozhuo and Wang, Guangyuan and Zhu, Siyu and Yuan, Weihao and Tan, Ping. arXiv 2021| 
 
-- Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on DukeMTMC-reID
+### Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on DukeMTMC-reID
 
 |Methods | Use DukeMTMC Training Data (without ID label but may use the camera ID)| Rank@1 | mAP| Reference|
 | -------- | ----- | ----- | ---- | ---- |
 | Verif + Identif | :heavy_multiplication_x:|  48.7% | 27.5% | "[A Discriminatively Learned Cnn Embedding for Person Re-identification](https://arxiv.org/abs/1611.05666)",  Zhedong Zheng, Liang Zheng, and Yi Yang, TOMM 2017. [**[pytorch code]**](https://github.com/layumi/Person-reID-verification)| 
-| DG-Net | :heavy_multiplication_x:|  62.0% | 40.7% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net)| 
+|OG-Net| :heavy_multiplication_x:|  31.3% | 16.3% | "[Parameter-Efficient Person Re-identification in the 3D Space](https://arxiv.org/abs/2006.04569)",  Zhedong Zheng and Yi Yang, TNNLS 2022. [**[pytorch code]**](https://github.com/layumi/person-reid-3d)| 
+| DG-Net | :heavy_multiplication_x:|  62.0% | 40.7% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) (Results are in Appendix)| 
 | MAR | :heavy_check_mark: | 67.1% | 48.0% | "[Unsupervised Person Re-identification by Soft Multilabel Learning](https://arxiv.org/abs/1903.06325)", Hong-Xing Yu, Wei-Shi Zheng, Ancong Wu, Xiaowei Guo, Shaogang Gong, Jian-Huang Lai, CVPR 2019. | 
 | UDARTP | :heavy_check_mark: | 75.0% | 57.1% | "[Unsupervised Domain Adaptive Re-Identification: Theory and Practice](https://arxiv.org/pdf/1807.11334.pdf)", Liangchen Song, Cheng Wang, Lefei Zhang, Bo Du, Qian Zhang, Chang Huang, and Xinggang Wang, arXiv:1807.11334|
+
+### Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on Market
+|Methods | Use Market Training Data (without ID label but may use the camera ID)| Rank@1 | mAP| Reference|
+| -------- | ----- | ----- | ---- | ---- |
+|OG-Net| :heavy_multiplication_x:|  40.1% | 17.6% | "[Parameter-Efficient Person Re-identification in the 3D Space](https://arxiv.org/abs/2006.04569)",  Zhedong Zheng and Yi Yang, TNNLS 2022. [**[pytorch code]**](https://github.com/layumi/person-reid-3d)| 
+| DG-Net | :heavy_multiplication_x:|  61.8% | 33.6% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) (Results are in Appendix)| 
+
 
 ## DukeMTMC-reID Protocol Citation
 ```bibtex
