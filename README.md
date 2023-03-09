@@ -70,6 +70,10 @@ Different framework need to be tuned in a different way.
 
 ## Some News
 
+**9 Mar 2023** Market-1501 is in 3D. Please check https://github.com/layumi/3D-Magic-Mirror.
+![](https://github.com/layumi/3D-Magic-Mirror/raw/master/doc/rainbow_github.gif)
+
+
 <details>
  <summary><b>
   2022 News
