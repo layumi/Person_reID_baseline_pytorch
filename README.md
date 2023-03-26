@@ -14,6 +14,24 @@ A tiny, friendly, strong baseline code for Object-reID (based on [pytorch](https
 Besides, if you are new to object re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show-cub.jpg)
+Share to
+    <!-- Facebook -->
+    <a href="http://www.facebook.com/sharer.php?u=https://github.com/layumi/Person_reID_baseline_pytorch/" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+    </a>
+    <!-- Twitter -->
+    <a href="https://twitter.com/share?url=https://github.com/layumi/Person_reID_baseline_pytorch/&amp;text=Strong,%20Small,%20Friendly%20Pytorch%20re-ID&amp;hashtags=pytorch re-ID" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+    </a>
+    <!-- LinkedIn -->
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://github.com/layumi/Person_reID_baseline_pytorch/" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+    </a>
+    <!-- Email -->
+    <a href="mailto:?Subject=Strong, Small, Friendly Pytorch Re-identification&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://github.com/layumi/Person_reID_baseline_pytorch/">
+        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+    </a>
+        
 
 ## Tutorial
 * [8 min Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/tutorial/README.md)，[8分钟教程](https://zhuanlan.zhihu.com/p/50387521)
