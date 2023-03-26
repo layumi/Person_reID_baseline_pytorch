@@ -2,7 +2,6 @@
 <h2 align="center"> Strong, Small, Friendly </h2>
 
 ![Python3.6+](https://img.shields.io/badge/python-3.6+-green.svg)
-[![Build Status](https://travis-ci.org/layumi/Person_reID_baseline_pytorch.svg?branch=master)](https://travis-ci.org/layumi/Person_reID_baseline_pytorch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 A tiny, friendly, strong baseline code for Object-reID (based on [pytorch](https://pytorch.org)) since 2017.
