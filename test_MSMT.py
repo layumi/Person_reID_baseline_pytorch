@@ -303,15 +303,15 @@ model = fuse_all_conv_bn(model)
 # To do so, we can call `.trace` on the reparamtrized module with dummy inputs
 # expected by the module.
 # Comment out this following line if you do not want to trace.
-dummy_forward_input = torch.rand(opt.batchsize, 3, h, w).cuda()
-model = torch.jit.trace(model, dummy_forward_input)
+#dummy_forward_input = torch.rand(opt.batchsize, 3, h, w).cuda()
+#model = torch.jit.trace(model, dummy_forward_input)
 
 print(model)
 # Extract feature
 since = time.time()
 with torch.no_grad():
-    gallery_feature = extract_feature(model,dataloaders['gallery'])
     query_feature = extract_feature(model,dataloaders['query'])
+    gallery_feature = extract_feature(model,dataloaders['gallery'])
     if opt.multi:
         mquery_feature = extract_feature(model,dataloaders['multi-query'])
 time_elapsed = time.time() - since
