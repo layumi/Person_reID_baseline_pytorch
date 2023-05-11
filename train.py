@@ -397,7 +397,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     save_network(model.module, epoch+1)
                 else:
                     save_network(model, epoch+1)
-            draw_curve(epoch)
+            if phase == 'val':
+                draw_curve(epoch)
             if phase == 'train':
                scheduler.step()
         time_elapsed = time.time() - since
