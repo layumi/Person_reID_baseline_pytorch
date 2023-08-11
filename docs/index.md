@@ -1,3 +1,10 @@
+---
+title: "Person reID"
+collection: pages
+permalink: /person-reID
+author_profile: false
+---
+
 Welcome to the Person_reID_baseline_pytorch!
 
 ## Tutorial
