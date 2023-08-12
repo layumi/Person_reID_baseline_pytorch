@@ -1,3 +1,10 @@
+---
+title: "Pytorch ReID"
+collection: pages
+permalink: /Pytorch-ReID
+author_profile: false
+---
+
 <h1 align="center"> Pytorch ReID </h1>
 <h2 align="center"> Strong, Small, Friendly </h2>
 
@@ -5,6 +12,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 A tiny, friendly, strong baseline code for Object-reID (based on [pytorch](https://pytorch.org)) since 2017.
+
+Code is at https://github.com/layumi/Person_reID_baseline_pytorch .
 
 - **Strong.** It is consistent with the new baseline result in several top-conference works, e.g., [Joint Discriminative and Generative Learning for Person Re-identification(CVPR19)](https://arxiv.org/abs/1904.07223), [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349), [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). We arrived Rank@1=88.24%, mAP=70.68% only with softmax loss. 
 
@@ -220,8 +229,8 @@ python test.py --PCB --name PCB-64
  </details>
    
 ## Trained Model
-I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. 
-The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8SzazfYZlpH9CxyE).
+
+I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8SzazfYZlpH9CxyE).
 
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
@@ -254,6 +263,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 ### Different Losses 
    
 I do not optimize the hyper-parameters. You are free to tune them for better performance.
+
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
 | CE | 92.01% | 79.31% | `python train.py --warm_epoch 5 --stride 1 --erasing_p 0.5 --batchsize 32 --lr 0.08 --name warm5_s1_b32_lr8_p0.5_100 --total 100 ; python test.py  --name  warm5_s1_b32_lr8_p0.5_100`|
@@ -270,6 +280,7 @@ I do not optimize the hyper-parameters. You are free to tune them for better per
 
 
 ### Model Structure
+
 You may learn more from `model.py`. 
 We add one linear layer(bottleneck), one batchnorm layer and relu.
 
