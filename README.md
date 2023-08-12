@@ -5,6 +5,13 @@ permalink: /Pytorch-ReID
 author_profile: false
 ---
 
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+
+
 <h1 align="center"> Pytorch ReID </h1>
 <h2 align="center"> Strong, Small, Friendly </h2>
 
@@ -23,6 +30,7 @@ Code is at https://github.com/layumi/Person_reID_baseline_pytorch .
 Besides, if you are new to object re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show-cub.jpg)
+
 Share to
     <!-- Facebook -->
     <a href="http://www.facebook.com/sharer.php?u=https://github.com/layumi/Person_reID_baseline_pytorch/" target="_blank">
@@ -231,6 +239,7 @@ python test.py --PCB --name PCB-64
 ## Trained Model
 
 I re-trained several models, and the results may be different with the original one. Just for a quick reference, you may directly use these models. The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8SzazfYZlpH9CxyE).
+
 
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
