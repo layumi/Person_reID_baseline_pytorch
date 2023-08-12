@@ -188,7 +188,7 @@ Different framework need to be tuned in a different way.
 
 **20 May 2019:** Linear Warm Up is added. You also can set warm-up the first K epoch by `--warm_epoch K`. If K <=0, there will be no warm-up.
 
- </details>
+</details>
    
 <details>
  <summary><b>
@@ -234,7 +234,7 @@ python test.py --PCB --name PCB-64
 **What's new:** I add some code to generate training curves. The figure will be saved into the model folder when training.
 
 ![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.jpg)
- </details>
+</details>
    
 ## Trained Model
 
