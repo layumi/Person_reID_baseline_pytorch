@@ -28,8 +28,7 @@ Code is at https://github.com/layumi/Person_reID_baseline_pytorch .
 
 - **Friendly.** You may use the off-the-shelf options to apply many state-of-the-art tricks in one line.
 Besides, if you are new to object re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
-![3D Magic Human Animation](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
-![3D Magic Bird Animation](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show-cub.jpg)
+![Person ReID Example](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
 
 Share to
     <!-- Facebook -->
@@ -113,7 +112,7 @@ Different framework need to be tuned in a different way.
 **19 Mar 2023** We host a special session on IEEE Intelligent Transportation Systems Conference (ITSC), covering the object re-identification & point cloud topic. The paper ddl is by May 15, 2023 and the paper notification is at June 30, 2023. Please select the session code ``w7r4a'' during submission. More details can be found at [Special Session Website](https://2023.ieee-itsc.org/wp-content/uploads/2023/03/IEEE-ITSC-2023-Special-Session-Proposal-Safe-Critical-Scenario-Understanding-in-Intelligent-Transportation-Systems-SCSU-ITS.pdf).  
 
 **9 Mar 2023** Market-1501 is in 3D. Please check our single 2D to 3D reconstruction work  https://github.com/layumi/3D-Magic-Mirror ![GitHub stars](https://img.shields.io/github/stars/layumi/3D-Magic-Mirror.svg?style=flat&label=Star).
-![](https://github.com/layumi/3D-Magic-Mirror/raw/master/doc/rainbow_github.gif)
+![3D Human Animation](https://github.com/layumi/3D-Magic-Mirror/raw/master/doc/rainbow_github.gif)
 
 
 <details>
