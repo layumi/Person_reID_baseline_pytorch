@@ -38,6 +38,7 @@ parser.add_argument('--k2',
                     default=7,      # Market-1501
                     # default=10,   # Veri-776
                     help='parameter k2')
+parser.add_argument('--lamb', type=float, default=0.3)
 
 args = parser.parse_args()
 
@@ -54,7 +55,7 @@ def main():
     query_feature = query_feature.cuda()
     gallery_feature = gallery_feature.cuda()
 
-    indices = gnn_reranking(query_feature, gallery_feature, args.k1, args.k2)
+    indices = gnn_reranking(query_feature, gallery_feature, args.k1, args.k2, args.lamb)
     evaluate_ranking_list(indices, query_label, query_cam, gallery_label, gallery_cam)
 
 if __name__ == '__main__':
