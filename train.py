@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 #from PIL import Image
 import time
 import os
+import collections
+from tqdm import tqdm
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_convnext, ft_net_efficient, ft_net_NAS, PCB
 from random_erasing import RandomErasing
 from dgfolder import DGFolder
@@ -233,7 +235,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         criterion_sphere = losses.SphereFaceLoss(num_classes=opt.nclasses, embedding_size=512, margin=4)
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
-        print('-' * 10)
+        # print('-' * 10)
         
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
@@ -242,6 +244,11 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             else:
                 model.train(False)  # Set model to evaluate mode
 
+            # Phases 'train' and 'val' are visualized in two separate progress bars
+            pbar = tqdm()
+            pbar.reset(total=len(dataloaders[phase].dataset))
+            ordered_dict = collections.OrderedDict(phase="", Loss="", Acc="")
+
             running_loss = 0.0
             running_corrects = 0.0
             # Iterate over data.
@@ -249,6 +256,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # get the inputs
                 inputs, labels = data
                 now_batch_size,c,h,w = inputs.shape
+                pbar.update(now_batch_size)  # update the pbar even in the last batch
                 if now_batch_size<opt.batchsize: # skip the last batch
                     continue
                 #print(inputs.shape)
@@ -261,7 +269,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # if we use low precision, input also need to be fp16
                 #if fp16:
                 #    inputs = inputs.half()
- 
+
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
@@ -377,16 +385,29 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # statistics
                 if int(version[0])>0 or int(version[2]) > 3: # for the new version like 0.4.0, 0.5.0 and 1.0.0
                     running_loss += loss.item() * now_batch_size
+                    ordered_dict["Loss"] = f"{loss.item():.4f}"
                 else :  # for the old version like 0.3.0 and 0.3.1
                     running_loss += loss.data[0] * now_batch_size
+                    ordered_dict["Loss"] = f"{loss.data[0]:.4f}"
                 del loss
                 running_corrects += float(torch.sum(preds == labels.data))
+                # Refresh the progress bar in every batch
+                ordered_dict["phase"] = phase
+                ordered_dict[
+                    "Acc"
+                ] = f"{(float(torch.sum(preds == labels.data)) / now_batch_size):.4f}"
+                pbar.set_postfix(ordered_dict=ordered_dict)
 
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects / dataset_sizes[phase]
             
-            print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                phase, epoch_loss, epoch_acc))
+            # print('{} Loss: {:.4f} Acc: {:.4f}'.format(
+            #     phase, epoch_loss, epoch_acc))
+            ordered_dict["phase"] = phase
+            ordered_dict["Loss"] = f"{epoch_loss:.4f}"
+            ordered_dict["Acc"] = f"{epoch_acc:.4f}"
+            pbar.set_postfix(ordered_dict=ordered_dict)
+            pbar.close()
             
             y_loss[phase].append(epoch_loss)
             y_err[phase].append(1.0-epoch_acc)            
@@ -400,7 +421,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             if phase == 'val':
                 draw_curve(epoch)
             if phase == 'train':
-               scheduler.step()
+                scheduler.step()
         time_elapsed = time.time() - since
         print('Training complete in {:.0f}m {:.0f}s'.format(
             time_elapsed // 60, time_elapsed % 60))
