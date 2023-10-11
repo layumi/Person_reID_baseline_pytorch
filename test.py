@@ -17,6 +17,7 @@ import os
 import scipy.io
 import yaml
 import math
+from tqdm import tqdm
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_efficient, ft_net_NAS, ft_net_convnext, PCB, PCB_test
 from utils import fuse_all_conv_bn
 #fp16
@@ -172,7 +173,8 @@ def fliplr(img):
 
 def extract_feature(model,dataloaders):
     #features = torch.FloatTensor()
-    count = 0
+    # count = 0
+    pbar = tqdm()
     if opt.linear_num <= 0:
         if opt.use_swin or opt.use_swinv2 or opt.use_dense or opt.use_convnext:
             opt.linear_num = 1024
@@ -186,8 +188,9 @@ def extract_feature(model,dataloaders):
     for iter, data in enumerate(dataloaders):
         img, label = data
         n, c, h, w = img.size()
-        count += n
-        print(count)
+        # count += n
+        # print(count)
+        pbar.update(n)
         ff = torch.FloatTensor(n,opt.linear_num).zero_().cuda()
 
         if opt.PCB:
@@ -222,6 +225,7 @@ def extract_feature(model,dataloaders):
         start = iter*opt.batchsize
         end = min( (iter+1)*opt.batchsize, len(dataloaders.dataset))
         features[ start:end, :] = ff
+    pbar.close()
     return features
 
 def get_id(img_path):
