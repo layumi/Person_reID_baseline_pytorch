@@ -113,13 +113,17 @@ class ft_net_swin(nn.Module):
         model_ft.head = nn.Sequential() # save memory
         self.model = model_ft
         self.circle = circle
-        self.avgpool = nn.AdaptiveAvgPool1d(1)
+        self.avgpool1d = nn.AdaptiveAvgPool1d(1)
+        self.avgpool2d = nn.AdaptiveAvgPool2d((1,1))
         self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
         print('Make sure timm > 0.6.0 and you can install latest timm version by pip install git+https://github.com/rwightman/pytorch-image-models.git')
     def forward(self, x):
         x = self.model.forward_features(x)
         # swin is update in latest timm>0.6.0, so I add the following two lines.
-        x = self.avgpool(x.permute((0,2,1)))
+        if x.dim()==3:
+            x = self.avgpool1d(x.permute((0,2,1)))
+        else: 
+            x = self.avgpool2d(x.permute((0,3,1,2)))
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
@@ -136,12 +140,16 @@ class ft_net_swinv2(nn.Module):
         model_ft.head = nn.Sequential() # save memory
         self.model = model_ft
         self.circle = circle
-        self.avgpool = nn.AdaptiveAvgPool1d(1)
+        self.avgpool1d = nn.AdaptiveAvgPool1d(1)
+        self.avgpool2d = nn.AdaptiveAvgPool2d((1,1))
         self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
         print('Make sure timm > 0.6.0 and you can install latest timm version by pip install git+https://github.com/rwightman/pytorch-image-models.git')
     def forward(self, x):
         x = self.model.forward_features(x)
-        x = self.avgpool(x.permute((0,2,1))) # B * 1024 * WinNum
+        if x.dim()==3:
+            x = self.avgpool1d(x.permute((0,2,1)))
+        else:
+            x = self.avgpool2d(x.permute((0,3,1,2)))
         x = x.view(x.size(0), x.size(1))
         x = self.classifier(x)
         return x
