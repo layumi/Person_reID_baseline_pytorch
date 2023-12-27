@@ -7,7 +7,7 @@ download_path2 = '../Market-1501-v15.09.15'
 
 if not os.path.isdir(download_path):
     if os.path.isdir(download_path2):
-        download_path = download_path2
+        os.system('mv %s %s'%(download_path2, download_path)) # rename
     else:
         print('please change the download_path')
 
