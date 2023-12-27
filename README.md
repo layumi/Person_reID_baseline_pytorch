@@ -87,7 +87,7 @@ Some of them (i.e. learning rate) are far from optimal. Do not hesitate to chang
 
 P.S. With similar structure, we arrived **Rank@1=87.74% mAP=69.46%** with [Matconvnet](http://www.vlfeat.org/matconvnet/). (batchsize=8, dropout=0.75) 
 You may refer to [Here](https://github.com/layumi/Person_reID_baseline_matconvnet).
-Different framework need to be tuned in a different way.
+Different framework need to be tuned in a slightly different way.
 
 ## Some News
 

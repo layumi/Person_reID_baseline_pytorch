@@ -169,6 +169,11 @@ dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.
 
 # Use extra DG-Market Dataset for training. Please download it from https://github.com/NVlabs/DG-Net#dg-market.
 if opt.DG:
+    if not os.path.isdir('../DG-Market'):
+        os.system('gdown 126Gn90Tzpk3zWp2c7OBYPKc-ZjhptKDo')
+        os.system('unzip DG-Market.zip -d ../')
+        os.system('rm DG-Market.zip')
+        
     image_datasets['DG'] = DGFolder(os.path.join('../DG-Market' ),
                                           data_transforms['train'])
     dataloaders['DG'] = torch.utils.data.DataLoader(image_datasets['DG'], batch_size = max(8, opt.batchsize//2),
