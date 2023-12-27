@@ -3,9 +3,13 @@ from shutil import copyfile
 
 # You only need to change this line to your dataset download path
 download_path = '../Market'
+download_path2 = '../Market-1501-v15.09.15'
 
 if not os.path.isdir(download_path):
-    print('please change the download_path')
+    if os.path.isdir(download_path2):
+        download_path = download_path2
+    else:
+        print('please change the download_path')
 
 save_path = download_path + '/pytorch'
 if not os.path.isdir(save_path):
