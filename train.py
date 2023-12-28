@@ -507,6 +507,11 @@ if opt.PCB:
 
 opt.nclasses = len(class_names)
 
+if torch.cuda.get_device_capability()[0]>6: # should be >=7
+    print("Compiling model...")
+    # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
+    model = torch.compile(model, mode="reduce-overhead", fullgraph=True) # pytorch 2.0
+
 print(model)
 
 # model to gpu
