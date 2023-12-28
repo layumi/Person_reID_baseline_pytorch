@@ -371,7 +371,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         outputs2 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
 
                     mean_pred = sm(outputs1 + outputs2)
-                    kl_loss = nn.KLDivLoss(size_average=False)
+                    kl_loss = nn.KLDivLoss(reduction='batchmean')
                     reg= (kl_loss(log_sm(outputs2) , mean_pred)  + kl_loss(log_sm(outputs1) , mean_pred))/2
                     loss += 0.01*reg
                     del inputs1, inputs2
