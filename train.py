@@ -514,7 +514,7 @@ model = model.cuda()
 if torch.cuda.get_device_capability()[0]>6: # should be >=7
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
-    model = torch.compile(model, mode="reduce-overhead", fullgraph=True) # pytorch 2.0
+    model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
 
 optim_name = optim.SGD #apex.optimizers.FusedSGD
 if opt.FSGD: # apex is needed

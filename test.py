@@ -282,7 +282,7 @@ if opt.PCB:
 if torch.cuda.get_device_capability()[0]>6: # should be >=7
     print("Compiling model...")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
-    model_structure = torch.compile(model_structure, mode="reduce-overhead", fullgraph=True) # pytorch 2.0
+    model_structure = torch.compile(model_structure, mode="default", dynamic=True) # pytorch 2.0
 
 model = load_network(model_structure)
 
