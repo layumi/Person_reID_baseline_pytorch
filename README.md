@@ -70,10 +70,11 @@ Now we have supported:
 - Part-based Convolutional Baseline(PCB)
 - Random Erasing
 - Linear Warm-up 
+- torch.compile (faster trainining)
 
 ### Testing
 - TensorRT 
-- Pytorch JIT
+- Pytorch JIT 
 - Fuse Conv and BN layer into one Conv layer
 - Multiple Query Evaluation
 - Re-Ranking (CPU & [GPU Version](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/GPU-Re-Ranking))
