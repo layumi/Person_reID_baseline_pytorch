@@ -25,6 +25,7 @@ try:
     from apex.fp16_utils import *
 except ImportError: # will be 3.x series
     print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
+
 ######################################################################
 # Options
 # --------
@@ -282,6 +283,7 @@ if opt.PCB:
 if torch.cuda.get_device_capability()[0]>6: # should be >=7
     print("Compiling model...")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
+    torch.set_float32_matmul_precision('high')
     model_structure = torch.compile(model_structure, mode="default", dynamic=True) # pytorch 2.0
 
 model = load_network(model_structure)
