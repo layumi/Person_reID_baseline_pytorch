@@ -512,6 +512,7 @@ print(model)
 model = model.cuda()
 
 if torch.cuda.get_device_capability()[0]>6: # should be >=7
+    torch.set_float32_matmul_precision('high')
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
     model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
