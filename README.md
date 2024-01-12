@@ -92,6 +92,8 @@ Different framework need to be tuned in a slightly different way.
 
 ## Some News
 
+**12 Jan 2024** We are holding a workshop at ACM ICMR 2024 on  Multimedia Object Re-ID. You are welcome to show your insights. See you at Phuket, Thailand!😃 The workshop link is https://www.zdzheng.xyz/MORE2024/ . Submission DDL is **15 April 2024**.
+
 **12 Aug 2023** Large Person Langauge Model is currently available at [Here](https://github.com/Shuyu-XJTU/APTM)![GitHub stars](https://img.shields.io/github/stars/Shuyu-XJTU/APTM.svg?style=flat&label=Star) accepted by ACM MM'23. You are welcomed to check it.
 
 **19 Mar 2023** We host a special session on IEEE Intelligent Transportation Systems Conference (ITSC), covering the object re-identification & point cloud topic. The paper ddl is by May 15, 2023 and the paper notification is at June 30, 2023. Please select the session code ``w7r4a'' during submission. More details can be found at [Special Session Website](https://2023.ieee-itsc.org/wp-content/uploads/2023/03/IEEE-ITSC-2023-Special-Session-Proposal-Safe-Critical-Scenario-Understanding-in-Intelligent-Transportation-Systems-SCSU-ITS.pdf).  
