@@ -114,3 +114,6 @@ peo is the name of the compressed file, which can be anything you want. /content
 from google.colab import drive
 drive.mount('/content/drive/')
 ```
+
+Colab may not support `torch.compile()`, which accelerates the speed,  and you only needs to disable it in the train and test file. 
+https://github.com/layumi/Person_reID_baseline_pytorch/issues/398
