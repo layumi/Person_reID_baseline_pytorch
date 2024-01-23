@@ -70,7 +70,7 @@ Now we have supported:
 - Part-based Convolutional Baseline(PCB)
 - Random Erasing
 - Linear Warm-up 
-- torch.compile (faster trainining)
+- torch.compile (faster training)
 
 ### Testing
 - TensorRT 
@@ -208,7 +208,6 @@ python evaluate_gpu.py
 python train.py --PCB --batchsize 64 --name PCB-64
 python test.py --PCB --name PCB-64
 ```
-
 **What's new:** You may try `evaluate_gpu.py` to conduct a faster evaluation with GPU.
 
 **What's new:** You may apply '--use_dense' to use `DenseNet-121`. It can arrive around Rank@1=89.91% mAP=73.58%. 
