@@ -164,10 +164,12 @@ image_datasets['train'] = datasets.ImageFolder(os.path.join(data_dir, 'train' + 
 image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
+img_sampler ={x: torch.utils.data.distributed.DistributedSampler(image_datasets[x]) for x in ['train', 'val']}
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                             shuffle=True, num_workers=2, pin_memory=True,
-                                             prefetch_factor=2, persistent_workers=True) # 8 workers may work faster
-              for x in ['train', 'val']}
+                                             shuffle=False, sampler=img_sampler[x],
+                                             num_workers=opt.workers, pin_memory=True, drop_last=True,
+                                             prefetch_factor=opt.prefetch_factor, persistent_workers=True) # 2 workers may work faster
+                                             for x in ['train', 'val']}
 
 # Use extra DG-Market Dataset for training. Please download it from https://github.com/NVlabs/DG-Net#dg-market.
 if opt.DG:
@@ -507,35 +509,7 @@ optim_name = optim.SGD #apex.optimizers.FusedSGD
 if opt.FSGD: # apex is needed
     optim_name = FusedSGD
 
-if len(opt.gpu_ids)>1:
-    model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids) 
-    if not opt.PCB:
-        ignored_params = list(map(id, model.module.classifier.parameters() ))
-        base_params = filter(lambda p: id(p) not in ignored_params, model.module.parameters())
-        classifier_params = model.module.classifier.parameters()
-        optimizer_ft = optim_name([
-             {'params': base_params, 'lr': 0.1*opt.lr},
-             {'params': classifier_params, 'lr': opt.lr}
-         ], weight_decay=opt.weight_decay, momentum=0.9, nesterov=True)
-    else:
-        ignored_params = list(map(id, model.module.model.fc.parameters() ))
-        ignored_params += (list(map(id, model.module.classifier0.parameters() ))
-                     +list(map(id, model.module.classifier1.parameters() ))
-                     +list(map(id, model.module.classifier2.parameters() ))
-                     +list(map(id, model.module.classifier3.parameters() ))
-                     +list(map(id, model.module.classifier4.parameters() ))
-                     +list(map(id, model.module.classifier5.parameters() ))
-                     #+list(map(id, model.module.classifier6.parameters() ))
-                     #+list(map(id, model.module.classifier7.parameters() ))
-                      )
-        base_params = filter(lambda p: id(p) not in ignored_params, model.module.parameters())
-        classifier_params = filter(lambda p: id(p) in ignored_params, model.module.parameters())
-        optimizer_ft = optim_name([
-             {'params': base_params, 'lr': 0.1*opt.lr},
-             {'params': classifier_params, 'lr': opt.lr}
-         ], weight_decay=opt.weight_decay, momentum=0.9, nesterov=True)
-else:
-    if not opt.PCB:
+if not opt.PCB:
         ignored_params = list(map(id, model.classifier.parameters() ))
         base_params = filter(lambda p: id(p) not in ignored_params, model.parameters())
         classifier_params = model.classifier.parameters()
@@ -543,7 +517,7 @@ else:
              {'params': base_params, 'lr': 0.1*opt.lr},
              {'params': classifier_params, 'lr': opt.lr}
          ], weight_decay=opt.weight_decay, momentum=0.9, nesterov=True)
-    else:
+else:
         ignored_params = list(map(id, model.model.fc.parameters() ))
         ignored_params += (list(map(id, model.classifier0.parameters() )) 
                      +list(map(id, model.classifier1.parameters() ))
@@ -590,7 +564,7 @@ if fp16:
     #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
     model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
 
-if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1: # should be >=7 and one gpu
+if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7 and one gpu
     torch.set_float32_matmul_precision('high')
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
