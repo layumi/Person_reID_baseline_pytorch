@@ -380,6 +380,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 if epoch<opt.warm_epoch and phase == 'train': 
                     warm_up = min(1.0, warm_up + 0.9 / warm_iteration)
                     loss = loss*warm_up
+                    print(loss, warm_up)
 
                 if phase == 'train':
                     if fp16: # we use optimier to backward loss
@@ -436,7 +437,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
-    #print('Best val Acc: {:4f}'.format(best_acc))
+    #print('Best val Acc: {:4f}'.format(best_acc)
 
     # load best model weights
     model.load_state_dict(last_model_wts)
@@ -511,18 +512,12 @@ print(model)
 # model to gpu
 model = model.cuda()
 
-if torch.cuda.get_device_capability()[0]>6: # should be >=7
-    torch.set_float32_matmul_precision('high')
-    print("Compiling model... The first epoch may be slow, which is expected!")
-    # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
-    model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
-
 optim_name = optim.SGD #apex.optimizers.FusedSGD
 if opt.FSGD: # apex is needed
     optim_name = FusedSGD
 
 if len(opt.gpu_ids)>1:
-    model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids).cuda()
+    model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids) 
     if not opt.PCB:
         ignored_params = list(map(id, model.module.classifier.parameters() ))
         base_params = filter(lambda p: id(p) not in ignored_params, model.module.parameters())
@@ -603,6 +598,12 @@ if fp16:
     #model = network_to_half(model)
     #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
     model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
+
+if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1: # should be >=7 and one gpu
+    torch.set_float32_matmul_precision('high')
+    print("Compiling model... The first epoch may be slow, which is expected!")
+    # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
+    model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=opt.total_epoch)
