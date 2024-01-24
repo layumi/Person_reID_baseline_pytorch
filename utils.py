@@ -56,10 +56,10 @@ def save_network(network, dirname, epoch_label, local_rank=-1):
 
     if local_rank>-1:
         if local_rank == 0: # save the main process model
-            torch.save(network.cpu().state_dict(), save_path)
+            torch.save(network.state_dict(), save_path)
             network.cuda(local_rank)
     else:
-        torch.save(network.cpu().state_dict(), save_path)
+        torch.save(network.state_dict(), save_path)
         network.cuda()
 
 
