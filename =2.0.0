@@ -1,7 +1,0 @@
-Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com
-Requirement already satisfied: torch in /home/zzd/miniconda3/lib/python3.7/site-packages (1.10.2)
-Requirement already satisfied: torchvision in /home/zzd/miniconda3/lib/python3.7/site-packages (0.11.3)
-Requirement already satisfied: torchaudio in /home/zzd/miniconda3/lib/python3.7/site-packages (0.10.2)
-Requirement already satisfied: typing_extensions in /home/zzd/miniconda3/lib/python3.7/site-packages (from torch) (3.7.4.3)
-Requirement already satisfied: numpy in /home/zzd/miniconda3/lib/python3.7/site-packages (from torchvision) (1.21.4)
-Requirement already satisfied: pillow!=8.3.0,>=5.3.0 in /home/zzd/miniconda3/lib/python3.7/site-packages (from torchvision) (6.1.0)
