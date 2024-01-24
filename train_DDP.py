@@ -42,7 +42,8 @@ from pytorch_metric_learning import losses, miners #pip install pytorch-metric-l
 # --------
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
-parser.add_argument('--local_rank', type=int,help='gpu_ids: e.g. 0  0,1,2  0,2')
+# in new pytorch, local_rank -> local-rank
+parser.add_argument('--local-rank', type=int,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name',default='ft_ResNet50', type=str, help='output model name')
 # data
 parser.add_argument('--data_dir',default='../Market/pytorch',type=str, help='training dir path')
@@ -98,10 +99,12 @@ for str_id in str_ids:
         gpu_ids.append(gid)
 opt.gpu_ids = gpu_ids
 # set gpu ids
-if len(gpu_ids)>0:
-    #torch.cuda.set_device(gpu_ids[0])
-    cudnn.enabled = True
-    cudnn.benchmark = True
+cudnn.enabled = True
+cudnn.benchmark = True
+torch.distributed.init_process_group(backend='gloo',
+                                             init_method='env://')
+opt.world_size = torch.distributed.get_world_size()
+
 ######################################################################
 # Load Data
 # ---------
@@ -163,6 +166,14 @@ image_datasets['train'] = datasets.ImageFolder(os.path.join(data_dir, 'train' + 
                                           data_transforms['train'])
 image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
+
+import multiprocessing
+cpu_count = multiprocessing.cpu_count()
+opt.workers = 4
+opt.prefetch_factor = 2
+if cpu_count>=32:
+    opt.workers = 8
+    opt.prefetch_factor = 4
 
 img_sampler ={x: torch.utils.data.distributed.DistributedSampler(image_datasets[x]) for x in ['train', 'val']}
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
@@ -421,12 +432,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             y_loss[phase].append(epoch_loss)
             y_err[phase].append(1.0-epoch_acc)            
             # deep copy the model
-            if phase == 'val' and ( (epoch+1)%1 == 0 or epoch == num_epochs - 1):
+            if opt.local_rank == 0 and phase == 'val' and ( (epoch+1)%10 == 0 or epoch == num_epochs - 1):
                 last_model_wts = model.state_dict()
-                if len(opt.gpu_ids)>1:
-                    save_network(model.module, opt.name, epoch+1, opt.local_rank)
-                else:
-                    save_network(model, epoch+1)
+                save_network(model.module, opt.name, epoch+1, opt.local_rank)
             if phase == 'val':
                 draw_curve(epoch)
             if phase == 'train':
