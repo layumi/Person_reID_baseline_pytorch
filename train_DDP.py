@@ -433,6 +433,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             y_err[phase].append(1.0-epoch_acc)            
             # deep copy the model
             if opt.local_rank == 0 and phase == 'val' and ( (epoch+1)%10 == 0 or epoch == num_epochs - 1):
+                print('saving...')
                 last_model_wts = model.state_dict()
                 save_network(model.module, opt.name, epoch+1, opt.local_rank)
             if phase == 'val':
@@ -450,8 +451,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     #print('Best val Acc: {:4f}'.format(best_acc)
 
     # load best model weights
-    model.load_state_dict(last_model_wts)
-    save_network(model.module, opt.name, 'last')
+    if opt.local_rank == 0:
+        model.load_state_dict(last_model_wts)
+        save_network(model.module, opt.name, 'last', opt.local_rank)
 
     return model
 
