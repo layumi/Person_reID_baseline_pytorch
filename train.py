@@ -163,7 +163,7 @@ image_datasets['train'] = datasets.ImageFolder(os.path.join(data_dir, 'train' + 
 image_datasets['val'] = datasets.ImageFolder(os.path.join(data_dir, 'val'),
                                           data_transforms['val'])
 
-loaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
                                              shuffle=True, num_workers=2, pin_memory=True,
                                              prefetch_factor=2, persistent_workers=True) # 8 workers may work faster
               for x in ['train', 'val']}
