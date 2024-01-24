@@ -588,7 +588,7 @@ if fp16:
     #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
     model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
 
-if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1: # should be >=7 and one gpu
+if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7 and one gpu
     torch.set_float32_matmul_precision('high')
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0

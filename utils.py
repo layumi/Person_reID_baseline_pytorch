@@ -1,5 +1,6 @@
-import torch.nn as nn
 import os
+import torch
+import torch.nn as nn
 from torch.nn.utils import fuse_conv_bn_eval
 
 class CrossEntropyLabelSmooth(nn.Module):

@@ -20,6 +20,7 @@ import math
 from tqdm import tqdm
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_efficient, ft_net_NAS, ft_net_convnext, PCB, PCB_test
 from utils import fuse_all_conv_bn
+version =  torch.__version__
 #fp16
 try:
     from apex.fp16_utils import *
@@ -280,7 +281,7 @@ if opt.PCB:
 #if opt.fp16:
 #    model_structure = network_to_half(model_structure)
 
-if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1: # should be >=7
+if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7
     print("Compiling model...")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
     torch.set_float32_matmul_precision('high')
