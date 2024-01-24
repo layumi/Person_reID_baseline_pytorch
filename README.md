@@ -71,6 +71,7 @@ Now we have supported:
 - Random Erasing
 - Linear Warm-up 
 - torch.compile (faster training)
+- DDP (Multiple GPUs)
 
 ### Testing
 - TensorRT 
@@ -352,6 +353,12 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 Train a model with random erasing by
 ```bash
 python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --data_dir your_data_path --erasing_p 0.5
+```
+
+If you want to use **multiple GPUs**, you are suggested to use DDP (`train_DDP.py`) instead of DP (`train.py`). It is because DP lacks the torch supports and may face some [NaN](https://discuss.pytorch.org/t/nan-loss-with-dataparallel/26501).
+You could call `train_DDP.py` by running `DDP.sh`. 
+```bash
+bash DDP.sh 
 ```
 
 ### Test
