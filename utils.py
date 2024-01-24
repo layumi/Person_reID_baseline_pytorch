@@ -45,6 +45,21 @@ def fuse_all_conv_bn(model):
             stack.append((name, module))
     return model
 
+def save_network(network, dirname, epoch_label, local_rank=-1):
+    if isinstance(epoch_label, int):
+        save_filename = 'net_%03d.pth'% epoch_label
+    else:
+        save_filename = 'net_%s.pth'% epoch_label
+    save_path = os.path.join('./model',dirname,save_filename)
+
+    if local_rank>-1:
+        if local_rank == 0: # save the main process model
+            torch.save(network.cpu().state_dict(), save_path)
+            network.cuda(local_rank)
+    else:
+        torch.save(network.cpu().state_dict(), save_path)
+        network.cuda()
+
 
 def load_state_dict_mute(self, state_dict: 'OrderedDict[str, Tensor]',
                         strict: bool = True):

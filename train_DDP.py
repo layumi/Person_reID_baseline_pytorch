@@ -42,6 +42,7 @@ from pytorch_metric_learning import losses, miners #pip install pytorch-metric-l
 # --------
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
+parser.add_argument('--local_rank', type=int,help='gpu_ids: e.g. 0  0,1,2  0,2')
 parser.add_argument('--name',default='ft_ResNet50', type=str, help='output model name')
 # data
 parser.add_argument('--data_dir',default='../Market/pytorch',type=str, help='training dir path')
@@ -268,8 +269,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 #print(inputs.shape)
                 # wrap them in Variable
                 if use_gpu:
-                    inputs = inputs.cuda().detach()
-                    labels = labels.cuda().detach()
+                    inputs = inputs.cuda(opt.local_rank, non_blocking=True)
+                    labels = labels.cuda(opt.local_rank, non_blocking=True)
                 # if we use low precision, input also need to be fp16
                 #if fp16:
                 #    inputs = inputs.half()
@@ -418,12 +419,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             y_loss[phase].append(epoch_loss)
             y_err[phase].append(1.0-epoch_acc)            
             # deep copy the model
-            if phase == 'val' and epoch%10 == 9:
+            if phase == 'val' and ( (epoch+1)%1 == 0 or epoch == num_epochs - 1):
                 last_model_wts = model.state_dict()
                 if len(opt.gpu_ids)>1:
-                    save_network(model.module, opt.name, epoch+1)
+                    save_network(model.module, opt.name, epoch+1, opt.local_rank)
                 else:
-                    save_network(model, opt.name, epoch+1)
+                    save_network(model, epoch+1)
             if phase == 'val':
                 draw_curve(epoch)
             if phase == 'train':
@@ -441,9 +442,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     # load best model weights
     model.load_state_dict(last_model_wts)
     if len(opt.gpu_ids)>1:
-        save_network(model.module, opt.name, 'last')
+        save_network(model.module, 'last')
     else:
-        save_network(model, opt.name, 'last')
+        save_network(model, 'last')
 
     return model
 
@@ -465,6 +466,7 @@ def draw_curve(current_epoch):
         ax0.legend()
         ax1.legend()
     fig.savefig( os.path.join('./model',name,'train.jpg'))
+
 
 
 ######################################################################
@@ -593,7 +595,8 @@ if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1: # should be 
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
     model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
-
+model = model.to(opt.local_rank)
+model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[opt.local_rank], output_device=0, find_unused_parameters=True)
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=opt.total_epoch)
 
