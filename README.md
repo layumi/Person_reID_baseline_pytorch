@@ -62,7 +62,7 @@ Now we have supported:
 
 ### Training 
 - Running the code on Google Colab with Free GPU. Check [Here](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab) (Thanks to @ronghao233)
-- [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synethic Dataset from Market **CVPR 2019 Oral**)
+- [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synthetic Dataset from Market **CVPR 2019 Oral**)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer) / [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) / [HRNet](https://github.com/HRNet)
 - ResNet/ResNet-ibn/DenseNet
 - Circle Loss, Triplet Loss, Contrastive Loss, Sphere Loss, Lifted Loss, Arcface, Cosface  and Instance Loss
