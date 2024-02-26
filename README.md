@@ -93,7 +93,7 @@ Different framework need to be tuned in a slightly different way.
 
 ## Some News
 
-**12 Jan 2024** We are holding a workshop at ACM ICMR 2024 on  Multimedia Object Re-ID. You are welcome to show your insights. See you at Phuket, Thailand!😃 The workshop link is https://www.zdzheng.xyz/MORE2024/ . Submission DDL is **15 April 2024**.
+**12 Jan 2024** We are holding a workshop at ACM ICMR 2024 on  Multimedia Object Re-ID. You are welcome to show your insights. See you at Phuket, Thailand!😃 The workshop link is https://www.zdzheng.xyz/MORE2024/ . Submission DDL is **15 April 2024**. Good papers will be recommended to [ACM TOMM Special Issue](https://dl.acm.org/pb-assets/static_journal_pages/tomm/pdf/ACM-SI_ToMM_MMGR-1708635711467.pdf ) (CCF-B). (Re-submittion is needed.)
 
 **12 Aug 2023** Large Person Langauge Model is currently available at [Here](https://github.com/Shuyu-XJTU/APTM)![GitHub stars](https://img.shields.io/github/stars/Shuyu-XJTU/APTM.svg?style=flat&label=Star) accepted by ACM MM'23. You are welcomed to check it.
 
