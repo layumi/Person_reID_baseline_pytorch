@@ -312,7 +312,7 @@ Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0/0.5.0/1.0.0 a
 
 ### Dataset & Preparation
 
-Download [Market1501 Dataset](http://www.liangzheng.com.cn/Project/project_reid.html) [[Google]](https://drive.google.com/file/d/0B8-rUzbwVRk0c054eEozWG9COHM/view) [[Baidu]](https://pan.baidu.com/s/1ntIi2Op) Or use command line:
+Download [Market1501 Dataset](https://zheng-lab.cecs.anu.edu.au/Project/project_reid.html) [[Google]](https://drive.google.com/file/d/0B8-rUzbwVRk0c054eEozWG9COHM/view) [[Baidu]](https://pan.baidu.com/s/1ntIi2Op) Or use command line:
 ```bash
 pip install gdown 
 pip install --upgrade gdown #!!important!!
