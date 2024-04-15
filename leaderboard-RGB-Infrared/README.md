@@ -5,6 +5,12 @@ or create pull request.
 
 Keywords: cross-modality-re-identification, awesome-reid 
 
+ ### Code
+ :red_car:  The 1st Place Submission to AICity Challenge 2020 re-id track [[code]](https://github.com/layumi/AICIty-reID-2020)
+ [[paper]](https://github.com/layumi/AICIty-reID-2020/blob/master/paper.pdf)
+ 
+ :helicopter:  Drone-based building re-id [[code]](https://github.com/layumi/University1652-Baseline)  [[paper]](https://arxiv.org/abs/2002.12186)
+
  ### Cross Modality (REGDB Dataset)
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
