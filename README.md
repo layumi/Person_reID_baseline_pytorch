@@ -17,23 +17,23 @@ Besides, if you are new to object re-ID, you may check out our **[Tutorial](http
 Share to
     <!-- Facebook -->
     <a href="http://www.facebook.com/sharer.php?u=https://github.com/layumi/Person_reID_baseline_pytorch/" target="_blank">
-        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" width="60"/>
+        <img src="https://github.com/layumi/Person_reID_baseline_pytorch/raw/master/docs/1_Facebook_colored_svg_copy-64.webp" alt="Facebook" width="60"/>
     </a>
     <!-- Twitter -->
     <a href="https://twitter.com/share?url=https://github.com/layumi/Person_reID_baseline_pytorch/&amp;text=Strong,%20Small,%20Friendly%20Pytorch%20re-ID&amp;hashtags=pytorch re-ID" target="_blank">
-        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" width="60"/>
+        <img src="https://github.com/layumi/Person_reID_baseline_pytorch/raw/master/docs/2018_social_media_popular_app_logo_twitter-64.webp" alt="Twitter" width="60"/>
     </a>
     <!-- Weibo -->
     <a href="https://service.weibo.com/share/share.php?url=https://github.com/layumi/Person_reID_baseline_pytorch/&amp;text=Strong,%20Small,%20Friendly%20Pytorch%20re-ID&amp;hashtags=pytorch re-ID" target="_blank">
-        <img src="https://sharethis.imgix.net/2017/05/Weibo.png" alt="Weibo" width="60" />
+        <img src="https://github.com/layumi/Person_reID_baseline_pytorch/raw/master/docs/Weibo-64.webp" alt="Weibo" width="60" />
     </a>
     <!-- LinkedIn -->
     <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://github.com/layumi/Person_reID_baseline_pytorch/" target="_blank">
-        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" width="60" />
+        <img src="https://github.com/layumi/Person_reID_baseline_pytorch/raw/master/docs/circle-linkedin-64.webp" alt="LinkedIn" width="60" />
     </a>
     <!-- Email -->
     <a href="mailto:?Subject=Strong, Small, Friendly Pytorch Re-identification&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://github.com/layumi/Person_reID_baseline_pytorch/">
-        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" width="60"/>
+        <img src="https://github.com/layumi/Person_reID_baseline_pytorch/raw/master/docs/Email-64.webp" alt="Email" width="60"/>
     </a>
         
 
