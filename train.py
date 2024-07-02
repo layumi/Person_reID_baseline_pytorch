@@ -221,10 +221,11 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     #best_acc = 0.0
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
+    embedding_size = model.classifier.linear.linear_num
     if opt.arcface:
-        criterion_arcface = losses.ArcFaceLoss(num_classes=opt.nclasses, embedding_size=512)
+        criterion_arcface = losses.ArcFaceLoss(num_classes=opt.nclasses, embedding_size=embedding_size)
     if opt.cosface: 
-        criterion_cosface = losses.CosFaceLoss(num_classes=opt.nclasses, embedding_size=512)
+        criterion_cosface = losses.CosFaceLoss(num_classes=opt.nclasses, embedding_size=embedding_size)
     if opt.circle:
         criterion_circle = CircleLoss(m=0.25, gamma=32) # gamma = 64 may lead to a better result.
     if opt.triplet:
@@ -237,7 +238,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     if opt.instance:
         criterion_instance = InstanceLoss(gamma = opt.ins_gamma)
     if opt.sphere:
-        criterion_sphere = losses.SphereFaceLoss(num_classes=opt.nclasses, embedding_size=512, margin=4)
+        criterion_sphere = losses.SphereFaceLoss(num_classes=opt.nclasses, embedding_size=embedding_size, margin=4)
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
