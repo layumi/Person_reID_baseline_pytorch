@@ -221,7 +221,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     #best_acc = 0.0
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
-    embedding_size = model.classifier.linear.linear_num
+    embedding_size = model.classifier.linear_num
     if opt.arcface:
         criterion_arcface = losses.ArcFaceLoss(num_classes=opt.nclasses, embedding_size=embedding_size)
     if opt.cosface: 
