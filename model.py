@@ -57,7 +57,7 @@ class ClassBlock(nn.Module):
         classifier = nn.Sequential(*classifier)
         classifier.apply(weights_init_classifier)
 
-        classifier.linear_num = linear
+        self.linear_num = linear
         self.add_block = add_block
         self.classifier = classifier
     def forward(self, x):
