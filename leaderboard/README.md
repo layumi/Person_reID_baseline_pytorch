@@ -14,7 +14,7 @@ Priorities are given to papers whose codes are published.
  :helicopter:  Drone-based building re-id [[code]](https://github.com/layumi/University1652-Baseline)  [[paper]](https://arxiv.org/abs/2002.12186)
  
  ## Supervised Learning
- Test on DukeMTMC-reID
+ Train and Test on DukeMTMC-reID
  
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
