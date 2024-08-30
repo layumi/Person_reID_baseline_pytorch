@@ -294,14 +294,18 @@ We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
 ## Getting started
 ### Installation
 - Install Pytorch from http://pytorch.org/
-- [Optional] You may skip it. Usually it comes with pytorch. Install Torchvision from the source
+- Install required packages
+```bash
+pip install -r requirement.txt
 ```
+- [Optional] You may skip it. Usually it comes with pytorch. Install Torchvision from the source
+```bash
 git clone https://github.com/pytorch/vision
 cd vision
 python setup.py install
 ```
 - [Optional] You may skip it. Install apex from the source
-```
+```bash
 git clone https://github.com/NVIDIA/apex.git
 cd apex
 python setup.py install --cuda_ext --cpp_ext
