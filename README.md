@@ -296,7 +296,7 @@ We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
 - Install Pytorch from http://pytorch.org/
 - Install required packages
 ```bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 - [Optional] You may skip it. Usually it comes with pytorch. Install Torchvision from the source
 ```bash
