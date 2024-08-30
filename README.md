@@ -294,7 +294,7 @@ We have successfully run the code based on numpy 1.12.1 and 1.13.1 .
 ## Getting started
 ### Installation
 - Install Pytorch from http://pytorch.org/
-- Install Torchvision from the source
+- [Optional] You may skip it. Usually it comes with pytorch. Install Torchvision from the source
 ```
 git clone https://github.com/pytorch/vision
 cd vision
