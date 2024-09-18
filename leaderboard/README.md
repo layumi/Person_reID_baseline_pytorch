@@ -1,4 +1,5 @@
 # LeaderBoard
+
 If you notice any result or the public code that has not been included in this table, please connect [Zhedong Zheng](mailto:zdzheng12@gmail.com) without hesitation to add the method. You are welcomed! 
 or create pull request.
 
@@ -8,6 +9,7 @@ Priorities are given to papers whose codes are published.
  * [Transfer Learning](#transfer-learning)
  
  ### Code
+ 
  :red_car:  The 1st Place Submission to AICity Challenge 2020 re-id track [[code]](https://github.com/layumi/AICIty-reID-2020)
  [[paper]](https://github.com/layumi/AICIty-reID-2020/blob/master/paper.pdf)
  
