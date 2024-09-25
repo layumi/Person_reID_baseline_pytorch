@@ -1,4 +1,4 @@
-# UTS-Person-reID-Practical
+# UMacau-Person-reID-Practical
 [![Readme-EN](https://img.shields.io/badge/README-English-green.svg)](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)    [![Readme-CN](https://img.shields.io/badge/README-中文-green.svg)](https://zhuanlan.zhihu.com/p/50387521) 
 
 By [Zhedong Zheng](http://zdzheng.xyz/)
