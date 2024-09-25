@@ -16,21 +16,32 @@ We could use this tech to help people. Check the great video by Nvidia. (https:/
 Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별, Réidentification des piétons, Ri-identificazione pedonale, Fußgänger-Neuidentifizierung, إعادة تحديد المشاة, Re-identificación de peatones
 
 ## Prerequisites
-- Python 3.6
-- GPU Memory >= 4G
-- Numpy
-- Pytorch 0.3+ (http://pytorch.org/)
-- Torchvision from the source
+- Install Pytorch from http://pytorch.org/
+- Install required packages
+```bash
+pip install -r requirements.txt
 ```
+- [Optional] You may skip it. Usually it comes with pytorch. Install Torchvision from the source
+```bash
 git clone https://github.com/pytorch/vision
 cd vision
 python setup.py install
 ```
+- [Optional] You may skip it. Install apex from the source
+```bash
+git clone https://github.com/NVIDIA/apex.git
+cd apex
+python setup.py install --cuda_ext --cpp_ext
+```
+Because pytorch and torchvision are ongoing projects.
+
+Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0/0.5.0/1.0.0 and Torchvision 0.2.0/0.2.1 .
+
 
 ## Getting started
 Check the Prerequisites. The download links for this practice are:
 
-- Code: [Practical-Baseline](https://github.com/layumi/Person_reID_baseline_pytorch)
+- Code: [ReID-Baseline](https://github.com/layumi/Person_reID_baseline_pytorch)
 - Data: [Market-1501](http://188.138.127.15:81/Datasets/Market-1501-v15.09.15.zip) [[Google]](https://drive.google.com/file/d/0B8-rUzbwVRk0c054eEozWG9COHM/view) [[Baidu]](https://pan.baidu.com/s/1ntIi2Op)
 
 A quick command line to download Market-1501 is: 
