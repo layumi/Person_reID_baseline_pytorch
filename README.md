@@ -93,15 +93,22 @@ Different framework need to be tuned in a slightly different way.
 
 ## Some News
 
+
+**22 Dec 2024** We are holding a workshop at ACM WWW 2025 on Multimedia Object Re-ID. You are welcome to show your insights. https://www.zdzheng.xyz/MORE2025/ 
+Submission DDL is **1 Jan 2025**
 **12 Jan 2024** We are holding a workshop at ACM ICMR 2024 on  Multimedia Object Re-ID. You are welcome to show your insights. See you at Phuket, Thailand!😃 The workshop link is https://www.zdzheng.xyz/MORE2024/ . Submission DDL is **15 April 2024**. Good papers will be recommended to [ACM TOMM Special Issue](https://dl.acm.org/pb-assets/static_journal_pages/tomm/pdf/ACM-SI_ToMM_MMGR-1708635711467.pdf ) (CCF-B). (Re-submission is needed.)
 
+<details>
+ <summary><b>
+  2023 News
+</b></summary>
 **12 Aug 2023** Large Person Langauge Model is currently available at [Here](https://github.com/Shuyu-XJTU/APTM)![GitHub stars](https://img.shields.io/github/stars/Shuyu-XJTU/APTM.svg?style=flat&label=Star) accepted by ACM MM'23. You are welcomed to check it.
 
 **19 Mar 2023** We host a special session on IEEE Intelligent Transportation Systems Conference (ITSC), covering the object re-identification & point cloud topic. The paper ddl is by May 15, 2023 and the paper notification is at June 30, 2023. Please select the session code ``w7r4a'' during submission. More details can be found at [Special Session Website](https://2023.ieee-itsc.org/wp-content/uploads/2023/03/IEEE-ITSC-2023-Special-Session-Proposal-Safe-Critical-Scenario-Understanding-in-Intelligent-Transportation-Systems-SCSU-ITS.pdf).  
 
 **9 Mar 2023** Market-1501 is in 3D. Please check our single 2D to 3D reconstruction work  https://github.com/layumi/3D-Magic-Mirror ![GitHub stars](https://img.shields.io/github/stars/layumi/3D-Magic-Mirror.svg?style=flat&label=Star).
 ![Magic Mirror](https://github.com/layumi/3D-Magic-Mirror/raw/master/doc/rainbow_github.gif)
-
+</details>
 
 <details>
  <summary><b>
