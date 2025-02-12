@@ -16,6 +16,10 @@ We could use this tech to help people. Check the great video by Nvidia. (https:/
 Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별, Réidentification des piétons, Ri-identificazione pedonale, Fußgänger-Neuidentifizierung, إعادة تحديد المشاة, Re-identificación de peatones
 
 ## Prerequisites
+- Download my repo
+```bash
+git clone https://github.com/layumi/Person_reID_baseline_pytorch.git
+```
 - Install Pytorch from http://pytorch.org/
 - Install required packages
 ```bash
