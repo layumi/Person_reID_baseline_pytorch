@@ -19,6 +19,7 @@ Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별
 - Download my repo
 ```bash
 git clone https://github.com/layumi/Person_reID_baseline_pytorch.git
+cd Person_reID_baseline_pytorch
 ```
 - Install Pytorch from http://pytorch.org/
 - Install required packages
