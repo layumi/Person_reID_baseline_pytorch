@@ -15,10 +15,31 @@ We could use this tech to help people. Check the great video by Nvidia. (https:/
 ## Keywords
 Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별, Réidentification des piétons, Ri-identificazione pedonale, Fußgänger-Neuidentifizierung, إعادة تحديد المشاة, Re-identificación de peatones
 
+## Ubuntu Usage
+Now you have a Ubuntu Window System.
+
+Press `Ctrl+Alt+T` to open a new terminal. 
+
+The default path is like `\home\user`.
+
+Then you can type `ls` to list all subfolder. 
+```
+ls
+```
+It may show something like 
+```
+Desktop Images Musics Downloads ...
+```
+
+Then you can type `cd XXX' to move to subfolder like 
+```
+cd Downloads # if you download the dataset in the Downloads.
+```
+
 ## Prerequisites
 - Download my repo
 ```bash
-git clone https://github.com/layumi/Person_reID_baseline_pytorch.git
+git clone https://github.com/layumi/Person_reID_baseline_pytorch.git # Download the whole code.
 cd Person_reID_baseline_pytorch
 ```
 - Install Pytorch from http://pytorch.org/
