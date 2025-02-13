@@ -64,6 +64,7 @@ python setup.py install --cuda_ext --cpp_ext
 Because pytorch and torchvision are ongoing projects.
 
 Here we noted that our code is tested based on Pytorch 0.3.0/0.4.0/0.5.0/1.0.0 and Torchvision 0.2.0/0.2.1 .
+In most case, we also suport the latest pytorch. We usually recommend to use the latest pytorch. 
 
 
 ## Getting started
@@ -295,6 +296,9 @@ Yes. Now we have the feature of every image. The only thing we need to do is mat
 ```bash
 python evaluate_gpu.py
 ```
+If you get a result, which is much worse than our baseline like only 10% or 20%, please check your numpy version first. Someone has reported numpy issue.
+If you get a result, which is close to 0 or 100 or error, you need to check your path setting. Do you give a right test path during `test.py`? 
+
 
 Let's look what we do in `evaluate_gpu.py`. We sort the predicted similarity score.
 ```python
