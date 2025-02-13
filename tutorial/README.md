@@ -34,6 +34,8 @@ Desktop Images Musics Downloads ...
 Then you can type `cd XXX' to move to subfolder like 
 ```
 cd Downloads # if you download the dataset in the Downloads.
+ls # to show all stuff in the \home\user\Downloads
+cd ..   #Back to the upper folder. You are at \home\user again.
 ```
 
 ## Prerequisites
