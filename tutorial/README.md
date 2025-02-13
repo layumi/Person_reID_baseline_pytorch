@@ -16,7 +16,7 @@ We could use this tech to help people. Check the great video by Nvidia. (https:/
 Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별, Réidentification des piétons, Ri-identificazione pedonale, Fußgänger-Neuidentifizierung, إعادة تحديد المشاة, Re-identificación de peatones
 
 ## Ubuntu Usage
-Now you have a Ubuntu Window System.
+Now you have an Ubuntu Window System.
 
 Press `Ctrl+Alt+T` to open a new terminal. 
 
