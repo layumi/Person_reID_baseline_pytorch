@@ -43,10 +43,10 @@ cd ..   #Back to the upper folder. You are at \home\user again.
 ## Windows Usage
 We do not suggest using Windows considering lower GPU usage and unexpected errors.
 If you still want to use Windows, you should keep two points in mind. 
-- Path: Ubuntu path is `\home\zzd\` but Windows path is `D://Downloads/` using `/` not `\` 
+- Path: Ubuntu path is `\home\zzd\` but Windows path is `D://Downloads/` using `/` instead of `\` 
 - Multi-thread: Pytorch does not support multiple thread to read the data. Please set `num_workers=0` during trainning and test.
-Please also refer to
-https://github.com/layumi/Person_reID_baseline_pytorch/issues/34 
+
+Please also refer to https://github.com/layumi/Person_reID_baseline_pytorch/issues/34 
 
 
 ## Prerequisites
