@@ -40,6 +40,15 @@ ls # to show all stuff in the \home\user\Downloads
 cd ..   #Back to the upper folder. You are at \home\user again.
 ```
 
+## Windows Usage
+We do not suggest using Windows considering lower GPU usage and unexpected errors.
+If you still want to use Windoes, you should keep two points in mind. 
+- Path: Ubuntu path is `\home\zzd\` but Windows path is `D://Downloads/` using `/` not `\` 
+- Multi-thread: Pytorch does not support multiple thread to read the data. Please set `num_workers=0` during trainning and test.
+Please also refer to
+https://github.com/layumi/Person_reID_baseline_pytorch/issues/34 
+
+
 ## Prerequisites
 - Download my repo
 ```bash
