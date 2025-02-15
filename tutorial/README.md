@@ -16,6 +16,8 @@ We could use this tech to help people. Check the great video by Nvidia. (https:/
 Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별, Réidentification des piétons, Ri-identificazione pedonale, Fußgänger-Neuidentifizierung, إعادة تحديد المشاة, Re-identificación de peatones
 
 ## Ubuntu Usage
+**If the machine has installed cuda toolkit and nvidia driver (like our school desktops), you do not need any root permission, like sudo, during our tutorial. If you are using your own machine, I suggest to see this answer to install cuda first. https://askubuntu.com/questions/1077061/how-do-i-install-nvidia-and-cuda-drivers-into-ubuntu**
+
 Assuming you have an Ubuntu Window System,
 
 Press `Ctrl+Alt+T` to open a new terminal. 
