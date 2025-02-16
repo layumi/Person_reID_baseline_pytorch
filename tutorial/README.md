@@ -48,6 +48,8 @@ If you still want to use Windows, you should keep two points in mind.
 
 Please also refer to https://github.com/layumi/Person_reID_baseline_pytorch/issues/34 
 
+## Colab Usage
+Please refer to https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab 
 
 ## Prerequisites
 - Download my repo
@@ -392,11 +394,15 @@ The dataset is quite similar to Market-1501. You may also check with the state-o
 + Quick Question. Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
 ```
 
+- Try different backbones. https://github.com/layumi/Person_reID_baseline_pytorch/tree/master?tab=readme-ov-file#trained-model
+
+- Try different loss composition. https://github.com/layumi/Person_reID_baseline_pytorch/tree/master?tab=readme-ov-file#different-losses
+
 - Try verification + identification loss. You may check the code at [Here](https://github.com/layumi/Person-reID-verification).
 
 - Try Triplet Loss.
 Triplet loss is another widely-used objective. You may check the code in https://github.com/layumi/Person-reID-triplet-loss. 
-I write the code in a similar manner, so let's find what I changed. 
+I write the code in a similar manner, so let's find what I changed.
 
 ## Part5: Other Related Works
 - The pedestrian has some specific attributes, e.g., gender, carrying. They can help the feature learning. We annotate the ID-level attributes for Market-1501 and DukeMTMC-reID. You could check [this paper](https://arxiv.org/abs/1703.07220).
