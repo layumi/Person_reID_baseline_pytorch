@@ -209,7 +209,14 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 
 `--erasing_p` random erasing probability.
 
-Let's look at what we do in the `train.py`.
+Open another terminal to see the GPU usage. 
+```bash
+nvidia-smi # show dense version
+pip install gpustat
+gpustat # show brief version
+```
+
+Now let's look at what we do in the `train.py`.
 The first thing is how to read data and their labels from the prepared folder.
 Using `torch.utils.data.DataLoader`, we can obtain two iterators `dataloaders['train']` and `dataloaders['val']` to read data and label.
 ```python
