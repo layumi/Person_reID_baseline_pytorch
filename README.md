@@ -410,7 +410,7 @@ It will output Rank@1, Rank@5, Rank@10 and mAP results.
 ### Tips
 Notes the format of the camera id and the number of cameras.
 
-For some dataset, e.g., MSMT17, there are more than 10 cameras. You need to modify the `prepare.py` and `test.py` to read the double-digit camera ID.
+For some dataset, e.g., MSMT17, there are more than 10 cameras. You need to modify the `prepare.py` and `test.py` to read the double-digit camera ID. Please refer to https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/test_MSMT.py#L234
 
 For some vehicle re-ID datasets. e.g. VeRi, you also need to modify the `prepare.py` and `test.py`.  It has different naming rules.
 https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is in Chinese)
