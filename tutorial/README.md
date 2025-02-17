@@ -390,7 +390,7 @@ except RuntimeError:
 ## Part 4: Your Turn. 
 For the assignment, you are free to select any related topics. Here I just give some basic ideas. You do not need to finish all.
 
-- Market-1501 is a dataset collected at Tsinghua University in summer.
+- Try different datasets. Market-1501 is a dataset collected at Tsinghua University in summer.
 
 Let's try another dataset called DukeMTMC-reID, which is collected at Duke University in winter.
 
@@ -407,7 +407,7 @@ The dataset is quite similar to Market-1501. You may also check with the state-o
 
 - Try different backbones. https://github.com/layumi/Person_reID_baseline_pytorch/tree/master?tab=readme-ov-file#trained-model
 
-- Try different loss composition. https://github.com/layumi/Person_reID_baseline_pytorch/tree/master?tab=readme-ov-file#different-losses
+- Try different loss compositions. https://github.com/layumi/Person_reID_baseline_pytorch/tree/master?tab=readme-ov-file#different-losses
 
 - Try verification + identification loss. You may check the code at [Here](https://github.com/layumi/Person-reID-verification).
 
