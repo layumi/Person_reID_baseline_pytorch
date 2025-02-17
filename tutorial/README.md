@@ -18,7 +18,7 @@ Person re-identification, 行人重识别, 人の再識別, 보행자 재 식별
 ## Ubuntu Usage
 **If the machine has installed cuda toolkit and nvidia driver (like our school desktops), you do not need any root permission, like sudo, during our tutorial. If you are using your own machine, I suggest to see this answer to install cuda first. https://askubuntu.com/questions/1077061/how-do-i-install-nvidia-and-cuda-drivers-into-ubuntu**
 
-Assuming you have an Ubuntu Window System,
+Assuming you have an Ubuntu Desktop System,
 
 Press `Ctrl+Alt+T` to open a new terminal. 
 
@@ -40,7 +40,7 @@ ls # to show all stuff in the \home\user\Downloads
 cd ..   #Back to the upper folder. You are at \home\user again.
 ```
 
-## Windows Usage
+## Windows Usage (Not Recommended)
 We do not suggest using Windows considering lower GPU usage and unexpected errors.
 If you still want to use Windows, you should keep two points in mind. 
 - Path: Ubuntu path is `\home\zzd\` but Windows path is `D://Downloads/` using `/` instead of `\` 
@@ -48,7 +48,7 @@ If you still want to use Windows, you should keep two points in mind.
 
 Please also refer to https://github.com/layumi/Person_reID_baseline_pytorch/issues/34 
 
-## Colab Usage
+## Colab Usage (Not Recommended)
 Please refer to https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab 
 
 ## Prerequisites
