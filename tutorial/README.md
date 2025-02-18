@@ -62,6 +62,13 @@ cd Person_reID_baseline_pytorch
 ```bash
 pip install -r requirements.txt
 ```
+- [Optional] No pip?? or python?? You may install it without sudo permission.
+```bash
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm ~/miniconda3/miniconda.sh
+```
 - [Optional] You may skip it. Usually it comes with pytorch. Install Torchvision from the source
 ```bash
 git clone https://github.com/pytorch/vision
@@ -151,7 +158,7 @@ You can simply check the structure of the model by:
 print(model)
 ```
 
-But we need to modify the networks a little bit. There are 751 classes (different people) in Market-1501, which is different with 1,000 classes in ImageNet. So here we change the model to use our classifier.
+But we need to modify the networks a little bit. There are 751 classes (different people) in Market-1501, which is different with 1,000 classes in ImageNet. So here we have changed the model to use our classifier (I have modified it for you, so you do not need to modify the code. Please just take a look).
 
 ```python
 import torch
