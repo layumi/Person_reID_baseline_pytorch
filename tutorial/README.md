@@ -169,7 +169,7 @@ from torchvision import models
 
 # Define the ResNet50-based Model
 class ft_net(nn.Module):
-    def __init__(self, class_num = 751):
+    def __init__(self, class_num = 751):   # Check this line. 
         super(ft_net, self).__init__()
         #load the model
         model_ft = models.resnet50(pretrained=True) 
