@@ -218,6 +218,15 @@ python train.py --gpu_ids 0 --name ft_ResNet50 --train_all --batchsize 32  --dat
 
 `--erasing_p` random erasing probability.
 
+If you meet error, python 3.12+ does not support dynamic. 
+We could (1) delete the compile operation, which requires dynamic in this line https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.py#L512 . 
+(2) Or creat a new environment with python 3.9 by 
+```
+conda create --name python39 python=3.9
+conda activate python39
+```
+and then reinstall all mentioned requirements again. 
+
 Open another terminal to see the GPU usage. 
 ```bash
 nvidia-smi # show dense version
