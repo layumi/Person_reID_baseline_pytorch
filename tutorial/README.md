@@ -62,7 +62,7 @@ cd Person_reID_baseline_pytorch
 ```bash
 pip install -r requirements.txt
 ```
-- [Optional] No pip?? or python?? You may install it without sudo permission.
+- [Optional] No pip or python?? You may install it without sudo permission by installing miniconda:
 ```bash
 mkdir -p ~/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
