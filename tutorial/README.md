@@ -144,6 +144,7 @@ Now we have successfully prepared the data for `torchvision` to read the data.
 + Quick Question. How to recognize the images of the same ID?
 ```
 For Market-1501, the image name contains the identity label and camera id. Check the naming rule at [here](http://www.liangzheng.org/Project/project_reid.html).
+
 For DukeMTMC, you can use my modified `python prepare_Duke.py`.
 
 ### Part 1.2: Build Neural Network (`model.py`)
