@@ -397,6 +397,7 @@ Let's try another dataset called DukeMTMC-reID, which is collected at Duke Unive
 You may download the dataset at [GoogleDriver](https://drive.google.com/open?id=1jjE85dRCMOgRtvJ5RQV9-Afs-2_5dY3O) or ([BaiduYun](https://pan.baidu.com/s/1jS0XM7Var5nQGcbf9xUztw) password: bhbh) or using the following bash. Try it by yourself.
 ```bash
 gdown 1jjE85dRCMOgRtvJ5RQV9-Afs-2_5dY3O
+python prepare_Duke.py # please also modify the path. 
 ```
 
 The dataset is quite similar to Market-1501. You may also check with the state-of-the-art results at [Here](https://github.com/layumi/DukeMTMC-reID_evaluation/tree/master/State-of-the-art). 
