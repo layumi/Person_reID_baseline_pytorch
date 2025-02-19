@@ -417,7 +417,7 @@ gdown 1jjE85dRCMOgRtvJ5RQV9-Afs-2_5dY3O
 python prepare_Duke.py # please also modify the path. 
 ```
 
-The dataset is quite similar to Market-1501. You may also check with the state-of-the-art results at [Here](https://github.com/layumi/DukeMTMC-reID_evaluation/tree/master/State-of-the-art). 
+The dataset is quite similar to Market-1501. You may also check with the state-of-the-art results at [Here](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/leaderboard/README-Duke.md). 
 
 ```diff
 + Quick Question. Could we directly apply the model trained on Market-1501 to DukeMTMC-reID? Why?
