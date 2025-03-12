@@ -466,6 +466,9 @@ You may check https://github.com/layumi/Person_reID_baseline_pytorch/blob/master
 
 If you like this repo, please star it. Thanks a lot!
 
+<img width="884" alt="image" src="https://github.com/user-attachments/assets/c16e8341-8a78-4e62-addc-9af610690e65" />
+
+
 [![Star History Chart](https://api.star-history.com/svg?repos=layumi/Person_reID_baseline_pytorch&type=Date)](https://star-history.com/#layumi/Person_reID_baseline_pytorch&Date)
 
 ## Reference
