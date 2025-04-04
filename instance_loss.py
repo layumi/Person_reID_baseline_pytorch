@@ -3,7 +3,7 @@ from torch import nn, Tensor
 import torch.nn.functional as F
 
 def l2_norm(v):
-    fnorm = torch.norm(v, p=2, dim=1, keepdim=True) + 1e-6
+    fnorm = torch.norm(v, p=2, dim=1, keepdim=True) + 1e-8
     v = v.div(fnorm.expand_as(v))
     return v
 
