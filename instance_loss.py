@@ -28,15 +28,15 @@ class InstanceLoss(nn.Module):
                 return 0
 
         normed_feature = l2_norm(feature)
-        sim1 = torch.mm(normed_feature*self.gamma, torch.t(normed_feature)) 
+        sim1 = torch.mm(normed_feature*self.gamma, torch.t(normed_feature))
         sim_label = torch.arange(sim1.size(0))
         loss = F.cross_entropy(sim1, sim_label) 
         return loss
 
 
 if __name__ == "__main__":
-    feat = nn.functional.normalize(torch.rand(28, 64, requires_grad=True))
-    lbl = torch.randint(high=10, size=(28,))
+    feat = nn.functional.normalize(torch.rand(32, 512, requires_grad=True))
+    lbl = torch.randint(high=750, size=(32,))
 
     criterion = InstanceLoss(gamma=32)
     instance_loss = criterion(feat, lbl) # assuming some instances are of the same class.
