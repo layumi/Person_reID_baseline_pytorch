@@ -77,6 +77,7 @@ parser.add_argument('--circle', action='store_true', help='use Circle loss' )
 parser.add_argument('--cosface', action='store_true', help='use CosFace loss' )
 parser.add_argument('--contrast', action='store_true', help='use contrast loss' )
 parser.add_argument('--instance', action='store_true', help='use instance loss' )
+parser.add_argument('--instance_id', action='store_true', help='use instance loss with ID' )
 parser.add_argument('--ins_gamma', default=32, type=int, help='gamma for instance loss')
 parser.add_argument('--triplet', action='store_true', help='use triplet loss' )
 parser.add_argument('--lifted', action='store_true', help='use lifted loss' )
@@ -235,7 +236,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         criterion_lifted = losses.GeneralizedLiftedStructureLoss(neg_margin=1, pos_margin=0)
     if opt.contrast: 
         criterion_contrast = losses.ContrastiveLoss(pos_margin=0, neg_margin=1)
-    if opt.instance:
+    if opt.instance or opt.instance_id:
         criterion_instance = InstanceLoss(gamma = opt.ins_gamma)
     if opt.sphere:
         criterion_sphere = losses.SphereFaceLoss(num_classes=opt.nclasses, embedding_size=embedding_size, margin=4)
@@ -317,6 +318,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         loss +=  criterion_contrast(ff, labels) #/now_batch_size
                     if opt.instance:
                         loss += criterion_instance(ff) /now_batch_size
+                    if opt.instance_id:
+                        loss += criterion_instance(ff, labels) /now_batch_size
                     if opt.sphere:
                         loss +=  criterion_sphere(ff, labels)/now_batch_size
                 elif opt.PCB:  #  PCB
