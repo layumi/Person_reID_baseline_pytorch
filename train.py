@@ -82,8 +82,8 @@ parser.add_argument('--ins_gamma', default=32, type=int, help='gamma for instanc
 parser.add_argument('--triplet', action='store_true', help='use triplet loss' )
 parser.add_argument('--lifted', action='store_true', help='use lifted loss' )
 parser.add_argument('--sphere', action='store_true', help='use sphere loss' )
-parser.add_argument('--adv', default=0.0, type=float, help='use adv loss as 1.0' )
-parser.add_argument('--aiter', default=10, type=float, help='use adv loss with iter' )
+parser.add_argument('--adv', default=0.0, type=float, help='use adversarial loss as 1.0. Follow the paper `U-turn: Crafting Adversarial Queries with Opposite-direction Features, IJCV2022`' )
+parser.add_argument('--aiter', default=10, type=float, help='use adversarial loss every x iter' )
 
 opt = parser.parse_args()
 
