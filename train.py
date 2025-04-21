@@ -69,6 +69,7 @@ parser.add_argument('--use_NAS', action='store_true', help='use NAS' )
 parser.add_argument('--use_hr', action='store_true', help='use hrNet' )
 parser.add_argument('--use_convnext', action='store_true', help='use ConvNext' )
 parser.add_argument('--ibn', action='store_true', help='use resnet+ibn' )
+parser.add_argument('--usam', action='store_true', help='use resnet+usam (Joint Representation Learning and Keypoint Detection for Cross-view Geo-localization. TIP2022)' )
 parser.add_argument('--PCB', action='store_true', help='use PCB+ResNet50' )
 # loss
 parser.add_argument('--warm_epoch', default=0, type=int, help='the first K epoch that needs warm up')
@@ -494,7 +495,7 @@ elif opt.use_hr:
 elif opt.use_convnext:
     model = ft_net_convnext(len(class_names), opt.droprate, circle = return_feature, linear_num=opt.linear_num)
 else:
-    model = ft_net(len(class_names), opt.droprate, opt.stride, circle = return_feature, ibn=opt.ibn, linear_num=opt.linear_num)
+    model = ft_net(len(class_names), opt.droprate, opt.stride, circle = return_feature, ibn=opt.ibn, linear_num=opt.linear_num, usam=opt.usam)
 
 if opt.PCB:
     model = PCB(len(class_names))
