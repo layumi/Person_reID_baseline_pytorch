@@ -25,6 +25,43 @@ def weights_init_classifier(m):
         init.normal_(m.weight.data, std=0.001)
         init.constant_(m.bias.data, 0.0)
 
+class USAM(nn.Module):
+    #Joint Representation Learning and Keypoint Detection for Cross-view Geo-localization. TIP2022
+    def __init__(self, kernel_size=3, padding=1, polish=True):
+        super(USAM, self).__init__()
+
+        kernel = torch.ones((kernel_size, kernel_size))
+        kernel = kernel.unsqueeze(0).unsqueeze(0)
+        self.weight = nn.Parameter(data=kernel, requires_grad=False)
+        
+
+        kernel2 = torch.ones((1, 1)) * (kernel_size * kernel_size)
+        kernel2 = kernel2.unsqueeze(0).unsqueeze(0)
+        self.weight2 = nn.Parameter(data=kernel2, requires_grad=False)
+
+        self.polish = polish
+        self.pad = padding
+        self.relu = nn.ReLU()
+        self.bn = nn.BatchNorm2d(1)
+
+    def __call__(self, x):
+        fmap = x.sum(1, keepdim=True)      
+        x1 = F.conv2d(fmap, self.weight, padding=self.pad)
+        x2 = F.conv2d(fmap, self.weight2, padding=0) 
+        
+        att = x2 - x1
+        att = self.bn(att)
+        att = self.relu(att)
+
+        if self.polish:
+            att[:, :, :, 0] = 0
+            att[:, :, :, -1] = 0
+            att[:, :, 0, :] = 0
+            att[:, :, -1, :] = 0
+
+        output = x + att * x
+
+        return output
 
 def activate_drop(m):
     classname = m.__class__.__name__
@@ -73,7 +110,7 @@ class ClassBlock(nn.Module):
 # Define the ResNet50-based Model
 class ft_net(nn.Module):
 
-    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False, ibn=False, linear_num=512):
+    def __init__(self, class_num=751, droprate=0.5, stride=2, circle=False, ibn=False, linear_num=512, usam=False):
         super(ft_net, self).__init__()
         model_ft = models.resnet50(pretrained=True)
         if ibn==True:
@@ -86,13 +123,20 @@ class ft_net(nn.Module):
         self.model = model_ft
         self.circle = circle
         self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f = circle)
+        if usam:
+            self.usam_1 = USAM()
+            self.usam_2 = USAM()
 
     def forward(self, x):
         x = self.model.conv1(x)
         x = self.model.bn1(x)
         x = self.model.relu(x)
+        if self.usam:
+            x = self.usam_1(x)
         x = self.model.maxpool(x)
         x = self.model.layer1(x)
+        if self.usam:
+            x = self.usam_2(x)
         x = self.model.layer2(x)
         x = self.model.layer3(x)
         x = self.model.layer4(x)
