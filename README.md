@@ -244,6 +244,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | [ResNet-50] | 88.84% | 71.59% |  `python train.py --train_all` |
 | [ResNet-50 + USAM] | 88.75% | 71.95% |  `python train.py --train_all --name res-usam --usam; python test.py --name res-usam` |
 | [ResNet-50-ibn] | 89.13% | 73.40% | `python train.py --train_all --name res-ibn --ibn` |
+| [ResNet-50-ibn + USAM] | 89.01% | 73.54% | `python train.py --train_all --name ibn-usam --ibn --usam; python test.py --name ibn-usam` |
 | [DenseNet-121] | 90.17% | 74.02% | `python train.py --name ft_net_dense --use_dense --train_all` |
 | [DenseNet-121 (Circle)] | 91.00% | 76.54% | `python train.py --name ft_net_dense_circle_w5 --circle --use_dense --train_all --warm_epoch 5` |
 | [HRNet-18] | 90.83% | 76.65% |  `python train.py --use_hr --name hr18; python test.py --name hr18` |
