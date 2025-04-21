@@ -242,6 +242,7 @@ The download link is [Here](https://drive.google.com/open?id=1XVEYb0TN2SbBYOqf8S
 | [ConvNeXt] | 88.98% | 71.35% |  `python train.py --use_convnext --name convnext; python test.py --name convnext` |
 | [ResNet-50 (fp16)] | 88.03% | 71.40% | `python train.py --name fp16 --fp16 --train_all` |
 | [ResNet-50] | 88.84% | 71.59% |  `python train.py --train_all` |
+| [ResNet-50 + USAM] | 88.75% | 71.95% |  `python train.py --train_all --name res-usam --usam; python test.py --name res-usam` |
 | [ResNet-50-ibn] | 89.13% | 73.40% | `python train.py --train_all --name res-ibn --ibn` |
 | [DenseNet-121] | 90.17% | 74.02% | `python train.py --name ft_net_dense --use_dense --train_all` |
 | [DenseNet-121 (Circle)] | 91.00% | 76.54% | `python train.py --name ft_net_dense_circle_w5 --circle --use_dense --train_all --warm_epoch 5` |
