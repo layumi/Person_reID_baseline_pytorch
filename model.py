@@ -124,6 +124,7 @@ class ft_net(nn.Module):
         self.circle = circle
         self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f = circle)
         if usam:
+            self.usam = usam
             self.usam_1 = USAM()
             self.usam_2 = USAM()
 
