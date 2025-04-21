@@ -41,7 +41,7 @@ class USAM(nn.Module):
 
         self.polish = polish
         self.pad = padding
-        self.relu = nn.ReLU()
+        self.relu = nn.LeakyReLU(0.1)
         self.bn = nn.BatchNorm2d(1)
 
     def __call__(self, x):
