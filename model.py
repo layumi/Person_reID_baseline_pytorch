@@ -46,8 +46,8 @@ class USAM(nn.Module):
 
     def __call__(self, x):
         fmap = x.sum(1, keepdim=True)      
-        x1 = F.conv2d(fmap, self.weight, padding=self.pad)
-        x2 = F.conv2d(fmap, self.weight2, padding=0) 
+        x1 = nn.functional.conv2d(fmap, self.weight, padding=self.pad)
+        x2 = nn.functional.conv2d(fmap, self.weight2, padding=0) 
         
         att = x2 - x1
         att = self.bn(att)
