@@ -45,6 +45,7 @@ parser.add_argument('--PCB', action='store_true', help='use PCB' )
 parser.add_argument('--multi', action='store_true', help='use multiple query' )
 parser.add_argument('--fp16', action='store_true', help='use fp16.' )
 parser.add_argument('--ibn', action='store_true', help='use ibn.' )
+parser.add_argument('--usam', action='store_true', help='use usam.' )
 parser.add_argument('--ms',default='1', type=str,help='multiple_scale: e.g. 1 1,1.1  1,1.1,1.2')
 
 opt = parser.parse_args()
@@ -74,6 +75,8 @@ if 'nclasses' in config: # tp compatible with old config files
 else: 
     opt.nclasses = 751 
 
+if 'usam' in config:
+    opt.usam = config['usam']
 if 'ibn' in config:
     opt.ibn = config['ibn']
 if 'linear_num' in config:
@@ -282,7 +285,7 @@ elif opt.use_efficient:
 elif opt.use_hr:
     model_structure = ft_net_hr(opt.nclasses, linear_num=opt.linear_num)
 else:
-    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn, linear_num=opt.linear_num)
+    model_structure = ft_net(opt.nclasses, stride = opt.stride, ibn = opt.ibn, linear_num=opt.linear_num, usam=opt.usam)
 
 if opt.PCB:
     model_structure = PCB(opt.nclasses)
