@@ -110,6 +110,7 @@ Submission DDL is **1 Jan 2025**.
 
 **9 Mar 2023** Market-1501 is in 3D. Please check our single 2D to 3D reconstruction work  https://github.com/layumi/3D-Magic-Mirror ![GitHub stars](https://img.shields.io/github/stars/layumi/3D-Magic-Mirror.svg?style=flat&label=Star).
 ![Magic Mirror](https://zdzheng.xyz/resource-img/rainbow_github.webp)
+
 </details>
 
 <details>
