@@ -229,7 +229,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     wa_flag = opt.wa
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
-    embedding_size = model.classifier.linear_num
+    if opt.PCB:
+        embedding_size = model.classifier0.linear_num
+    else:
+        embedding_size = model.classifier.linear_num
     if opt.arcface:
         criterion_arcface = losses.ArcFaceLoss(num_classes=opt.nclasses, embedding_size=embedding_size)
     if opt.cosface: 
@@ -533,11 +536,11 @@ optim_name = optim.SGD #apex.optimizers.FusedSGD
 if opt.FSGD: # apex is needed
     optim_name = FusedSGD
 
-if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7 and one gpu
-    torch.set_float32_matmul_precision('high')
-    print("Compiling model... The first epoch may be slow, which is expected!")
+#if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7 and one gpu
+    #torch.set_float32_matmul_precision('high')
+    #print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
-    model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
+    #model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
 
 if len(opt.gpu_ids)>1:
     model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids) 

@@ -164,12 +164,11 @@ def load_network(network):
     try:
         network.load_state_dict(torch.load(save_path))
     except: 
-        if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7
-            print("Compiling model...")
+        #if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7
+            #print("Compiling model...")
             # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
-            torch.set_float32_matmul_precision('high')
-            network.cuda()
-            network = torch.compile(network, mode="reduce-overhead", dynamic = True) # pytorch 2.0
+            #torch.set_float32_matmul_precision('high')
+            #network = torch.compile(network, mode="reduce-overhead", dynamic = True) # pytorch 2.0
         if 'average' in opt.which_epoch: # load averaged model.
             network = swa_utils.AveragedModel(network)
         network.load_state_dict(torch.load(save_path))
