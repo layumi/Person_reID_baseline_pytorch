@@ -535,7 +535,6 @@ if opt.FSGD: # apex is needed
 
 if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7 and one gpu
     torch.set_float32_matmul_precision('high')
-    torch._dynamo.config.automatic_dynamic_shapes = True
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
     model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
