@@ -17,6 +17,7 @@ import os
 import scipy.io
 import yaml
 import math
+from torch.optim import swa_utils
 from tqdm import tqdm
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_efficient, ft_net_NAS, ft_net_convnext, PCB, PCB_test
 from utils import fuse_all_conv_bn
@@ -167,9 +168,15 @@ def load_network(network):
             print("Compiling model...")
             # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
             torch.set_float32_matmul_precision('high')
-            network = torch.compile(network, mode="default", dynamic=True) # pytorch 2.0
+            network.cuda()
+            network = torch.compile(network, mode="reduce-overhead", dynamic = True) # pytorch 2.0
+        if 'average' in opt.which_epoch: # load averaged model.
+            network = swa_utils.AveragedModel(network)
         network.load_state_dict(torch.load(save_path))
-
+        if 'average' in opt.which_epoch:
+            print("We average %d snapshots"%network.n_averaged)
+            #swa_utils.update_bn(dataloaders['query'], network, device='cuda:0')
+            network = network.module
     return network
 
 

@@ -27,7 +27,7 @@ def weights_init_classifier(m):
 
 class USAM(nn.Module):
     #Joint Representation Learning and Keypoint Detection for Cross-view Geo-localization. TIP2022
-    def __init__(self, kernel_size=3, padding=1, polish=True):
+    def __init__(self, kernel_size=3, padding=1, polish=False):
         super(USAM, self).__init__()
 
         kernel = torch.ones((kernel_size, kernel_size))
@@ -123,8 +123,8 @@ class ft_net(nn.Module):
         self.model = model_ft
         self.circle = circle
         self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f = circle)
+        self.usam = usam
         if usam:
-            self.usam = usam
             self.usam_1 = USAM()
             self.usam_2 = USAM()
 

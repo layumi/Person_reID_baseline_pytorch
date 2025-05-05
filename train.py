@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import time
 import os
 import collections
+from torch.optim import swa_utils
 from tqdm import tqdm
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_convnext, ft_net_efficient, ft_net_NAS, PCB
 from random_erasing import RandomErasing
@@ -57,6 +58,7 @@ parser.add_argument('--total_epoch', default=60, type=int, help='total training 
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50%% memory' )
 parser.add_argument('--cosine', action='store_true', help='use cosine lrRate' )
 parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
+parser.add_argument('--wa', action='store_true', help='use weight average' )
 # backbone
 parser.add_argument('--linear_num', default=512, type=int, help='feature dimension: 512 or default or 0 (linear=False)')
 parser.add_argument('--stride', default=2, type=int, help='stride')
@@ -87,6 +89,9 @@ parser.add_argument('--adv', default=0.0, type=float, help='add the adversarial 
 parser.add_argument('--aiter', default=10, type=float, help='enable adversarial loss every x iter' )
 
 opt = parser.parse_args()
+
+if opt.DG:
+    opt.wa = True #DG will enable swa.
 
 fp16 = opt.fp16
 data_dir = opt.data_dir
@@ -221,6 +226,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
     #best_model_wts = model.state_dict()
     #best_acc = 0.0
+    wa_flag = opt.wa
     warm_up = 0.1 # We start from the 0.1*lrRate
     warm_iteration = round(dataset_sizes['train']/opt.batchsize)*opt.warm_epoch # first 5 epoch
     embedding_size = model.classifier.linear_num
@@ -244,6 +250,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
+
+        if opt.wa and wa_flag and epoch >=  num_epochs*0.1:
+            wa_flag = False
+            swa_model = swa_utils.AveragedModel(model)
+            swa_model.avg_fn = swa_utils.get_ema_avg_fn(decay=0.996)
+            print('start weight avg')
         
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
@@ -285,8 +297,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         outputs = model(inputs)
                 else:
                     outputs = model(inputs)
-
-
 
                 if opt.adv>0 and iter%opt.aiter==0: 
                     inputs_adv = ODFA(model, inputs)
@@ -365,7 +375,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                         for i in range(num_part):
                             part[i] = outputs1[i]
                         outputs1 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
-                    outputs2 = model(inputs2)
+
+                    swa_model.eval()
+                    with torch.no_grad():
+                        outputs2 = swa_model(inputs2) #stop gradient like dino
+                    outputs2 = outputs2.detach()
+
                     if return_feature:
                         outputs2, _ = outputs2
                     elif opt.PCB:
@@ -373,9 +388,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                             part[i] = outputs2[i]
                         outputs2 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
 
-                    mean_pred = sm(outputs1 + outputs2)
+                    #supervised via teacher like dino. previous use sm(outputs1 + outputs2)
                     kl_loss = nn.KLDivLoss(reduction='batchmean')
-                    reg= (kl_loss(log_sm(outputs2) , mean_pred)  + kl_loss(log_sm(outputs1) , mean_pred))/2
+                    reg= (kl_loss(log_sm(outputs2), sm(outputs1))  + kl_loss(log_sm(outputs1) , sm(outputs2)))/2
                     loss += 0.01*reg
                     del inputs1, inputs2
                     #print(0.01*reg)
@@ -419,6 +434,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             pbar.set_postfix(ordered_dict=ordered_dict)
             pbar.close()
             
+            if phase == 'train' and opt.wa and epoch >= num_epochs*0.1: 
+                swa_model.update_parameters(model)
+                swa_utils.update_bn(dataloaders['train'], swa_model, device='cuda:0')
+
             y_loss[phase].append(epoch_loss)
             y_err[phase].append(1.0-epoch_acc)            
             # deep copy the model
@@ -448,6 +467,11 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         save_network(model.module, opt.name, 'last')
     else:
         save_network(model, opt.name, 'last')
+
+    if opt.wa:
+         save_network( swa_model, opt.name, 'average')
+         swa_utils.update_bn(dataloaders['train'], swa_model, device='cuda:0')
+         save_network( swa_model, opt.name, 'average_bn')
 
     return model
 
@@ -511,6 +535,7 @@ if opt.FSGD: # apex is needed
 
 if torch.cuda.get_device_capability()[0]>6 and len(opt.gpu_ids)==1 and int(version[0])>1: # should be >=7 and one gpu
     torch.set_float32_matmul_precision('high')
+    torch._dynamo.config.automatic_dynamic_shapes = True
     print("Compiling model... The first epoch may be slow, which is expected!")
     # https://huggingface.co/docs/diffusers/main/en/optimization/torch2.0
     model = torch.compile(model, mode="reduce-overhead", dynamic = True) # pytorch 2.0
