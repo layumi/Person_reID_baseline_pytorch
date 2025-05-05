@@ -382,7 +382,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     swa_model.eval()
                     with torch.no_grad():
                         outputs2 = swa_model(inputs2) #stop gradient like dino
-                    outputs2 = outputs2.detach()
 
                     if return_feature:
                         outputs2, _ = outputs2
