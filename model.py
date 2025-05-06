@@ -22,7 +22,7 @@ def weights_init_kaiming(m):
 def weights_init_classifier(m):
     classname = m.__class__.__name__
     if classname.find('Linear') != -1:
-        init.normal_(m.weight.data, std=0.001)
+        init.normal_(m.weight.data, std=0.0001)
         init.constant_(m.bias.data, 0.0)
 
 class USAM(nn.Module):
