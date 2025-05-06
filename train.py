@@ -377,7 +377,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     elif opt.PCB:
                         for i in range(num_part):
                             part[i] = outputs1[i]
-                        outputs1 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
+                        outputs1 = (sm(part[0]) + sm(part[1]) +sm(part[2]) + sm(part[3]) +sm(part[4]) +sm(part[5]))/6
 
                     swa_model.eval()
                     with torch.no_grad():
@@ -388,7 +388,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     elif opt.PCB:
                         for i in range(num_part):
                             part[i] = outputs2[i]
-                        outputs2 = part[0] + part[1] + part[2] + part[3] + part[4] + part[5]
+                        outputs2 = (sm(part[0]) + sm(part[1]) +sm(part[2]) + sm(part[3]) +sm(part[4]) +sm(part[5]))/6
 
                     #supervised via teacher like dino. previous use sm(outputs1 + outputs2)
                     kl_loss = nn.KLDivLoss(reduction='batchmean')
