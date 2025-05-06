@@ -254,7 +254,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         # print('-' * 10)
 
-        if opt.wa and wa_flag and epoch >=  num_epochs*0.5:
+        if opt.wa and wa_flag and epoch >=  num_epochs*0.8:
             wa_flag = False
             swa_model = swa_utils.AveragedModel(model)
             swa_model.avg_fn = swa_utils.get_ema_avg_fn(decay=0.996)
@@ -356,7 +356,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
                 del inputs
                 # use extra DG Dataset (https://github.com/NVlabs/DG-Net#dg-market)
-                if opt.DG and phase == 'train' and epoch > num_epochs*0.5:
+                if opt.DG and phase == 'train' and epoch > num_epochs*0.8:
                     # print("DG-Market is involved. It will double the training time.")
                     try:
                         _, batch = DGloader_iter.__next__()
@@ -436,7 +436,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             pbar.set_postfix(ordered_dict=ordered_dict)
             pbar.close()
             
-            if phase == 'train' and opt.wa and epoch >= num_epochs*0.5: 
+            if phase == 'train' and opt.wa and epoch >= num_epochs*0.8: 
                 swa_model.update_parameters(model)
                 swa_utils.update_bn(dataloaders['train'], swa_model, device='cuda:0')
 
