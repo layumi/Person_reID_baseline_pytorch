@@ -8,7 +8,7 @@ A tiny, friendly, strong baseline code for Object-reID (based on [pytorch](https
 
 - **Strong.** It is consistent with the new baseline result in several top-conference works, e.g., [Joint Discriminative and Generative Learning for Person Re-identification(CVPR19)](https://arxiv.org/abs/1904.07223), [Beyond Part Models: Person Retrieval with Refined Part Pooling(ECCV18)](https://arxiv.org/abs/1711.09349), [Camera Style Adaptation for Person Re-identification(CVPR18)](https://arxiv.org/abs/1711.10295). We arrived Rank@1=88.24%, mAP=70.68% only with softmax loss. 
 
-- **Small.** With fp16 (supported by Nvidia apex), our baseline could be trained with only 2GB GPU memory.
+- **Small.** With bf16/fp16 (supported by native pytorch), our baseline could be trained with only 2GB GPU memory.
 
 - **Friendly.** You may use the off-the-shelf options to apply many state-of-the-art tricks in one line.
 Besides, if you are new to object re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
@@ -61,12 +61,12 @@ Share to
 Now we have supported:
 
 ### Training 
+- bf16 and fp16 (Float16) to save GPU memory based on native pytorch (replace apex).
 - Running the code on Google Colab with Free GPU. Check [Here](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/colab) (Thanks to @ronghao233)
 - [DG-Market](https://github.com/NVlabs/DG-Net#dg-market) (10x Large Synthetic Dataset from Market **CVPR 2019 Oral**)
 - [Swin Transformer](https://github.com/microsoft/Swin-Transformer) / [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch) / [HRNet](https://github.com/HRNet)
 - ResNet/ResNet-ibn/DenseNet
 - Circle Loss, Triplet Loss, Contrastive Loss, Sphere Loss, Lifted Loss, Arcface, Cosface  and Instance Loss
-- Float16 to save GPU memory based on [apex](https://github.com/NVIDIA/apex)
 - Part-based Convolutional Baseline(PCB)
 - Random Erasing
 - Linear Warm-up 
@@ -193,7 +193,7 @@ Submission DDL is **1 Jan 2025**.
   2018 & 2017 News
  </b></summary> 
    
-**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to install [apex](https://github.com/NVIDIA/apex) and update your pytorch to 1.0. 
+**What's new:** FP16 has been added. It can be used by simply added `--fp16`. You need to update your pytorch to 2.0. 
 
 Float16 could save about 50% GPU memory usage without accuracy drop. **Our baseline could be trained with only 2GB GPU memory.** 
 ```bash

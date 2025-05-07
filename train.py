@@ -28,14 +28,6 @@ from instance_loss import InstanceLoss
 from ODFA import ODFA
 from utils import save_network
 version =  torch.__version__
-#fp16
-try:
-    from apex.fp16_utils import *
-    from apex import amp
-    from apex.optimizers import FusedSGD
-except ImportError: # will be 3.x series
-    print('This is not an error. If you want to use low precision, i.e., fp16, please install the apex with cuda support (https://github.com/NVIDIA/apex) and update pytorch to 1.0')
-
 from pytorch_metric_learning import losses, miners #pip install pytorch-metric-learning
 
 ######################################################################
@@ -56,6 +48,7 @@ parser.add_argument('--lr', default=0.05, type=float, help='learning rate')
 parser.add_argument('--weight_decay', default=5e-4, type=float, help='Weight decay. More Regularization Smaller Weight.')
 parser.add_argument('--total_epoch', default=60, type=int, help='total training epoch')
 parser.add_argument('--fp16', action='store_true', help='use float16 instead of float32, which will save about 50%% memory' )
+parser.add_argument('--bf16', action='store_true', help='use bfloat16 instead of float32, which will save about 50%% memory' )
 parser.add_argument('--cosine', action='store_true', help='use cosine lrRate' )
 parser.add_argument('--FSGD', action='store_true', help='use fused sgd, which will speed up trainig slightly. apex is needed.' )
 parser.add_argument('--wa', action='store_true', help='use weight average' )
@@ -94,6 +87,12 @@ if opt.DG:
     opt.wa = True #DG will enable swa.
 
 fp16 = opt.fp16
+bf16 = opt.bf16
+if fp16:
+    dtype16 = torch.float16
+elif bf16:
+    dtype16 = torch.bfloat16
+
 data_dir = opt.data_dir
 name = opt.name
 str_ids = opt.gpu_ids.split(',')
@@ -221,7 +220,7 @@ def fliplr(img):
     img_flip = img.index_select(3,inv_idx)
     return img_flip
 
-def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
+def train_model(model, criterion, optimizer, scheduler, scaler, num_epochs=25):
     since = time.time()
 
     #best_model_wts = model.state_dict()
@@ -298,6 +297,9 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 if phase == 'val':
                     with torch.no_grad():
                         outputs = model(inputs)
+                elif opt.bf16 or opt.fp16:
+                    with torch.amp.autocast(device_type='cuda',dtype=dtype16):
+                        outputs = model(inputs)
                 else:
                     outputs = model(inputs)
 
@@ -371,7 +373,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     inputs1 = inputs1.cuda().detach()
                     inputs2 = inputs2.cuda().detach()
                     # use memory in vivo loss (https://arxiv.org/abs/1912.11164)
-                    outputs1 = model(inputs1)
+                    if bf16 or fp16:
+                        with torch.amp.autocast(device_type='cuda', dtype=dtype16):
+                            outputs1 = model(inputs1)
+                    else:
+                        outputs1 = model(inputs1)
+
                     if return_feature:
                         outputs1, _ = outputs1
                     elif opt.PCB:
@@ -403,12 +410,13 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     print(loss, warm_up)
 
                 if phase == 'train':
-                    if fp16: # we use optimier to backward loss
-                        with amp.scale_loss(loss, optimizer) as scaled_loss:
-                            scaled_loss.backward()
+                    if bf16 or fp16: # we use optimier to backward loss
+                        scaler.scale(loss).backward()
+                        scaler.step(optimizer) # a safety optimizer.step()
+                        scaler.update()
                     else:
                         loss.backward()
-                    optimizer.step()
+                        optimizer.step()
                 # statistics
                 if int(version[0])>0 or int(version[2]) > 3: # for the new version like 0.4.0, 0.5.0 and 1.0.0
                     running_loss += loss.item() * now_batch_size
@@ -619,12 +627,6 @@ with open('%s/opts.yaml'%dir_name,'w') as fp:
 
 criterion = nn.CrossEntropyLoss()
 
-if fp16:
-    #model = network_to_half(model)
-    #optimizer_ft = FP16_Optimizer(optimizer_ft, static_loss_scale = 128.0)
-    model, optimizer_ft = amp.initialize(model, optimizer_ft, opt_level = "O1")
-
-
+scaler = torch.cuda.amp.GradScaler()
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=opt.total_epoch)
-
+                       scaler, num_epochs=opt.total_epoch)
