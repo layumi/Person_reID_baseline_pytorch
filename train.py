@@ -393,7 +393,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     #supervised via teacher like dino. previous use sm(outputs1 + outputs2)
                     kl_loss = nn.KLDivLoss(reduction='batchmean')
                     reg= (kl_loss(log_sm(outputs2), sm(outputs1))  + kl_loss(log_sm(outputs1) , sm(outputs2)))/2
-                    loss += 0.01*reg
+                    loss += 0.1*reg
                     del inputs1, inputs2
                     #print(0.01*reg)
                 # backward + optimize only if in training phase
