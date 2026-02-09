@@ -44,7 +44,7 @@ cd ..   #Back to the upper folder. You are at \home\user again.
 We do not suggest using Windows considering lower GPU usage and unexpected errors.
 If you still want to use Windows, you should keep two points in mind. 
 - Path: Ubuntu path is `\home\zzd\` but Windows path is `D://Downloads/` using `/` instead of `\` 
-- Multi-thread: Pytorch does not support multiple thread to read the data. Please set `num_workers=0` during trainning and test.
+- Multi-thread: Pytorch (Windows Version) does not support multiple thread to read the data. Please set `num_workers=0` during trainning and test.
 - No Triton or other error: Please remove the `torch.compile` in [this training line](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/train.py#L512) and [this test line](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/test.py#L167).
 
 Please also refer to https://github.com/layumi/Person_reID_baseline_pytorch/issues/34 
