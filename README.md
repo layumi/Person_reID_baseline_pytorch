@@ -14,7 +14,7 @@ A tiny, friendly, strong baseline code for Object-reID (based on [pytorch](https
 
 - **Friendly.** You may use the off-the-shelf options to apply many state-of-the-art tricks in one line.
 Besides, if you are new to object re-ID, you may check out our **[Tutorial](https://github.com/layumi/Person_reID_baseline_pytorch/tree/master/tutorial)** first (8 min read) :+1: .
-![Person ReID Demo](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
+![Person ReID Demo](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.webp)
 
 Share to
     <!-- Facebook -->
