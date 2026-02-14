@@ -200,6 +200,32 @@ class ft_net_swinv2(nn.Module):
         x = self.classifier(x)
         return x
 
+class ft_net_dino(nn.Module):
+
+    def __init__(self, class_num, input_size=(256, 128), droprate=0.5, stride=2, circle=False, linear_num=512):
+        super(ft_net_dino, self).__init__()
+        model_ft = timm.create_model('vit_base_patch16_dinov3.lvd1689m', pretrained=False, img_size = input_size, drop_path_rate = 0.2)
+        model_full = timm.create_model('vit_base_patch16_dinov3.lvd1689m', pretrained=True)
+        load_state_dict_mute(model_ft, model_full.state_dict(), strict=False)
+        #model_ft = timm.create_model('swinv2_cr_small_224', pretrained=True, img_size = input_size, drop_path_rate = 0.2)
+        # avg pooling to global pooling
+        model_ft.head = nn.Sequential() # save memory
+        self.model = model_ft
+        self.circle = circle
+        self.avgpool1d = nn.AdaptiveAvgPool1d(1)
+        self.avgpool2d = nn.AdaptiveAvgPool2d((1,1))
+        self.classifier = ClassBlock(768, class_num, droprate, linear=linear_num, return_f = circle)
+        print('Make sure timm > 0.6.0 and you can install latest timm version by pip install git+https://github.com/rwightman/pytorch-image-models.git')
+    def forward(self, x):
+        x = self.model.forward_features(x)
+        if x.dim()==3:
+            x = self.avgpool1d(x.permute((0,2,1)))
+        else:
+            x = self.avgpool2d(x.permute((0,3,1,2)))
+        x = x.view(x.size(0), x.size(1))
+        x = self.classifier(x)
+        return x
+
 class ft_net_convnext(nn.Module):
 
     def __init__(self, class_num, droprate=0.5, stride=2, circle=False, linear_num=512):
@@ -422,11 +448,13 @@ python model.py
 if __name__ == '__main__':
 # Here I left a simple forward function.
 # Test the model, before you train it. 
-    net = ft_net_hr(751)
+    #net = ft_net_hr(751)
     #net = ft_net_swin(751, stride=1)
+    net = ft_net_dino(751, stride=1)
     net.classifier = nn.Sequential()
     print(net)
-    input = Variable(torch.FloatTensor(8, 3, 224, 224))
+    #input = Variable(torch.FloatTensor(8, 3, 224, 224))
+    input = Variable(torch.FloatTensor(8, 3, 256, 128))
     output = net(input)
     print('net output size:')
     print(output.shape)
