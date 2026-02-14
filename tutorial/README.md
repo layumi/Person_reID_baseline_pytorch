@@ -6,7 +6,7 @@ By [Zhedong Zheng](http://zdzheng.xyz/)
 This is a [University of Macau](https://www.cis.um.edu.mo/) computer vision practical, authored by Zhedong Zheng.
 The practical explores the basis of learning pedestrian features. In this practical, we will learn to build a simple person re-ID system step by step. (8 min read) :+1: **Any suggestion is welcomed.**
 
-![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.png)
+![](https://github.com/layumi/Person_reID_baseline_pytorch/blob/master/show.webp)
 
 Person re-ID can be viewed as an image retrieval problem. Given one query image in Camera **A**, we need to find the images of the same person in other Cameras. The key of the person re-ID is to find a discriminative representation of the person. Many recent works apply deeply learned models to extract visual features, and achieve the state-of-the-art performance.
 
