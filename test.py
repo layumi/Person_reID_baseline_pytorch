@@ -195,7 +195,7 @@ def extract_feature(model,dataloaders):
     if opt.linear_num <= 0:
         if opt.use_swin or opt.use_swinv2 or opt.use_dense or opt.use_convnext:
             opt.linear_num = 1024
-        elif opt.use_dino
+        elif opt.use_dino:
             opt.linear_num = 768
         elif opt.use_efficient:
             opt.linear_num = 1792
