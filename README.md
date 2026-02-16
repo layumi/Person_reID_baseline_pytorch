@@ -95,11 +95,18 @@ Different framework need to be tuned in a slightly different way.
 
 ## Some News
 
+**16 Feb 2026** We add support for the latest DinoV3 by using `--use_dino`.  
 
+<details>
+ <summary><b>
+  2024 News
+</b></summary>
+    
 **22 Dec 2024** We are holding a workshop at ACM WWW 2025 on Multimedia Object Re-ID. You are welcome to show your insights. https://www.zdzheng.xyz/MORE2025/ 
 Submission DDL is **1 Jan 2025**.
 
 **12 Jan 2024** We are holding a workshop at ACM ICMR 2024 on  Multimedia Object Re-ID. You are welcome to show your insights. See you at Phuket, Thailand!😃 The workshop link is https://www.zdzheng.xyz/MORE2024/ . Submission DDL is **15 April 2024**. Good papers will be recommended to [ACM TOMM Special Issue](https://dl.acm.org/pb-assets/static_journal_pages/tomm/pdf/ACM-SI_ToMM_MMGR-1708635711467.pdf ) (CCF-B). (Re-submission is needed.)
+</details>
 
 <details>
  <summary><b>
