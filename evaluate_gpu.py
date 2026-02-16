@@ -37,12 +37,14 @@ def compute_mAP(index, good_index, junk_index):
         return ap,cmc
 
     # remove junk_index
-    mask = np.in1d(index, junk_index, invert=True)
+    # mask = np.in1d(index, junk_index, invert=True) # old numpy
+    mask = np.isin(index, junk_index, invert=True) # new numpy
     index = index[mask]
 
     # find good_index index
     ngood = len(good_index)
-    mask = np.in1d(index, good_index)
+    # mask = np.in1d(index, good_index) # old numpy
+    mask = np.isin(index, good_index) # new numpy
     rows_good = np.argwhere(mask==True)
     rows_good = rows_good.flatten()
     
