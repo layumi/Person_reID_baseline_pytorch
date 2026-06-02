@@ -27,11 +27,15 @@ python evaluate_rerank_gpu.py --data_path PATH_TO_DATA --k1 26 --k2 7
 
 ## Citation
 ```bibtex
-@article{zhang2020understanding,
+@article{zhang2026understanding,
   title={Understanding Image Retrieval Re-Ranking: A Graph Neural Network Perspective},
-  author={Xuanmeng Zhang, Minyue Jiang, Zhedong Zheng, Xiao Tan, Errui Ding, Yi Yang},
-  journal={arXiv preprint arXiv:2012.07620},
-  year={2020}
+  author={Zhang, Xuanmeng and Jiang, Minyue and Zheng, Zhedong and Tan, Xiao and Yang, Yi},
+  journal={ACM Transactions on Multimedia Computing, Communications and Applications},
+  volume={22},
+  number={5},
+  pages={1--19},
+  year={2026},
+  publisher={ACM New York, NY}
 }
 ```
 
