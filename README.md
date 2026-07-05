@@ -534,7 +534,7 @@ Basic Model
           <h3>🛰️</h3>
           <b>GeoFuse</b>
         </a>
-        <br><sub>Cross-View Geo-Localization</sub>
+        <br><sub>Road Maps as Free Geometric Priors </sub>
         <br><br>
         <a href="https://github.com/YsongF/GeoFuse"><img src="https://img.shields.io/github/stars/YsongF/GeoFuse.svg?style=social&label=Star" alt="GitHub stars"></a>
       </td>
