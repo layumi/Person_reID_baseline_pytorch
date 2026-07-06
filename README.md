@@ -552,15 +552,6 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
     </tr>
     <tr>
       <td align="center" width="33%">
-        <a href="https://github.com/layumi/person-reid-3d">
-          <h3>🧊</h3>
-          <b>3D Person re-ID</b>
-        </a>
-        <br><sub>Parameter-Efficient Re-ID<br>in the 3D Space (OG-Net)</sub>
-        <br><br>
-        <a href="https://github.com/layumi/person-reid-3d"><img src="https://img.shields.io/github/stars/layumi/person-reid-3d.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
         <a href="https://github.com/layumi/Image-Text-Embedding">
           <h3>📝</h3>
           <b>Language Person Search</b>
@@ -568,6 +559,35 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
         <br><sub>Text-based Person Retrieval<br>Dual-Path Embedding</sub>
         <br><br>
         <a href="https://github.com/layumi/Image-Text-Embedding"><img src="https://img.shields.io/github/stars/layumi/Image-Text-Embedding.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/Shuyu-XJTU/APTM">
+          <h3>🏷️</h3>
+          <b>APTM</b>
+        </a>
+        <br><sub>Attribute Prompt Learning &amp; Text Matching<br>MALS Benchmark (1.5M pairs) · ACM MM'23</sub>
+        <br><br>
+        <a href="https://github.com/Shuyu-XJTU/APTM"><img src="https://img.shields.io/github/stars/Shuyu-XJTU/APTM.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/Shuyu-XJTU/CMP">
+          <h3>🚨</h3>
+          <b>CMP</b>
+        </a>
+        <br><sub>Text-based Person <b>Anomaly</b> Search<br>PAB Benchmark (1M pairs) · ICCV'25 <b>Highlight</b></sub>
+        <br><br>
+        <a href="https://github.com/Shuyu-XJTU/CMP"><img src="https://img.shields.io/github/stars/Shuyu-XJTU/CMP.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/person-reid-3d">
+          <h3>🧊</h3>
+          <b>3D Person re-ID</b>
+        </a>
+        <br><sub>Parameter-Efficient Re-ID<br>in the 3D Space (OG-Net)</sub>
+        <br><br>
+        <a href="https://github.com/layumi/person-reid-3d"><img src="https://img.shields.io/github/stars/layumi/person-reid-3d.svg?style=social&label=Star" alt="GitHub stars"></a>
       </td>
       <td align="center" width="33%">
         <a href="https://github.com/layumi/Pedestrian_Alignment">
@@ -578,9 +598,7 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
         <br><br>
         <a href="https://github.com/layumi/Pedestrian_Alignment"><img src="https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=social&label=Star" alt="GitHub stars"></a>
       </td>
-    </tr>
-    <tr>
-      <td align="center" colspan="3">
+      <td align="center" width="33%">
         <a href="https://github.com/layumi/2016_person_re-ID">
           <h3>🔁</h3>
           <b>2-Stream Person re-ID</b>
