@@ -430,6 +430,176 @@ For some vehicle re-ID datasets. e.g. VeRi, you also need to modify the `prepare
 https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is in Chinese)
 
 
+## 🔗 Related Projects
+
+<p align="center"><i>Explore our ecosystem for UAV & Spatial Intelligence 🚁 and Object Re-Identification 🔍</i></p>
+
+### 🚁 UAV & Spatial Intelligence
+
+<p align="center"><b>🎓 The University-1652 Family</b></p>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/University1652-Baseline">
+          <h3>🎓</h3>
+          <b>University-1652</b>
+        </a>
+        <br><sub>Multi-view Multi-source Benchmark<br>Ground · Drone · Satellite · ACM MM'20</sub>
+        <br><br>
+        <a href="https://github.com/layumi/University1652-Baseline"><img src="https://img.shields.io/github/stars/layumi/University1652-Baseline.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/wtyhub/MuseNet">
+          <h3>🌦️</h3>
+          <b>University-WX</b>
+        </a>
+        <br><sub>Multi-Weather Extension on the Fly<br>Pattern Recognition'24</sub>
+        <br><br>
+        <a href="https://github.com/wtyhub/MuseNet"><img src="https://img.shields.io/github/stars/wtyhub/MuseNet.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/MultimodalGeo/GeoText-1652">
+          <h3>💬</h3>
+          <b>GeoText-1652</b>
+        </a>
+        <br><sub>Dense Text Extension<br>ECCV'24</sub>
+        <br><br>
+        <a href="https://github.com/MultimodalGeo/GeoText-1652"><img src="https://img.shields.io/github/stars/MultimodalGeo/GeoText-1652.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p align="center"><b>🚀 New Open-Source Releases</b></p>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="25%">
+        <a href="https://github.com/YsongF/GeoFuse">
+          <h3>🛣️</h3>
+          <b>GeoFuse</b>
+        </a>
+        <br><sub>Road Maps as <b>Free</b> Geometric Priors<br>Weather-Invariant Drone Geo-Localization</sub>
+        <br><br>
+        <a href="https://github.com/YsongF/GeoFuse"><img src="https://img.shields.io/github/stars/YsongF/GeoFuse.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="25%">
+        <a href="https://github.com/JT-Sun/UAVReason">
+          <h3>🧠</h3>
+          <b>UAVReason</b>
+        </a>
+        <br><sub>Aerial Scene Reasoning & Generation Benchmark</sub>
+        <br><br>
+        <a href="https://github.com/JT-Sun/UAVReason"><img src="https://img.shields.io/github/stars/JT-Sun/UAVReason.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="25%">
+        <a href="https://github.com/HaoDot/Video2BEV-Open">
+          <h3>🗺️</h3>
+          <b>Video2BEV</b>
+        </a>
+        <br><sub>Drone Video → Bird's-Eye-View</sub>
+        <br><br>
+        <a href="https://github.com/HaoDot/Video2BEV-Open"><img src="https://img.shields.io/github/stars/HaoDot/Video2BEV-Open.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="25%">
+        <a href="https://github.com/YaxuanLi-cn/PairUAV">
+          <h3>🚁</h3>
+          <b>PairUAV</b>
+        </a>
+        <br><sub>Paired UAV Data for Matching</sub>
+        <br><br>
+        <a href="https://github.com/YaxuanLi-cn/PairUAV"><img src="https://img.shields.io/github/stars/YaxuanLi-cn/PairUAV.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+### 🔍 Object Re-Identification Classics
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/3D-Magic-Mirror">
+          <h3>🪞</h3>
+          <b>3D Magic Mirror</b>
+        </a>
+        <br><sub>Clothing Reconstruction from a Single Image<br>via a Causal Perspective · npj AI'26</sub>
+        <br><br>
+        <a href="https://github.com/layumi/3D-Magic-Mirror"><img src="https://img.shields.io/github/stars/layumi/3D-Magic-Mirror.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/NVlabs/DG-Net">
+          <h3>✨</h3>
+          <b>DG-Net</b>
+        </a>
+        <br><sub>Joint Generation + Re-ID Learning<br>CVPR'19 Oral · NVIDIA</sub>
+        <br><br>
+        <a href="https://github.com/NVlabs/DG-Net"><img src="https://img.shields.io/github/stars/NVlabs/DG-Net.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/Person-reID_GAN">
+          <h3>🎨</h3>
+          <b>Person re-ID GAN</b>
+        </a>
+        <br><sub>GAN-based Augmentation (LSRO)<br>ICCV'17</sub>
+        <br><br>
+        <a href="https://github.com/layumi/Person-reID_GAN"><img src="https://img.shields.io/github/stars/layumi/Person-reID_GAN.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/person-reid-3d">
+          <h3>🧊</h3>
+          <b>3D Person re-ID</b>
+        </a>
+        <br><sub>Parameter-Efficient Re-ID<br>in the 3D Space (OG-Net)</sub>
+        <br><br>
+        <a href="https://github.com/layumi/person-reid-3d"><img src="https://img.shields.io/github/stars/layumi/person-reid-3d.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/Image-Text-Embedding">
+          <h3>📝</h3>
+          <b>Language Person Search</b>
+        </a>
+        <br><sub>Text-based Person Retrieval<br>Dual-Path Embedding</sub>
+        <br><br>
+        <a href="https://github.com/layumi/Image-Text-Embedding"><img src="https://img.shields.io/github/stars/layumi/Image-Text-Embedding.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
+        <a href="https://github.com/layumi/Pedestrian_Alignment">
+          <h3>🚶</h3>
+          <b>Pedestrian Alignment</b>
+        </a>
+        <br><sub>Pedestrian Alignment Network (PAN)<br>for Robust Re-ID</sub>
+        <br><br>
+        <a href="https://github.com/layumi/Pedestrian_Alignment"><img src="https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+        <a href="https://github.com/layumi/2016_person_re-ID">
+          <h3>🔁</h3>
+          <b>2-Stream Person re-ID</b>
+        </a>
+        <br><sub>Verification + Identification<br>Baseline</sub>
+        <br><br>
+        <a href="https://github.com/layumi/2016_person_re-ID"><img src="https://img.shields.io/github/stars/layumi/2016_person_re-ID.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+<p align="center">
+  ⭐ If you find our projects helpful, a <b>star</b> is the best support! ⭐
+</p>
+
+
 ## Citation
 The following paper uses and reports the result of the baseline model. You may cite it in your paper.
 ```bib
@@ -481,161 +651,3 @@ Basic Model
   year={2020}
 }
 ```
-
-## 🔗 Related Projects
-
-<p align="center"><i>Explore our ecosystem for UAV & Spatial Intelligence 🚁 and Object Re-Identification 🔍</i></p>
-
-### 🚁 UAV & Spatial Intelligence
-
-<p align="center"><b>🎓 The University-1652 Family</b></p>
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/University1652-Baseline">
-          <h3>🎓</h3>
-          <b>University-1652</b>
-        </a>
-        <br><sub>Multi-view Multi-source Benchmark<br>Ground · Drone · Satellite · ACM MM'20</sub>
-        <br><br>
-        <a href="https://github.com/layumi/University1652-Baseline"><img src="https://img.shields.io/github/stars/layumi/University1652-Baseline.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/wtyhub/MuseNet">
-          <h3>🌦️</h3>
-          <b>University-WX</b>
-        </a>
-        <br><sub>Multi-Weather Extension on the Fly<br>Pattern Recognition'24</sub>
-        <br><br>
-        <a href="https://github.com/wtyhub/MuseNet"><img src="https://img.shields.io/github/stars/wtyhub/MuseNet.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/MultimodalGeo/GeoText-1652">
-          <h3>💬</h3>
-          <b>GeoText-1652</b>
-        </a>
-        <br><sub>Dense Text Extension<br>ECCV'24</sub>
-        <br><br>
-        <a href="https://github.com/MultimodalGeo/GeoText-1652"><img src="https://img.shields.io/github/stars/MultimodalGeo/GeoText-1652.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<p align="center"><b>🚀 New Open-Source Releases</b></p>
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="25%">
-        <a href="https://github.com/YsongF/GeoFuse">
-          <h3>🛰️</h3>
-          <b>GeoFuse</b>
-        </a>
-        <br><sub>Road Maps as Free Geometric Priors </sub>
-        <br><br>
-        <a href="https://github.com/YsongF/GeoFuse"><img src="https://img.shields.io/github/stars/YsongF/GeoFuse.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="25%">
-        <a href="https://github.com/JT-Sun/UAVReason">
-          <h3>🧠</h3>
-          <b>UAVReason</b>
-        </a>
-        <br><sub>Aerial Scene Reasoning & Generation Benchmark</sub>
-        <br><br>
-        <a href="https://github.com/JT-Sun/UAVReason"><img src="https://img.shields.io/github/stars/JT-Sun/UAVReason.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="25%">
-        <a href="https://github.com/HaoDot/Video2BEV-Open">
-          <h3>🗺️</h3>
-          <b>Video2BEV</b>
-        </a>
-        <br><sub>Drone Video → Bird's-Eye-View</sub>
-        <br><br>
-        <a href="https://github.com/HaoDot/Video2BEV-Open"><img src="https://img.shields.io/github/stars/HaoDot/Video2BEV-Open.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="25%">
-        <a href="https://github.com/YaxuanLi-cn/PairUAV">
-          <h3>🚁</h3>
-          <b>PairUAV</b>
-        </a>
-        <br><sub>Paired UAV Data for Matching</sub>
-        <br><br>
-        <a href="https://github.com/YaxuanLi-cn/PairUAV"><img src="https://img.shields.io/github/stars/YaxuanLi-cn/PairUAV.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-    </tr>
-  </table>
-</div>
-
-### 🔍 Object Re-Identification Classics
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <a href="https://github.com/NVlabs/DG-Net">
-          <h3>✨</h3>
-          <b>DG-Net</b>
-        </a>
-        <br><sub>Joint Generation + Re-ID Learning<br>CVPR'19 Oral · NVIDIA</sub>
-        <br><br>
-        <a href="https://github.com/NVlabs/DG-Net"><img src="https://img.shields.io/github/stars/NVlabs/DG-Net.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/Person-reID_GAN">
-          <h3>🎨</h3>
-          <b>Person re-ID GAN</b>
-        </a>
-        <br><sub>GAN-based Augmentation (LSRO)<br>ICCV'17</sub>
-        <br><br>
-        <a href="https://github.com/layumi/Person-reID_GAN"><img src="https://img.shields.io/github/stars/layumi/Person-reID_GAN.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/person-reid-3d">
-          <h3>🧊</h3>
-          <b>3D Person re-ID</b>
-        </a>
-        <br><sub>Parameter-Efficient Re-ID<br>in the 3D Space (OG-Net)</sub>
-        <br><br>
-        <a href="https://github.com/layumi/person-reid-3d"><img src="https://img.shields.io/github/stars/layumi/person-reid-3d.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/Image-Text-Embedding">
-          <h3>📝</h3>
-          <b>Language Person Search</b>
-        </a>
-        <br><sub>Text-based Person Retrieval<br>Dual-Path Embedding</sub>
-        <br><br>
-        <a href="https://github.com/layumi/Image-Text-Embedding"><img src="https://img.shields.io/github/stars/layumi/Image-Text-Embedding.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/Pedestrian_Alignment">
-          <h3>🚶</h3>
-          <b>Pedestrian Alignment</b>
-        </a>
-        <br><sub>Pedestrian Alignment Network (PAN)<br>for Robust Re-ID</sub>
-        <br><br>
-        <a href="https://github.com/layumi/Pedestrian_Alignment"><img src="https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/2016_person_re-ID">
-          <h3>🔁</h3>
-          <b>2-Stream Person re-ID</b>
-        </a>
-        <br><sub>Verification + Identification<br>Baseline</sub>
-        <br><br>
-        <a href="https://github.com/layumi/2016_person_re-ID"><img src="https://img.shields.io/github/stars/layumi/2016_person_re-ID.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
-<p align="center">
-  ⭐ If you find our projects helpful, a <b>star</b> is the best support! ⭐
-</p>
