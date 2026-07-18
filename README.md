@@ -520,14 +520,14 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
 ### 🔍 Object Re-Identification Classics
 
 <div align="center">
-  <table>
+  <table class="cardtable">
     <tr>
       <td align="center" colspan="3">
         <a href="https://github.com/layumi/Person_reID_baseline_pytorch">
           <h3>⛹️</h3>
           <b>Person re-ID Baseline (PyTorch)</b>
         </a>
-        <br><sub>A <b>Tiny, Friendly & Strong</b> PyTorch Baseline for Person / Vehicle Re-ID<br>with Hands-on Tutorial · The Community Standard since 2017</sub>
+        <br><sub>A <b>Tiny, Friendly &amp; Strong</b> PyTorch Baseline for Person / Vehicle Re-ID<br>with Hands-on Tutorial · The Community Standard since 2017</sub>
         <br><br>
         <a href="https://github.com/layumi/Person_reID_baseline_pytorch"><img src="https://img.shields.io/github/stars/layumi/Person_reID_baseline_pytorch.svg?style=social&label=Star" alt="GitHub stars"></a>
       </td>
@@ -592,6 +592,15 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
     </tr>
     <tr>
       <td align="center" width="33%">
+        <a href="https://github.com/nkuzjh/UATTA">
+          <h3>🎯</h3>
+          <b>UATTA</b>
+        </a>
+        <br><sub>Uncertainty-Aware Test-Time Adaptation<br>for Text-based Person Search · SIGIR'26</sub>
+        <br><br>
+        <a href="https://github.com/nkuzjh/UATTA"><img src="https://img.shields.io/github/stars/nkuzjh/UATTA.svg?style=social&label=Star" alt="GitHub stars"></a>
+      </td>
+      <td align="center" width="33%">
         <a href="https://github.com/layumi/person-reid-3d">
           <h3>🧊</h3>
           <b>3D Person re-ID</b>
@@ -608,15 +617,6 @@ https://github.com/layumi/Person_reID_baseline_pytorch/issues/107 (Sorry. It is 
         <br><sub>Pedestrian Alignment Network (PAN)<br>for Robust Re-ID</sub>
         <br><br>
         <a href="https://github.com/layumi/Pedestrian_Alignment"><img src="https://img.shields.io/github/stars/layumi/Pedestrian_Alignment.svg?style=social&label=Star" alt="GitHub stars"></a>
-      </td>
-      <td align="center" width="33%">
-        <a href="https://github.com/layumi/2016_person_re-ID">
-          <h3>🔁</h3>
-          <b>2-Stream Person re-ID</b>
-        </a>
-        <br><sub>Verification + Identification<br>Baseline</sub>
-        <br><br>
-        <a href="https://github.com/layumi/2016_person_re-ID"><img src="https://img.shields.io/github/stars/layumi/2016_person_re-ID.svg?style=social&label=Star" alt="GitHub stars"></a>
       </td>
     </tr>
   </table>
