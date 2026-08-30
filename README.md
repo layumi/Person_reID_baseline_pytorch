@@ -1,6 +1,11 @@
 <h1 align="center"> Pytorch ReID </h1>
 <h2 align="center"> Strong, Small, Friendly </h2>
 
+> 🚁 **Want to go beyond re-ID?** The same retrieval & metric-learning skills in this repo transfer almost 1-to-1 to **cross-view geo-localization** (drone ↔ satellite ↔ street) — a growing, less crowded direction.
+> 👉 Start with [**University-1652**](https://github.com/layumi/University1652-Baseline): our drone-view geo-localization benchmark (ACM MM'20, 500+ citations), built in the same *tiny, friendly, strong* baseline style.
+>
+> 🚁 **想从 Re-ID 更进一步？** 这套检索与度量学习技能可以直接迁移到跨视角地理定位（无人机 ↔ 卫星 ↔ 地面）—— 一个正在增长、竞争更小的方向。从 **University-1652** 上手即可。
+
 ![Python3.6+](https://img.shields.io/badge/python-3.6+-green.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Citations](https://img.shields.io/badge/Citations-2500%2B-brightgreen)](https://scholar.google.com/scholar?cites=270746001988088124)
