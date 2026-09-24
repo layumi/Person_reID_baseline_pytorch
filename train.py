@@ -5,6 +5,10 @@ from __future__ import print_function, division
 import argparse
 import torch
 import torch.nn as nn
+try:  # torch >= 2.3
+    from torch.amp import GradScaler
+except ImportError:  # torch < 2.3
+    from torch.cuda.amp import GradScaler
 import torch.optim as optim
 from torch.autograd import Variable
 from torchvision import datasets, transforms
@@ -630,6 +634,6 @@ with open('%s/opts.yaml'%dir_name,'w') as fp:
 
 criterion = nn.CrossEntropyLoss()
 
-scaler = torch.cuda.amp.GradScaler()
+scaler = GradScaler()
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
                        scaler, num_epochs=opt.total_epoch)
