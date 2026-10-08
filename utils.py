@@ -47,6 +47,11 @@ def fuse_all_conv_bn(model):
             stack.append((name, module))
     return model
 
+def resize_for_scale(input_img, scale):
+    if scale == 1:
+        return input_img
+    return nn.functional.interpolate(input_img, scale_factor=scale, mode='bicubic', align_corners=False)
+
 def save_network(network, dirname, epoch_label, local_rank=-1):
     if isinstance(epoch_label, int):
         save_filename = 'net_%03d.pth'% epoch_label
