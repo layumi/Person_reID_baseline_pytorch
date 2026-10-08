@@ -11,7 +11,18 @@ Keywords: cross-modality-re-identification, awesome-reid
  
  :helicopter:  Drone-based building re-id [[code]](https://github.com/layumi/University1652-Baseline)  [[paper]](https://arxiv.org/abs/2002.12186)
 
- ### Cross Modality (REGDB Dataset)
+
+ ### Cross Modality (SYSU-MM01 Dataset, All-Search, Single-Shot)
+|Methods | Rank@1 | mAP| Reference|
+| -------- | ----- | ---- | ---- |
+|CM-NAS | 61.99% | 60.02% | "[CM-NAS: Cross-Modality Neural Architecture Search for Visible-Infrared Person Re-Identification](https://arxiv.org/abs/2101.08467)", Chaoyou Fu, Yibo Hu, Xiang Wu, Hailin Shi, Tao Mei, Ran He, ICCV 2021 [**[code]**](https://github.com/JDAI-CV/CM-NAS)|
+|PMT | 67.53% | 64.98% | "[Learning Progressive Modality-shared Transformers for Effective Visible-Infrared Person Re-identification](https://arxiv.org/abs/2212.00226)", Hu Lu, Xuezhang Zou, Pingping Zhang, AAAI 2023 [**[code]**](https://github.com/hulu88/PMT)|
+|DEEN | 74.70% | 71.80% | "[Diverse Embedding Expansion Network and Low-Light Cross-Modality Benchmark for Visible-Infrared Person Re-identification](https://arxiv.org/abs/2303.14481)", Yukang Zhang, Hanzi Wang, CVPR 2023 [**[code]**](https://github.com/ZYK100/LLCM)|
+|HOS-Net | 75.60% | 74.20% | "[High-Order Structure Based Middle-Feature Learning for Visible-Infrared Person Re-Identification](https://arxiv.org/abs/2312.07853)", Liuxiang Qiu, Si Chen, Yan Yan, Jing-Hao Xue, Da-Han Wang, Shunzhi Zhu, AAAI 2024 [**[code]**](https://github.com/Jaulaucoeng/HOS-Net)|
+|MSCMNet | 78.53% | 74.20% | "[MSCMNet: Multi-scale Semantic Correlation Mining for Visible-Infrared Person Re-Identification](https://arxiv.org/abs/2311.14395)", Ke Cheng, Xuecheng Hua, Hu Lu, Juanjuan Tu, Yuanquan Wang, Shitong Wang, Pattern Recognition 2025 [**[code]**](https://github.com/Hua-XC/MSCMNet)|
+|IDKL | 81.42% | 79.85% | "[Implicit Discriminative Knowledge Learning for Visible-Infrared Person Re-Identification](https://arxiv.org/abs/2403.11708)", Kaijie Ren, Lei Zhang, CVPR 2024 [**[code]**](https://github.com/1KK077/IDKL)|
+
+ ### Cross Modality (REGDB Dataset, Visible → Thermal)
 |Methods | Rank@1 | mAP| Reference|
 | -------- | ----- | ---- | ---- |
 |HOG | 13.49% | 10.31% | "[Histograms of oriented gradients for human detection](https://ieeexplore.ieee.org/document/1467360)", Navneet Dalal, Bill Triggs, CVPR 2005|
@@ -46,7 +57,10 @@ Keywords: cross-modality-re-identification, awesome-reid
 |CICL  | 78.8% | 69.4% | "[Joint Color-irrelevant Consistency Learning and Identity-aware Modality Adaptation for Visible-infrared Cross Modality Person Re-identification](https://ojs.aaai.org/index.php/AAAI/article/view/16466)", Zhiwei Zhao, Bin Liu, Qi Chu, Yan Lu, Nenghai Yu, AAAI 2021|
 |NFS  | 80.54% | 72.10% | "[Neural feature search for rgb-infrared person re-identification](https://arxiv.org/abs/2104.02366)", Yehansen Chen, Lin Wan, Zhihang Li, Qianyan Jing, Zongyuan Sun, CVPR 2021|
 |DGTL  | 83.92% | 73.78% | "[Strong but simple baseline with dual-granularity triplet loss for visible-thermal person re-identification](https://ieeexplore.ieee.org/document/9376983)", Haijun Liu, Yanxia Chai, Xiaoheng Tan, Dong Li and Xichuan Zhou, IEEE Signal Processing Letters 2021 [**[code]**](https://github.com/hijune6/DGTL-for-VT-ReID)|
+|PMT  | 84.83% | 76.55% | "[Learning Progressive Modality-shared Transformers for Effective Visible-Infrared Person Re-identification](https://arxiv.org/abs/2212.00226)", Hu Lu, Xuezhang Zou, Pingping Zhang, AAAI 2023 [**[code]**](https://github.com/hulu88/PMT)|
 |WIT  | 85.0% | 75.9% | "[Visible-infrared cross-modality person re-identification based on whole-individual training](https://www.sciencedirect.com/science/article/abs/pii/S0925231221001491?via%3Dihub)", Jia Sun, Yanfeng Li, Houjin Chen, Yahui Peng, Xiaodi Zhu, Neurocomputing 2021|
 |HCT  | 91.05% | 83.28% | "[Parameter Sharing Exploration and Hetero-center Triplet Loss for Visible-Thermal Person Re-Identification](https://arxiv.org/abs/2008.06223)", Haijun Liu, Xiaoheng Tan, Xichuan Zhou, TMM 2020 [**[code]**](https://github.com/hijune6/Hetero-center-triplet-loss-for-VT-Re-ID)|
+|DEEN  | 91.10% | 85.10% | "[Diverse Embedding Expansion Network and Low-Light Cross-Modality Benchmark for Visible-Infrared Person Re-identification](https://arxiv.org/abs/2303.14481)", Yukang Zhang, Hanzi Wang, CVPR 2023 [**[code]**](https://github.com/ZYK100/LLCM)|
 |GLMC  | 91.84% | 81.42% | "[Global-Local Multiple Granularity Learning for Cross-Modality Visible-Infrared Person Reidentification](https://ieeexplore.ieee.org/document/9457243)", Jia Sun, Yanfeng Li, Houjin Chen, Yahui Peng, Xiaodi Zhu, TNNLS 2021|
+|HOS-Net  | 94.70% | 90.40% | "[High-Order Structure Based Middle-Feature Learning for Visible-Infrared Person Re-Identification](https://arxiv.org/abs/2312.07853)", Liuxiang Qiu, Si Chen, Yan Yan, Jing-Hao Xue, Da-Han Wang, Shunzhi Zhu, AAAI 2024 [**[code]**](https://github.com/Jaulaucoeng/HOS-Net)|
 |HHRG  | 94.92% | 94.58% | "[Homogeneous and Heterogeneous Relational Graph for Visible-infrared Person Re-identification](https://arxiv.org/abs/2109.08811)", Yujian Feng, Feng Chen, Jian Yu, Yimu Ji, Shangdong Liu [**[code]**](https://github.com/fegnyujian/Homogeneous-and-Heterogeneous-Relational-Graph)|
