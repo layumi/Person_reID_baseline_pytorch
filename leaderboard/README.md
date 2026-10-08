@@ -57,7 +57,14 @@ Train and Test on DukeMTMC-reID
 |GP-reID | 85.2% | 72.8% | "[Re-ID done right: towards good practices for person re-identification](https://arxiv.org/abs/1801.05339)", Jon Almazan, Bojana Gajic, Naila Murray, Diane Larlus, arXiv:1801.05339 |
 |SPreID (Res-152) | 85.95% | 73.34% |  "[Human Semantic Parsing for Person Re-identification](https://arxiv.org/abs/1804.00216)", Kalayeh, Mahdi M., Emrah Basaran, Muhittin Gokmen, Mustafa E. Kamasak, and Mubarak Shah, CVPR 2018|
 | DG-Net (Res-50)|  86.6% | 74.8% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) |
+|BDB | 86.8% | 72.1% | "[Batch DropBlock Network for Person Re-identification and Beyond](https://arxiv.org/abs/1811.07130)", Zuozhuo Dai, Mingqiang Chen, Xiaodong Gu, Siyu Zhu, Ping Tan, ICCV 2019. [[code]](https://github.com/daizuozhuo/batch-dropblock-network) |
+|OSNet | 88.6% | 73.5% | "[Omni-Scale Feature Learning for Person Re-Identification](https://arxiv.org/abs/1905.00953)", Kaiyang Zhou, Yongxin Yang, Andrea Cavallaro, Tao Xiang, ICCV 2019. [[code]](https://github.com/KaiyangZhou/deep-person-reid) |
 |MGN| 88.7% | 78.4% | "[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438)" Wang, Guanshuo, Yufeng Yuan, Xiong Chen, Jiwei Li, and Xi Zhou. ACM MM 2018. |
+|ABD-Net | 89.0% | 78.6% | "[ABD-Net: Attentive but Diverse Person Re-Identification](https://arxiv.org/abs/1908.01114)", Tianlong Chen, Shaojin Ding, Jingyi Xie, Ye Yuan, Wuyang Chen, Yang Yang, Zhou Ren, Zhangyang Wang, ICCV 2019. [[code]](https://github.com/TAMU-VITA/ABD-Net) |
+|MHN-6 (PCB) | 89.1% | 77.2% | "[Mixed High-Order Attention Network for Person Re-Identification](https://arxiv.org/abs/1908.05819)", Binghui Chen, Weihong Deng, Jiani Hu, ICCV 2019. [[code]](https://github.com/chenbinghui1/MHN) |
+|NFormer | 89.4% | 83.5% | "[NFormer: Robust Person Re-identification with Neighbor Transformer](https://arxiv.org/abs/2204.09331)", Haochen Wang, Jiayi Shen, Yongtuo Liu, Yan Gao, Stratis Gavves, CVPR 2022. [[code]](https://github.com/haochenheheda/NFormer) |
+|ISP | 89.6% | 80.0% | "[Identity-Guided Human Semantic Parsing for Person Re-Identification](https://arxiv.org/abs/2007.13467)", Kuan Zhu, Haiyun Guo, Zhiwei Liu, Ming Tang, Jinqiao Wang, ECCV 2020. [[code]](https://github.com/CASIA-IVA-Lab/ISP-reID) |
+|TransReID | 90.7% | 82.0% | "[TransReID: Transformer-based Object Re-Identification](https://arxiv.org/abs/2102.04378)", Shuting He, Hao Luo, Pichao Wang, Fan Wang, Hao Li, Wei Jiang, ICCV 2021. [[code]](https://github.com/heshuting555/TransReID) |
 
 ## Transfer Learning
 - Train on [Market-1501](http://www.liangzheng.com.cn/Project/project_reid.html), Test on DukeMTMC-reID
@@ -95,6 +102,8 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | DGNet++|:heavy_check_mark: | 78.9% | 63.8% | "[Joint disentangling and adaptation for cross-domain person re-identification](https://arxiv.org/abs/2007.10315)" Yang Zou, Xiaodong Yang, Zhiding Yu, B.V.K. Vijaya Kumar, Jan Kautz. ECCV20 |
 | MEB-Net |:heavy_check_mark: | 79.6% | 66.1% | "[Multiple expert brainstorming for domain adaptive person re-identification](https://arxiv.org/abs/2007.01546)" Yunpeng Zhai, Qixiang Ye, Shijian Lu, Mengxi Jia, Rongrong Ji, Yonghong Tian. ECCV 2020|
 | UNRN |:heavy_check_mark: | 82.0% | 69.1% | "[Exploiting Sample Uncertainty for Domain Adaptive Person Re-Identification](https://arxiv.org/abs/2012.08733)" Kecheng Zheng, Cuiling Lan, Wenjun Zeng, Zhizheng Zhang, and Zheng-Jun Zha. AAAI 2021 |
+| GLT | :heavy_check_mark: | 82.0% | 69.2% | "[Group-aware Label Transfer for Domain Adaptive Person Re-identification](https://arxiv.org/abs/2103.12366)" Kecheng Zheng, Wu Liu, Lingxiao He, Tao Mei, Jiebo Luo, Zheng-Jun Zha. CVPR 2021. [[code]](https://github.com/zkcys001/UDAStrongBaseline) |
+| IDM | :heavy_check_mark: | 83.6% | 70.5% | "[An Intermediate Domain Module for Domain Adaptive Person Re-ID](https://arxiv.org/abs/2108.02413)" Yongxing Dai, Jun Liu, Yifan Sun, Zekun Tong, Chi Zhang, Ling-Yu Duan. ICCV 2021 (Oral). [[code]](https://github.com/SikaStar/IDM) |
 | Cluster Contrast + GEM |:heavy_check_mark: | 86.8% | 76.0% | "[Cluster Contrast for Unsupervised Person Re-Identification](https://arxiv.org/abs/2103.11568)" Dai, Zuozhuo and Wang, Guangyuan and Zhu, Siyu and Yuan, Weihao and Tan, Ping. arXiv 2021| 
 
 ### Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on DukeMTMC-reID
@@ -106,6 +115,7 @@ Is it possible to use less annotation on the unseen dataset, especially ID label
 | DG-Net | :heavy_multiplication_x:|  62.0% | 40.7% | "[Joint Discriminative and Generative Learning for Person Re-identification](https://arxiv.org/abs/1904.07223)",  Zhedong Zheng, Xiaodong Yang, Zhiding Yu, Liang Zheng, Yi Yang and Jan Kautz, CVPR 2019. [[code]](https://github.com/NVlabs/DG-Net) (Results are in Appendix)| 
 | MAR | :heavy_check_mark: | 67.1% | 48.0% | "[Unsupervised Person Re-identification by Soft Multilabel Learning](https://arxiv.org/abs/1903.06325)", Hong-Xing Yu, Wei-Shi Zheng, Ancong Wu, Xiaowei Guo, Shaogang Gong, Jian-Huang Lai, CVPR 2019. | 
 | UDARTP | :heavy_check_mark: | 75.0% | 57.1% | "[Unsupervised Domain Adaptive Re-Identification: Theory and Practice](https://arxiv.org/pdf/1807.11334.pdf)", Liangchen Song, Cheng Wang, Lefei Zhang, Bo Du, Qian Zhang, Chang Huang, and Xinggang Wang, arXiv:1807.11334|
+| IDM | :heavy_check_mark: | 83.6% | 71.9% | "[An Intermediate Domain Module for Domain Adaptive Person Re-ID](https://arxiv.org/abs/2108.02413)" Yongxing Dai, Jun Liu, Yifan Sun, Zekun Tong, Chi Zhang, Ling-Yu Duan. ICCV 2021 (Oral). [[code]](https://github.com/SikaStar/IDM) |
 
 ### Train on [MSMT17](https://www.pkuvmc.com/publications/msmt17.html), Test on Market
 
