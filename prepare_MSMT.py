@@ -1,5 +1,5 @@
 import os
-from shutil import copyfile
+from prepare_helpers import copy_to_identity_folder
 
 # You only need to change this line to your dataset download path
 download_path = '/home/zzd/MSMT17_V1/'
@@ -19,12 +19,7 @@ if not os.path.isdir(query_save_path):
 
 for name in open(download_path+'list_query.txt'):
     name = name.split(' ')[0]
-    ID = name.split('/')
-    src_path = query_path  + name
-    dst_path = query_save_path + '/' + ID[0] 
-    if not os.path.isdir(dst_path):
-        os.mkdir(dst_path)
-    copyfile(src_path, dst_path + '/' + os.path.basename(name))
+    copy_to_identity_folder(query_path, query_save_path, name)
 
 #-----------------------------------------
 #gallery
@@ -35,12 +30,7 @@ if not os.path.isdir(gallery_save_path):
 
 for name in open(download_path+'list_gallery.txt'):
     name = name.split(' ')[0]
-    ID = name.split('/')
-    src_path = gallery_path  + name
-    dst_path = gallery_save_path + '/' + ID[0]
-    if not os.path.isdir(dst_path):
-        os.mkdir(dst_path)
-    copyfile(src_path, dst_path + '/' + os.path.basename(name))
+    copy_to_identity_folder(gallery_path, gallery_save_path, name)
 
 #---------------------------------------
 #train_val
@@ -56,25 +46,10 @@ if not os.path.isdir(train_save_path):
 
 for name in open(download_path+'list_train.txt'):
     name = name.split(' ')[0]
-    ID = name.split('/')
-    src_path = train_path  + name
-    dst_path = train_save_path + '/' + ID[0]
-    dst_all_path = train_all_save_path + '/' + ID[0]
-    if not os.path.isdir(dst_path):
-        os.mkdir(dst_path)
-    if not os.path.isdir(dst_all_path):
-        os.mkdir(dst_all_path)
-    copyfile(src_path, dst_path + '/' + os.path.basename(name))
-    copyfile(src_path, dst_all_path + '/' + os.path.basename(name))
+    copy_to_identity_folder(train_path, train_save_path, name)
+    copy_to_identity_folder(train_path, train_all_save_path, name)
 
 for name in open(download_path+'list_val.txt'):
     name = name.split(' ')[0]
-    ID = name.split('/')
-    src_path = val_path  + name
-    dst_path = val_save_path + '/' + ID[0]
-    if not os.path.isdir(dst_path):
-        os.mkdir(dst_path)
-    if not os.path.isdir(dst_all_path):
-        os.mkdir(dst_all_path)
-    copyfile(src_path, dst_path + '/' + os.path.basename(name))
-    copyfile(src_path, dst_all_path + '/' + os.path.basename(name))
+    copy_to_identity_folder(val_path, val_save_path, name)
+    copy_to_identity_folder(val_path, train_all_save_path, name)
