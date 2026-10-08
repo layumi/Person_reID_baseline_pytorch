@@ -20,7 +20,7 @@ import math
 from torch.optim import swa_utils
 from tqdm import tqdm
 from model import ft_net, ft_net_dense, ft_net_hr, ft_net_swin, ft_net_swinv2, ft_net_dino, ft_net_efficient, ft_net_NAS, ft_net_convnext, PCB, PCB_test
-from utils import fuse_all_conv_bn
+from utils import fuse_all_conv_bn, resize_for_scale
 version =  torch.__version__
 
 ######################################################################
@@ -220,10 +220,8 @@ def extract_feature(model,dataloaders):
                 img = fliplr(img)
             input_img = Variable(img.cuda())
             for scale in ms:
-                if scale != 1:
-                    # bicubic is only  available in pytorch>= 1.1
-                    input_img = nn.functional.interpolate(input_img, scale_factor=scale, mode='bicubic', align_corners=False)
-                outputs = model(input_img) 
+                scaled_img = resize_for_scale(input_img, scale)
+                outputs = model(scaled_img) 
                 ff += outputs
         # norm feature
         if opt.PCB:
